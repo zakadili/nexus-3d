@@ -100,12 +100,12 @@ function renderDossier(){
    body.append(create('h3','',label+' · '+entries.length+' representative records'));
    for(const sample of entries){
     const e=create('div','dossier-evidence'),left=create('div');left.append(create('code','',sample.ip),create('small','',Array.isArray(sample.sources)?sample.sources.join(' / '):key));
-    e.append(left,link('IP CONTEXT ↗','https://isc.sans.edu/ipinfo/'+encodeURIComponent(sample.ip)));body.append(e);shown++;
+    const actions=create('div','evidence-actions');const inspect=create('button','','INSPECT');inspect.addEventListener('click',()=>inspectIp(sample.ip));actions.append(inspect,link('SANS ↗','https://isc.sans.edu/ipinfo/'+encodeURIComponent(sample.ip)));e.append(left,actions);body.append(e);shown++;
    }
   }
   if(!shown){const old=row.examples||[];for(const sample of old){const el=create('div','dossier-evidence');el.append(create('code','',sample.ip),create('small','',(sample.sources||[]).join(' + ')));body.append(el);}
    if(!old.length)body.append(note('Per-provider evidence samples will appear after the new collection workflow completes. Existing country totals remain valid.'));}
-  body.append(note('Evidence IPs are examples from public indicator lists, not a list of all addresses, validated compromise, or an endorsement to scan them.'));
+  body.append(note('Evidence IPs are examples from public indicator lists, not a list of all addresses, validated compromise, or an endorsement to scan them.'));const ctx=create('div','ip-context');ctx.id='ip-context';body.append(ctx);
  }else{
   const date=state.data.generated_at||'unknown';
   const rows=[['POSITION','Country #'+globalRank+' by unique listed IPs (all sources)'],
@@ -203,6 +203,29 @@ function countryTrend(code){
  section.append(create('p','dossier-note',label+' · '+points.length+' snapshots · '+new Date(points[0].generated_at).toLocaleDateString()+' → '+new Date(points.at(-1).generated_at).toLocaleDateString()));
  section.append(note('Changes reflect list membership and feed behavior, not incident counts or new attacks.'));
  return section;
+}
+const ipContextCache=new Map();
+async function inspectIp(ip){
+ const box=$('#ip-context');if(!box)return;box.replaceChildren();
+ box.append(create('h3','','IP NETWORK CONTEXT / '+ip));
+ box.append(note('Fetching public network/geolocation metadata. This does not verify malicious activity.'));
+ let data=ipContextCache.get(ip);
+ if(!data){
+  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),9000);
+  try{
+   const response=await fetch('https://ipwho.is/'+encodeURIComponent(ip),{signal:controller.signal});
+   if(!response.ok)throw Error('Geolocation provider HTTP '+response.status);
+   data=await response.json();if(data.success===false)throw Error(data.message||'No network record available');
+   ipContextCache.set(ip,data);
+  }catch(error){if($('#ip-context')===box)box.append(note('Network detail unavailable: '+error.message+'. Use the outbound SANS link instead.'));return;}
+  finally{clearTimeout(timer);}
+ }
+ if($('#ip-context')!==box)return;
+ box.replaceChildren();box.append(create('h3','','NETWORK METADATA / '+ip));
+ const attrs=[['COUNTRY',data.country],['REGION',data.region],['CITY',data.city],['ASN',data.connection?.asn],['ISP',data.connection?.isp],['ORGANIZATION',data.connection?.org],['NETWORK DOMAIN',data.connection?.domain]];
+ for(const [label,value] of attrs){if(value===undefined||value===null||value==='')continue;const line=create('div','detail-line');line.append(create('span','',label),create('b','',String(value)));box.append(line);}
+ box.append(note('ipwho.is approximate network geolocation; a hosting/network organization is not necessarily the operator behind a listed activity.'));
+ box.append(link('OPEN SANS IP INFORMATION ↗','https://isc.sans.edu/ipinfo/'+encodeURIComponent(ip)));
 }
 function setFocusSummary(){
  const row=allCountries().find(r=>r.code===state.selected),el=$('#map-floating-summary');
