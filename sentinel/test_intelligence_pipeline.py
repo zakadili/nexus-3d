@@ -46,6 +46,23 @@ class GeoTests(unittest.TestCase):
         self.assertEqual(rows["US"]["indicators"], 1)
         self.assertEqual(rows["US"]["by_source"]["ipsum"], 1)
         self.assertEqual(rows["US"]["by_source"]["blocklistde"], 1)
+        self.assertEqual(rows["US"]["multi_source_count"], 1)
+        self.assertEqual(rows["US"]["samples_by_source"]["ipsum"][0]["ip"], "8.8.8.8")
+        self.assertEqual(rows["US"]["examples"][0]["sources"], ["blocklistde", "ipsum"])
+
+    def test_history_only_keeps_real_samples(self):
+        old = {"generated_at": "2026-11-10T00:00:00Z",
+               "indicators": {"unique_indicators": 3, "source_health": [{"id": "ipsum", "status": "ok"}],
+                              "countries": [{"code": "US", "indicators": 2}]}}
+        new = {"generated_at": "2026-11-10T06:00:00Z",
+               "indicators": {"unique_indicators": 5, "source_health": [{"id": "ipsum", "status": "ok"}],
+                              "countries": [{"code": "US", "indicators": 4}]}}
+        history = p.assemble_history(new, old)
+        self.assertEqual(len(history), 2)
+        self.assertEqual(history[0]["country_counts"]["US"], 2)
+        self.assertEqual(history[-1]["country_counts"]["US"], 4)
+        self.assertEqual(len(p.assemble_history(new, {"history": history})), 2)
+
 
 
 if __name__ == "__main__":
