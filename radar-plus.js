@@ -59,7 +59,8 @@ function rankings(){const pane=$('#rankings');pane.replaceChildren();const all=c
 function flag(code){return /^[A-Z]{2}$/.test(code)?String.fromCodePoint(...[...code].map(c=>127397+c.charCodeAt(0))):'◎';}
 function kpi(value,label){const e=create('div','dossier-kpi');e.append(create('strong','',value),create('small','',label));return e;}
 function note(text){return create('p','dossier-note',text);}
-function select(code,{zoom=true,updateUrl=true}={}){
+function select(code,{zoom=true,updateUrl=true,autoTour=false}={}){
+ if(tourActive&&!autoTour)stopTour();
  const row=allCountries().find(r=>r.code===code);
  state.selected=code;state.tab='sources';hideTip();rankings();
  if(row)renderDossier();else renderUnavailableCountry(code);
@@ -238,6 +239,26 @@ async function inspectIp(ip){
  box.append(note('ipwho.is approximate network geolocation; a hosting/network organization is not necessarily the operator behind a listed activity.'));
  box.append(link('OPEN SANS IP INFORMATION ↗','https://isc.sans.edu/ipinfo/'+encodeURIComponent(ip)));
 }
+let tourTimer=0,tourActive=false,tourSequence=[],tourStep=0;
+function stopTour({exit=false}={}){
+ clearTimeout(tourTimer);tourTimer=0;tourActive=false;$('#stop-tour').hidden=true;
+ txt('#tour','▶ CINEMATIC TOUR');
+ if(exit)toggleImmersive(false);
+}
+function beginTour(){
+ if(!state.data||!state.projection){showToast('Country telemetry and the globe must finish loading first.');return;}
+ if(tourActive){stopTour();showToast('Tour paused.');return;}
+ tourSequence=countries().slice(0,6).map(r=>r.code);
+ if(!tourSequence.length){showToast('No countries available to explore.');return;}
+ tourActive=true;tourStep=0;toggleImmersive(true);$('#stop-tour').hidden=false;txt('#tour','■ STOP TOUR');
+ const advance=()=>{
+  if(!tourActive)return;
+  if(tourStep>=tourSequence.length){stopTour();showToast('Cinematic tour complete — all values are from the real snapshot.');return;}
+  const code=tourSequence[tourStep++];select(code,{autoTour:true});
+  tourTimer=setTimeout(advance,5300);
+ };
+ advance();
+}
 function setFocusSummary(){
  const row=allCountries().find(r=>r.code===state.selected),el=$('#map-floating-summary');
  if(!state.selected){el.hidden=true;return;}el.hidden=false;el.replaceChildren();
@@ -363,6 +384,7 @@ function refreshSearch(){
 function keyboard(event){
  if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==='k'){event.preventDefault();$('#search-overlay').hidden?openSearch():closeSearch();return;}
  if(event.key==='Escape'){
+  if(tourActive)stopTour();
   if(!$('#search-overlay').hidden){closeSearch();return;}
   if(document.body.classList.contains('immersive')){toggleImmersive(false);return;}
   if(state.selected){backToWorld();return;}
@@ -406,8 +428,10 @@ $('#layer').addEventListener('change',e=>{state.layer=e.target.value;syncAddress
 $('#spin').addEventListener('click',()=>updateSpin(!state.spin));
 $('#reset-globe').addEventListener('click',()=>backToWorld());
 $('#back-world').addEventListener('click',()=>backToWorld({exitImmersive:document.body.classList.contains('immersive')}));
-$('#focus-mode').addEventListener('click',()=>toggleImmersive());
-$('#exit-immersive').addEventListener('click',()=>toggleImmersive(false));
+$('#focus-mode').addEventListener('click',()=>{if(tourActive)stopTour();toggleImmersive();});
+$('#exit-immersive').addEventListener('click',()=>{if(tourActive)stopTour();toggleImmersive(false);});
+$('#tour').addEventListener('click',beginTour);
+$('#stop-tour').addEventListener('click',()=>{stopTour();showToast('Cinematic tour stopped.');});
 $('#capture').addEventListener('click',captureMap);
 $('#open-search').addEventListener('click',openSearch);
 $('#close-search').addEventListener('click',closeSearch);
