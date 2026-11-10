@@ -114,7 +114,7 @@ function renderDossier(){
    ['CVE CORRELATION','No per-country vulnerable-device or CVE evidence in this source collection'],
    ['PROVENANCE','blocklist.de · IPsum · SANS DShield · abuse.ch Feodo']];
   for(const [label,value] of rows){const e=create('div','dossier-source');e.append(create('div','dossier-eyebrow',label),note(value));body.append(e);}
-  body.append(link('METHODS & LIMITATIONS ↗','./radar-methodology.html'));
+  body.append(countryTrend(row.code));body.append(link('METHODS & LIMITATIONS ↗','./radar-methodology.html'));
  }
  panel.append(body);
  const actions=create('div','dossier-actions');
@@ -183,6 +183,26 @@ function render(){const d=state.data;if(!d)return;
  const layer=state.layer;const active=countries();if(layer!=='all'){txt('#countries',fmt(active.length));txt('#sources',fmt(active.reduce((n,c)=>n+score(c),0)));txt('#reports','—');txt('#freshness','FILTERED LAYER / IP count only');}else txt('#freshness','Deduplicated by IP / all sources');
  renderCVEs();renderSectors();renderSources();renderTable();renderSummary();rankings();draw();if(state.selected){renderDossier();setFocusSummary();}txt('#map-total',fmt(d.indicators.countries.length)+' COUNTRIES · '+fmt(d.indicators.unique_indicators)+' INDICATORS');
  $('#map-loading').style.display='none';txt('#notice','IP-list entries are not confirmed attacks. Country is IP-location only. Sources have different measurement windows; never add their counts as incidents.');
+}
+function countryTrend(code){
+ const section=create('div','dossier-trend');
+ section.append(create('h3','','RECENT SNAPSHOT CHANGE / INDICATOR LISTINGS'));
+ const all=state.data?.history||[];
+ const current=all.at(-1)?.available_sources||[];
+ const valid=all.filter(entry=>Array.isArray(entry.available_sources)&&entry.available_sources.join('|')===current.join('|')&&Number.isFinite(entry.country_counts?.[code]));
+ if(valid.length<2){section.append(note('A comparable trend will appear after at least two successful snapshots using the same set of providers. This is not a live attack counter.'));return section;}
+ const points=valid.slice(-20),vals=points.map(p=>p.country_counts[code]),min=Math.min(...vals),max=Math.max(...vals),span=Math.max(1,max-min);
+ const width=285,height=80,pts=vals.map((v,i)=>[8+i*(width-16)/Math.max(1,vals.length-1),height-10-(v-min)/span*58]);
+ const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+ svg.setAttribute('viewBox','0 0 '+width+' '+height);svg.setAttribute('width','100%');svg.setAttribute('height','84');svg.setAttribute('role','img');svg.setAttribute('aria-label','Trend in listed IP indicators across '+pts.length+' comparable snapshots');
+ const path=document.createElementNS('http://www.w3.org/2000/svg','polyline');
+ path.setAttribute('points',pts.map(p=>p.join(',')).join(' '));path.setAttribute('fill','none');path.setAttribute('stroke','#ff5770');path.setAttribute('stroke-width','2.5');svg.append(path);
+ for(const [x,y] of [pts[0],pts.at(-1)]){const c=document.createElementNS('http://www.w3.org/2000/svg','circle');c.setAttribute('cx',x);c.setAttribute('cy',y);c.setAttribute('r','3.5');c.setAttribute('fill','#fff');svg.append(c);}
+ section.append(svg);
+ const change=vals.at(-1)-vals[0],label=(change>0?'+':'')+fmt(change)+' listed IPs vs first comparable snapshot';
+ section.append(create('p','dossier-note',label+' · '+points.length+' snapshots · '+new Date(points[0].generated_at).toLocaleDateString()+' → '+new Date(points.at(-1).generated_at).toLocaleDateString()));
+ section.append(note('Changes reflect list membership and feed behavior, not incident counts or new attacks.'));
+ return section;
 }
 function setFocusSummary(){
  const row=allCountries().find(r=>r.code===state.selected),el=$('#map-floating-summary');
