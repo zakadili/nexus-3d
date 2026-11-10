@@ -1,22 +1,22 @@
 {
   "schema": 2,
-  "generated_at": "2026-11-10T23:12:38.512947+00:00",
+  "generated_at": "2026-11-10T23:44:03.318937+00:00",
   "data_lag": "Feeds update on different schedules; this is a collection snapshot, not live packet streaming.",
   "indicators": {
-    "unique_indicators": 38195,
-    "resolved_indicators": 38193,
+    "unique_indicators": 38337,
+    "resolved_indicators": 38335,
     "unresolved_indicators": 2,
     "countries": [
       {
         "code": "US",
-        "indicators": 13781,
+        "indicators": 13792,
         "by_source": {
-          "blocklistde": 7424,
+          "blocklistde": 7427,
           "ipsum": 7655,
           "dshield": 61,
           "feodo": 1
         },
-        "multi_source_count": 1356,
+        "multi_source_count": 1348,
         "samples_by_source": {
           "blocklistde": [
             {
@@ -151,13 +151,13 @@
       },
       {
         "code": "RU",
-        "indicators": 3028,
+        "indicators": 3031,
         "by_source": {
-          "blocklistde": 2879,
+          "blocklistde": 2880,
           "ipsum": 222,
           "dshield": 55
         },
-        "multi_source_count": 128,
+        "multi_source_count": 126,
         "samples_by_source": {
           "blocklistde": [
             {
@@ -284,13 +284,13 @@
       },
       {
         "code": "FR",
-        "indicators": 2416,
+        "indicators": 2428,
         "by_source": {
-          "blocklistde": 2195,
+          "blocklistde": 2206,
           "ipsum": 346,
           "dshield": 4
         },
-        "multi_source_count": 129,
+        "multi_source_count": 128,
         "samples_by_source": {
           "blocklistde": [
             {
@@ -413,10 +413,10 @@
       },
       {
         "code": "CN",
-        "indicators": 2184,
+        "indicators": 2186,
         "by_source": {
           "ipsum": 1515,
-          "blocklistde": 1717,
+          "blocklistde": 1719,
           "dshield": 14
         },
         "multi_source_count": 1062,
@@ -544,13 +544,13 @@
       },
       {
         "code": "CA",
-        "indicators": 1926,
+        "indicators": 2012,
         "by_source": {
           "ipsum": 75,
-          "blocklistde": 1878,
+          "blocklistde": 1962,
           "dshield": 3
         },
-        "multi_source_count": 30,
+        "multi_source_count": 28,
         "samples_by_source": {
           "ipsum": [
             {
@@ -576,7 +576,6 @@
             {
               "ip": "24.141.56.155",
               "sources": [
-                "blocklistde",
                 "ipsum"
               ]
             },
@@ -657,7 +656,7 @@
             ]
           },
           {
-            "ip": "24.141.56.155",
+            "ip": "45.194.92.221",
             "sources": [
               "blocklistde",
               "ipsum"
@@ -667,13 +666,13 @@
       },
       {
         "code": "GB",
-        "indicators": 1334,
+        "indicators": 1335,
         "by_source": {
           "ipsum": 1198,
-          "blocklistde": 255,
+          "blocklistde": 257,
           "dshield": 8
         },
-        "multi_source_count": 127,
+        "multi_source_count": 128,
         "samples_by_source": {
           "ipsum": [
             {
@@ -799,13 +798,13 @@
       },
       {
         "code": "DE",
-        "indicators": 1321,
+        "indicators": 1325,
         "by_source": {
-          "blocklistde": 764,
+          "blocklistde": 769,
           "ipsum": 671,
           "dshield": 10
         },
-        "multi_source_count": 124,
+        "multi_source_count": 125,
         "samples_by_source": {
           "blocklistde": [
             {
@@ -1005,7 +1004,6 @@
             {
               "ip": "45.70.131.6",
               "sources": [
-                "blocklistde",
                 "ipsum"
               ]
             }
@@ -1027,7 +1025,7 @@
             ]
           },
           {
-            "ip": "45.70.131.6",
+            "ip": "45.140.192.242",
             "sources": [
               "blocklistde",
               "ipsum"
@@ -1037,9 +1035,9 @@
       },
       {
         "code": "IN",
-        "indicators": 724,
+        "indicators": 730,
         "by_source": {
-          "blocklistde": 644,
+          "blocklistde": 650,
           "dshield": 3,
           "ipsum": 282
         },
@@ -1065,14 +1063,13 @@
               ]
             },
             {
-              "ip": "14.99.116.90",
+              "ip": "13.205.12.220",
               "sources": [
-                "blocklistde",
-                "ipsum"
+                "blocklistde"
               ]
             },
             {
-              "ip": "14.102.50.87",
+              "ip": "14.99.116.90",
               "sources": [
                 "blocklistde",
                 "ipsum"
@@ -1161,9 +1158,9 @@
       },
       {
         "code": "ID",
-        "indicators": 706,
+        "indicators": 708,
         "by_source": {
-          "blocklistde": 666,
+          "blocklistde": 668,
           "ipsum": 103
         },
         "multi_source_count": 63,
@@ -1262,13 +1259,13 @@
       },
       {
         "code": "NL",
-        "indicators": 704,
+        "indicators": 703,
         "by_source": {
-          "blocklistde": 246,
+          "blocklistde": 244,
           "ipsum": 449,
           "dshield": 75
         },
-        "multi_source_count": 66,
+        "multi_source_count": 65,
         "samples_by_source": {
           "blocklistde": [
             {
@@ -1398,13 +1395,13 @@
       },
       {
         "code": "HK",
-        "indicators": 674,
+        "indicators": 675,
         "by_source": {
-          "blocklistde": 256,
+          "blocklistde": 250,
           "ipsum": 606,
           "dshield": 9
         },
-        "multi_source_count": 197,
+        "multi_source_count": 190,
         "samples_by_source": {
           "blocklistde": [
             {
@@ -1646,9 +1643,9 @@
       },
       {
         "code": "UA",
-        "indicators": 599,
+        "indicators": 600,
         "by_source": {
-          "blocklistde": 585,
+          "blocklistde": 586,
           "ipsum": 16,
           "dshield": 7
         },
@@ -1782,11 +1779,11 @@
         "code": "KR",
         "indicators": 519,
         "by_source": {
-          "blocklistde": 457,
+          "blocklistde": 455,
           "ipsum": 341,
           "dshield": 1
         },
-        "multi_source_count": 280,
+        "multi_source_count": 278,
         "samples_by_source": {
           "blocklistde": [
             {
@@ -1895,9 +1892,9 @@
       },
       {
         "code": "AE",
-        "indicators": 424,
+        "indicators": 430,
         "by_source": {
-          "blocklistde": 119,
+          "blocklistde": 125,
           "ipsum": 327
         },
         "multi_source_count": 22,
@@ -1994,9 +1991,9 @@
       },
       {
         "code": "BE",
-        "indicators": 408,
+        "indicators": 407,
         "by_source": {
-          "blocklistde": 164,
+          "blocklistde": 163,
           "ipsum": 314
         },
         "multi_source_count": 70,
@@ -2092,12 +2089,12 @@
       },
       {
         "code": "BD",
-        "indicators": 366,
+        "indicators": 342,
         "by_source": {
-          "blocklistde": 351,
+          "blocklistde": 328,
           "ipsum": 36
         },
-        "multi_source_count": 21,
+        "multi_source_count": 22,
         "samples_by_source": {
           "blocklistde": [
             {
@@ -2296,9 +2293,9 @@
       },
       {
         "code": "IT",
-        "indicators": 318,
+        "indicators": 316,
         "by_source": {
-          "blocklistde": 305,
+          "blocklistde": 303,
           "ipsum": 37
         },
         "multi_source_count": 24,
@@ -2533,9 +2530,9 @@
       },
       {
         "code": "LT",
-        "indicators": 299,
+        "indicators": 298,
         "by_source": {
-          "blocklistde": 35,
+          "blocklistde": 34,
           "ipsum": 283
         },
         "multi_source_count": 19,
@@ -2643,10 +2640,10 @@
         "indicators": 287,
         "by_source": {
           "ipsum": 196,
-          "blocklistde": 211,
+          "blocklistde": 213,
           "dshield": 2
         },
-        "multi_source_count": 122,
+        "multi_source_count": 124,
         "samples_by_source": {
           "ipsum": [
             {
@@ -2672,12 +2669,14 @@
             {
               "ip": "14.177.128.170",
               "sources": [
+                "blocklistde",
                 "ipsum"
               ]
             },
             {
               "ip": "14.177.234.46",
               "sources": [
+                "blocklistde",
                 "ipsum"
               ]
             }
@@ -2710,9 +2709,10 @@
               ]
             },
             {
-              "ip": "14.186.72.240",
+              "ip": "14.177.128.170",
               "sources": [
-                "blocklistde"
+                "blocklistde",
+                "ipsum"
               ]
             }
           ],
@@ -2747,7 +2747,7 @@
             ]
           },
           {
-            "ip": "14.225.206.187",
+            "ip": "14.177.128.170",
             "sources": [
               "blocklistde",
               "ipsum"
@@ -2757,9 +2757,9 @@
       },
       {
         "code": "AR",
-        "indicators": 282,
+        "indicators": 283,
         "by_source": {
-          "blocklistde": 275,
+          "blocklistde": 276,
           "ipsum": 36
         },
         "multi_source_count": 29,
@@ -2858,9 +2858,9 @@
       },
       {
         "code": "PL",
-        "indicators": 230,
+        "indicators": 229,
         "by_source": {
-          "blocklistde": 223,
+          "blocklistde": 222,
           "ipsum": 20
         },
         "multi_source_count": 13,
@@ -2963,9 +2963,9 @@
       },
       {
         "code": "MY",
-        "indicators": 210,
+        "indicators": 212,
         "by_source": {
-          "blocklistde": 184,
+          "blocklistde": 186,
           "ipsum": 66
         },
         "multi_source_count": 40,
@@ -2984,6 +2984,12 @@
               ]
             },
             {
+              "ip": "14.192.214.83",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
               "ip": "42.153.206.105",
               "sources": [
                 "blocklistde",
@@ -2995,12 +3001,6 @@
               "sources": [
                 "blocklistde",
                 "ipsum"
-              ]
-            },
-            {
-              "ip": "42.153.207.211",
-              "sources": [
-                "blocklistde"
               ]
             }
           ],
@@ -3167,9 +3167,9 @@
       },
       {
         "code": "PK",
-        "indicators": 175,
+        "indicators": 178,
         "by_source": {
-          "blocklistde": 128,
+          "blocklistde": 131,
           "ipsum": 69
         },
         "multi_source_count": 22,
@@ -3264,6 +3264,105 @@
           },
           {
             "ip": "36.255.97.242",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "MX",
+        "indicators": 158,
+        "by_source": {
+          "blocklistde": 146,
+          "ipsum": 37
+        },
+        "multi_source_count": 25,
+        "samples_by_source": {
+          "blocklistde": [
+            {
+              "ip": "34.51.27.246",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "38.65.137.69",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "38.65.137.70",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "38.65.137.96",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "38.65.137.102",
+              "sources": [
+                "blocklistde"
+              ]
+            }
+          ],
+          "ipsum": [
+            {
+              "ip": "38.22.170.10",
+              "sources": [
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "69.6.207.8",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "148.216.28.11",
+              "sources": [
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "148.230.154.182",
+              "sources": [
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "148.240.238.3",
+              "sources": [
+                "ipsum"
+              ]
+            }
+          ]
+        },
+        "examples": [
+          {
+            "ip": "69.6.207.8",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "177.229.197.38",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "186.96.158.180",
             "sources": [
               "blocklistde",
               "ipsum"
@@ -3368,105 +3467,6 @@
           },
           {
             "ip": "1.175.131.108",
-            "sources": [
-              "blocklistde",
-              "ipsum"
-            ]
-          }
-        ]
-      },
-      {
-        "code": "MX",
-        "indicators": 148,
-        "by_source": {
-          "blocklistde": 136,
-          "ipsum": 37
-        },
-        "multi_source_count": 25,
-        "samples_by_source": {
-          "blocklistde": [
-            {
-              "ip": "34.51.27.246",
-              "sources": [
-                "blocklistde"
-              ]
-            },
-            {
-              "ip": "38.65.137.69",
-              "sources": [
-                "blocklistde"
-              ]
-            },
-            {
-              "ip": "38.65.137.70",
-              "sources": [
-                "blocklistde"
-              ]
-            },
-            {
-              "ip": "38.65.137.96",
-              "sources": [
-                "blocklistde"
-              ]
-            },
-            {
-              "ip": "38.65.137.102",
-              "sources": [
-                "blocklistde"
-              ]
-            }
-          ],
-          "ipsum": [
-            {
-              "ip": "38.22.170.10",
-              "sources": [
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "69.6.207.8",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "148.216.28.11",
-              "sources": [
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "148.230.154.182",
-              "sources": [
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "148.240.238.3",
-              "sources": [
-                "ipsum"
-              ]
-            }
-          ]
-        },
-        "examples": [
-          {
-            "ip": "69.6.207.8",
-            "sources": [
-              "blocklistde",
-              "ipsum"
-            ]
-          },
-          {
-            "ip": "177.229.197.38",
-            "sources": [
-              "blocklistde",
-              "ipsum"
-            ]
-          },
-          {
-            "ip": "186.96.158.180",
             "sources": [
               "blocklistde",
               "ipsum"
@@ -3691,9 +3691,9 @@
       },
       {
         "code": "RO",
-        "indicators": 115,
+        "indicators": 116,
         "by_source": {
-          "blocklistde": 65,
+          "blocklistde": 66,
           "ipsum": 99
         },
         "multi_source_count": 49,
@@ -3933,9 +3933,9 @@
       },
       {
         "code": "CO",
-        "indicators": 105,
+        "indicators": 107,
         "by_source": {
-          "blocklistde": 94,
+          "blocklistde": 96,
           "ipsum": 35
         },
         "multi_source_count": 24,
@@ -3967,7 +3967,7 @@
               ]
             },
             {
-              "ip": "38.225.62.2",
+              "ip": "38.210.226.10",
               "sources": [
                 "blocklistde"
               ]
@@ -4035,9 +4035,9 @@
       },
       {
         "code": "IE",
-        "indicators": 103,
+        "indicators": 106,
         "by_source": {
-          "blocklistde": 102,
+          "blocklistde": 105,
           "dshield": 1,
           "ipsum": 3
         },
@@ -4133,9 +4133,9 @@
       },
       {
         "code": "TR",
-        "indicators": 97,
+        "indicators": 100,
         "by_source": {
-          "blocklistde": 87,
+          "blocklistde": 90,
           "ipsum": 34
         },
         "multi_source_count": 24,
@@ -4160,14 +4160,13 @@
               ]
             },
             {
-              "ip": "31.141.216.143",
+              "ip": "5.26.117.181",
               "sources": [
-                "blocklistde",
-                "ipsum"
+                "blocklistde"
               ]
             },
             {
-              "ip": "37.221.79.128",
+              "ip": "31.141.216.143",
               "sources": [
                 "blocklistde",
                 "ipsum"
@@ -4337,12 +4336,12 @@
       },
       {
         "code": "AU",
-        "indicators": 86,
+        "indicators": 87,
         "by_source": {
-          "blocklistde": 71,
+          "blocklistde": 73,
           "ipsum": 43
         },
-        "multi_source_count": 28,
+        "multi_source_count": 29,
         "samples_by_source": {
           "blocklistde": [
             {
@@ -5283,12 +5282,12 @@
       },
       {
         "code": "UZ",
-        "indicators": 41,
+        "indicators": 42,
         "by_source": {
           "blocklistde": 38,
           "ipsum": 15
         },
-        "multi_source_count": 12,
+        "multi_source_count": 11,
         "samples_by_source": {
           "blocklistde": [
             {
@@ -5386,10 +5385,10 @@
       },
       {
         "code": "EC",
-        "indicators": 40,
+        "indicators": 41,
         "by_source": {
           "ipsum": 5,
-          "blocklistde": 39
+          "blocklistde": 40
         },
         "multi_source_count": 4,
         "samples_by_source": {
@@ -5592,11 +5591,209 @@
         ]
       },
       {
-        "code": "AF",
+        "code": "CH",
         "indicators": 37,
         "by_source": {
+          "blocklistde": 30,
+          "ipsum": 15
+        },
+        "multi_source_count": 8,
+        "samples_by_source": {
+          "blocklistde": [
+            {
+              "ip": "31.6.41.17",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "34.158.22.104",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "37.120.213.13",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "77.109.139.87",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "84.73.148.81",
+              "sources": [
+                "blocklistde"
+              ]
+            }
+          ],
+          "ipsum": [
+            {
+              "ip": "37.120.213.13",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "45.92.109.164",
+              "sources": [
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "62.167.229.218",
+              "sources": [
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "84.74.163.210",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "185.150.28.13",
+              "sources": [
+                "ipsum"
+              ]
+            }
+          ]
+        },
+        "examples": [
+          {
+            "ip": "37.120.213.13",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "84.74.163.210",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "185.191.236.38",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "UG",
+        "indicators": 37,
+        "by_source": {
+          "blocklistde": 37,
+          "ipsum": 4
+        },
+        "multi_source_count": 4,
+        "samples_by_source": {
+          "blocklistde": [
+            {
+              "ip": "41.210.138.218",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "102.203.209.53",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "137.63.141.13",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "196.0.3.188",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "196.0.10.18",
+              "sources": [
+                "blocklistde"
+              ]
+            }
+          ],
+          "ipsum": [
+            {
+              "ip": "196.0.3.188",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "196.0.11.230",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "196.0.41.134",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "196.0.107.158",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            }
+          ]
+        },
+        "examples": [
+          {
+            "ip": "196.0.3.188",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "196.0.11.230",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "196.0.41.134",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "AF",
+        "indicators": 36,
+        "by_source": {
           "ipsum": 19,
-          "blocklistde": 30
+          "blocklistde": 29
         },
         "multi_source_count": 12,
         "samples_by_source": {
@@ -5687,103 +5884,6 @@
           },
           {
             "ip": "149.54.40.94",
-            "sources": [
-              "blocklistde",
-              "ipsum"
-            ]
-          }
-        ]
-      },
-      {
-        "code": "UG",
-        "indicators": 36,
-        "by_source": {
-          "blocklistde": 36,
-          "ipsum": 4
-        },
-        "multi_source_count": 4,
-        "samples_by_source": {
-          "blocklistde": [
-            {
-              "ip": "41.210.138.218",
-              "sources": [
-                "blocklistde"
-              ]
-            },
-            {
-              "ip": "102.203.209.53",
-              "sources": [
-                "blocklistde"
-              ]
-            },
-            {
-              "ip": "137.63.141.13",
-              "sources": [
-                "blocklistde"
-              ]
-            },
-            {
-              "ip": "196.0.3.188",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "196.0.10.18",
-              "sources": [
-                "blocklistde"
-              ]
-            }
-          ],
-          "ipsum": [
-            {
-              "ip": "196.0.3.188",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "196.0.11.230",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "196.0.41.134",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "196.0.107.158",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            }
-          ]
-        },
-        "examples": [
-          {
-            "ip": "196.0.3.188",
-            "sources": [
-              "blocklistde",
-              "ipsum"
-            ]
-          },
-          {
-            "ip": "196.0.11.230",
-            "sources": [
-              "blocklistde",
-              "ipsum"
-            ]
-          },
-          {
-            "ip": "196.0.41.134",
             "sources": [
               "blocklistde",
               "ipsum"
@@ -5887,109 +5987,6 @@
           },
           {
             "ip": "45.144.52.239",
-            "sources": [
-              "blocklistde",
-              "ipsum"
-            ]
-          }
-        ]
-      },
-      {
-        "code": "KE",
-        "indicators": 34,
-        "by_source": {
-          "blocklistde": 29,
-          "ipsum": 12
-        },
-        "multi_source_count": 7,
-        "samples_by_source": {
-          "blocklistde": [
-            {
-              "ip": "41.90.66.132",
-              "sources": [
-                "blocklistde"
-              ]
-            },
-            {
-              "ip": "41.203.214.151",
-              "sources": [
-                "blocklistde"
-              ]
-            },
-            {
-              "ip": "41.212.96.161",
-              "sources": [
-                "blocklistde"
-              ]
-            },
-            {
-              "ip": "41.215.133.245",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "102.0.17.104",
-              "sources": [
-                "blocklistde"
-              ]
-            }
-          ],
-          "ipsum": [
-            {
-              "ip": "41.215.130.247",
-              "sources": [
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "41.215.133.245",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "102.209.76.136",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "102.209.76.137",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "102.210.148.41",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            }
-          ]
-        },
-        "examples": [
-          {
-            "ip": "41.215.133.245",
-            "sources": [
-              "blocklistde",
-              "ipsum"
-            ]
-          },
-          {
-            "ip": "102.209.76.136",
-            "sources": [
-              "blocklistde",
-              "ipsum"
-            ]
-          },
-          {
-            "ip": "102.209.76.137",
             "sources": [
               "blocklistde",
               "ipsum"
@@ -6102,42 +6099,42 @@
         ]
       },
       {
-        "code": "CH",
-        "indicators": 32,
+        "code": "KE",
+        "indicators": 33,
         "by_source": {
-          "blocklistde": 25,
-          "ipsum": 15
+          "blocklistde": 28,
+          "ipsum": 12
         },
-        "multi_source_count": 8,
+        "multi_source_count": 7,
         "samples_by_source": {
           "blocklistde": [
             {
-              "ip": "31.6.41.17",
+              "ip": "41.90.66.132",
               "sources": [
                 "blocklistde"
               ]
             },
             {
-              "ip": "34.158.22.104",
+              "ip": "41.203.214.151",
               "sources": [
                 "blocklistde"
               ]
             },
             {
-              "ip": "37.120.213.13",
+              "ip": "41.212.96.161",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "41.215.133.245",
               "sources": [
                 "blocklistde",
                 "ipsum"
               ]
             },
             {
-              "ip": "77.109.139.87",
-              "sources": [
-                "blocklistde"
-              ]
-            },
-            {
-              "ip": "84.73.148.81",
+              "ip": "102.0.17.104",
               "sources": [
                 "blocklistde"
               ]
@@ -6145,34 +6142,36 @@
           ],
           "ipsum": [
             {
-              "ip": "37.120.213.13",
+              "ip": "41.215.130.247",
+              "sources": [
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "41.215.133.245",
               "sources": [
                 "blocklistde",
                 "ipsum"
               ]
             },
             {
-              "ip": "45.92.109.164",
-              "sources": [
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "62.167.229.218",
-              "sources": [
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "84.74.163.210",
+              "ip": "102.209.76.136",
               "sources": [
                 "blocklistde",
                 "ipsum"
               ]
             },
             {
-              "ip": "185.150.28.13",
+              "ip": "102.209.76.137",
               "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "102.210.148.41",
+              "sources": [
+                "blocklistde",
                 "ipsum"
               ]
             }
@@ -6180,21 +6179,21 @@
         },
         "examples": [
           {
-            "ip": "37.120.213.13",
+            "ip": "41.215.133.245",
             "sources": [
               "blocklistde",
               "ipsum"
             ]
           },
           {
-            "ip": "84.74.163.210",
+            "ip": "102.209.76.136",
             "sources": [
               "blocklistde",
               "ipsum"
             ]
           },
           {
-            "ip": "185.191.236.38",
+            "ip": "102.209.76.137",
             "sources": [
               "blocklistde",
               "ipsum"
@@ -6393,11 +6392,116 @@
         ]
       },
       {
-        "code": "PE",
+        "code": "MA",
         "indicators": 30,
         "by_source": {
+          "blocklistde": 24,
+          "ipsum": 15
+        },
+        "multi_source_count": 9,
+        "samples_by_source": {
+          "blocklistde": [
+            {
+              "ip": "41.92.127.152",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "81.192.46.45",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "81.192.46.49",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "102.53.15.17",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "102.53.15.18",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            }
+          ],
+          "ipsum": [
+            {
+              "ip": "81.192.46.29",
+              "sources": [
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "81.192.46.45",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "81.192.46.49",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "81.192.138.65",
+              "sources": [
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "102.53.15.17",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            }
+          ]
+        },
+        "examples": [
+          {
+            "ip": "81.192.46.45",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "81.192.46.49",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "102.53.15.17",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "PE",
+        "indicators": 29,
+        "by_source": {
           "dshield": 2,
-          "blocklistde": 25,
+          "blocklistde": 24,
           "ipsum": 16
         },
         "multi_source_count": 13,
@@ -6424,12 +6528,6 @@
               ]
             },
             {
-              "ip": "38.25.57.4",
-              "sources": [
-                "blocklistde"
-              ]
-            },
-            {
               "ip": "38.25.80.120",
               "sources": [
                 "blocklistde",
@@ -6446,6 +6544,13 @@
               "ip": "38.190.101.41",
               "sources": [
                 "blocklistde"
+              ]
+            },
+            {
+              "ip": "38.224.49.7",
+              "sources": [
+                "blocklistde",
+                "ipsum"
               ]
             }
           ],
@@ -6511,194 +6616,13 @@
         ]
       },
       {
-        "code": "MA",
-        "indicators": 29,
-        "by_source": {
-          "blocklistde": 24,
-          "ipsum": 15
-        },
-        "multi_source_count": 10,
-        "samples_by_source": {
-          "blocklistde": [
-            {
-              "ip": "41.92.127.152",
-              "sources": [
-                "blocklistde"
-              ]
-            },
-            {
-              "ip": "81.192.46.45",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "81.192.46.49",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "81.192.138.65",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "102.53.15.17",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            }
-          ],
-          "ipsum": [
-            {
-              "ip": "81.192.46.29",
-              "sources": [
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "81.192.46.45",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "81.192.46.49",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "81.192.138.65",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "102.53.15.17",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            }
-          ]
-        },
-        "examples": [
-          {
-            "ip": "81.192.46.45",
-            "sources": [
-              "blocklistde",
-              "ipsum"
-            ]
-          },
-          {
-            "ip": "81.192.46.49",
-            "sources": [
-              "blocklistde",
-              "ipsum"
-            ]
-          },
-          {
-            "ip": "81.192.138.65",
-            "sources": [
-              "blocklistde",
-              "ipsum"
-            ]
-          }
-        ]
-      },
-      {
-        "code": "BW",
-        "indicators": 26,
-        "by_source": {
-          "blocklistde": 26,
-          "ipsum": 2
-        },
-        "multi_source_count": 2,
-        "samples_by_source": {
-          "blocklistde": [
-            {
-              "ip": "41.76.247.3",
-              "sources": [
-                "blocklistde"
-              ]
-            },
-            {
-              "ip": "41.76.247.30",
-              "sources": [
-                "blocklistde"
-              ]
-            },
-            {
-              "ip": "41.216.209.71",
-              "sources": [
-                "blocklistde"
-              ]
-            },
-            {
-              "ip": "41.216.209.80",
-              "sources": [
-                "blocklistde"
-              ]
-            },
-            {
-              "ip": "41.216.210.34",
-              "sources": [
-                "blocklistde"
-              ]
-            }
-          ],
-          "ipsum": [
-            {
-              "ip": "168.167.228.85",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "168.167.228.123",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            }
-          ]
-        },
-        "examples": [
-          {
-            "ip": "168.167.228.85",
-            "sources": [
-              "blocklistde",
-              "ipsum"
-            ]
-          },
-          {
-            "ip": "168.167.228.123",
-            "sources": [
-              "blocklistde",
-              "ipsum"
-            ]
-          }
-        ]
-      },
-      {
         "code": "CZ",
         "indicators": 26,
         "by_source": {
-          "blocklistde": 24,
+          "blocklistde": 23,
           "ipsum": 8
         },
-        "multi_source_count": 6,
+        "multi_source_count": 5,
         "samples_by_source": {
           "blocklistde": [
             {
@@ -6878,11 +6802,86 @@
         ]
       },
       {
+        "code": "BW",
+        "indicators": 25,
+        "by_source": {
+          "blocklistde": 25,
+          "ipsum": 2
+        },
+        "multi_source_count": 2,
+        "samples_by_source": {
+          "blocklistde": [
+            {
+              "ip": "41.76.247.3",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "41.76.247.30",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "41.216.209.71",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "41.216.209.80",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "41.216.210.34",
+              "sources": [
+                "blocklistde"
+              ]
+            }
+          ],
+          "ipsum": [
+            {
+              "ip": "168.167.228.85",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "168.167.228.123",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            }
+          ]
+        },
+        "examples": [
+          {
+            "ip": "168.167.228.85",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "168.167.228.123",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
         "code": "EG",
-        "indicators": 24,
+        "indicators": 23,
         "by_source": {
           "ipsum": 16,
-          "blocklistde": 16
+          "blocklistde": 15
         },
         "multi_source_count": 8,
         "samples_by_source": {
@@ -7933,6 +7932,109 @@
         ]
       },
       {
+        "code": "BO",
+        "indicators": 17,
+        "by_source": {
+          "ipsum": 14,
+          "blocklistde": 12
+        },
+        "multi_source_count": 9,
+        "samples_by_source": {
+          "ipsum": [
+            {
+              "ip": "166.114.163.88",
+              "sources": [
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "181.114.126.130",
+              "sources": [
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "181.115.192.10",
+              "sources": [
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "181.188.148.74",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "181.188.172.6",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            }
+          ],
+          "blocklistde": [
+            {
+              "ip": "179.60.116.118",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "181.188.148.74",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "181.188.172.6",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "186.121.233.2",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "190.129.101.45",
+              "sources": [
+                "blocklistde"
+              ]
+            }
+          ]
+        },
+        "examples": [
+          {
+            "ip": "181.188.148.74",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "181.188.172.6",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "186.121.233.2",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
         "code": "DK",
         "indicators": 17,
         "by_source": {
@@ -8062,110 +8164,6 @@
         "examples": [
           {
             "ip": "201.249.192.30",
-            "sources": [
-              "blocklistde",
-              "ipsum"
-            ]
-          }
-        ]
-      },
-      {
-        "code": "BO",
-        "indicators": 16,
-        "by_source": {
-          "ipsum": 14,
-          "blocklistde": 11
-        },
-        "multi_source_count": 9,
-        "samples_by_source": {
-          "ipsum": [
-            {
-              "ip": "166.114.163.88",
-              "sources": [
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "181.114.126.130",
-              "sources": [
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "181.115.192.10",
-              "sources": [
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "181.188.148.74",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "181.188.172.6",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            }
-          ],
-          "blocklistde": [
-            {
-              "ip": "179.60.116.118",
-              "sources": [
-                "blocklistde"
-              ]
-            },
-            {
-              "ip": "181.188.148.74",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "181.188.172.6",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "186.121.233.2",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "190.129.122.12",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            }
-          ]
-        },
-        "examples": [
-          {
-            "ip": "181.188.148.74",
-            "sources": [
-              "blocklistde",
-              "ipsum"
-            ]
-          },
-          {
-            "ip": "181.188.172.6",
-            "sources": [
-              "blocklistde",
-              "ipsum"
-            ]
-          },
-          {
-            "ip": "186.121.233.2",
             "sources": [
               "blocklistde",
               "ipsum"
@@ -8989,10 +8987,10 @@
         "code": "SN",
         "indicators": 12,
         "by_source": {
-          "blocklistde": 10,
+          "blocklistde": 11,
           "ipsum": 5
         },
-        "multi_source_count": 3,
+        "multi_source_count": 4,
         "samples_by_source": {
           "blocklistde": [
             {
@@ -9021,9 +9019,10 @@
               ]
             },
             {
-              "ip": "154.124.140.19",
+              "ip": "41.214.10.178",
               "sources": [
-                "blocklistde"
+                "blocklistde",
+                "ipsum"
               ]
             }
           ],
@@ -9038,6 +9037,7 @@
             {
               "ip": "41.214.10.178",
               "sources": [
+                "blocklistde",
                 "ipsum"
               ]
             },
@@ -9072,14 +9072,14 @@
             ]
           },
           {
-            "ip": "154.125.228.145",
+            "ip": "41.214.10.178",
             "sources": [
               "blocklistde",
               "ipsum"
             ]
           },
           {
-            "ip": "213.154.80.51",
+            "ip": "154.125.228.145",
             "sources": [
               "blocklistde",
               "ipsum"
@@ -9162,9 +9162,9 @@
       },
       {
         "code": "TT",
-        "indicators": 10,
+        "indicators": 11,
         "by_source": {
-          "blocklistde": 10
+          "blocklistde": 11
         },
         "multi_source_count": 0,
         "samples_by_source": {
@@ -9194,7 +9194,7 @@
               ]
             },
             {
-              "ip": "181.118.48.223",
+              "ip": "181.118.48.61",
               "sources": [
                 "blocklistde"
               ]
@@ -9202,6 +9202,97 @@
           ]
         },
         "examples": []
+      },
+      {
+        "code": "CM",
+        "indicators": 10,
+        "by_source": {
+          "blocklistde": 10,
+          "ipsum": 3
+        },
+        "multi_source_count": 3,
+        "samples_by_source": {
+          "blocklistde": [
+            {
+              "ip": "41.205.88.70",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "102.244.44.197",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "102.244.78.57",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "102.245.6.166",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "129.0.60.56",
+              "sources": [
+                "blocklistde"
+              ]
+            }
+          ],
+          "ipsum": [
+            {
+              "ip": "41.205.88.70",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "102.244.78.57",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "154.70.102.114",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            }
+          ]
+        },
+        "examples": [
+          {
+            "ip": "41.205.88.70",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "102.244.78.57",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "154.70.102.114",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
       },
       {
         "code": "ZM",
@@ -9308,43 +9399,44 @@
         ]
       },
       {
-        "code": "CM",
+        "code": "DO",
         "indicators": 9,
         "by_source": {
-          "blocklistde": 9,
-          "ipsum": 3
+          "blocklistde": 8,
+          "ipsum": 4
         },
         "multi_source_count": 3,
         "samples_by_source": {
           "blocklistde": [
             {
-              "ip": "41.205.88.70",
+              "ip": "38.224.238.25",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "45.172.152.74",
               "sources": [
                 "blocklistde",
                 "ipsum"
               ]
             },
             {
-              "ip": "102.244.44.197",
-              "sources": [
-                "blocklistde"
-              ]
-            },
-            {
-              "ip": "102.244.78.57",
+              "ip": "45.172.153.100",
               "sources": [
                 "blocklistde",
                 "ipsum"
               ]
             },
             {
-              "ip": "102.245.6.166",
+              "ip": "152.0.37.48",
               "sources": [
-                "blocklistde"
+                "blocklistde",
+                "ipsum"
               ]
             },
             {
-              "ip": "129.0.60.56",
+              "ip": "152.167.165.235",
               "sources": [
                 "blocklistde"
               ]
@@ -9352,23 +9444,29 @@
           ],
           "ipsum": [
             {
-              "ip": "41.205.88.70",
+              "ip": "45.172.152.74",
               "sources": [
                 "blocklistde",
                 "ipsum"
               ]
             },
             {
-              "ip": "102.244.78.57",
+              "ip": "45.172.153.100",
               "sources": [
                 "blocklistde",
                 "ipsum"
               ]
             },
             {
-              "ip": "154.70.102.114",
+              "ip": "152.0.37.48",
               "sources": [
                 "blocklistde",
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "186.7.4.141",
+              "sources": [
                 "ipsum"
               ]
             }
@@ -9376,21 +9474,21 @@
         },
         "examples": [
           {
-            "ip": "41.205.88.70",
+            "ip": "45.172.152.74",
             "sources": [
               "blocklistde",
               "ipsum"
             ]
           },
           {
-            "ip": "102.244.78.57",
+            "ip": "45.172.153.100",
             "sources": [
               "blocklistde",
               "ipsum"
             ]
           },
           {
-            "ip": "154.70.102.114",
+            "ip": "152.0.37.48",
             "sources": [
               "blocklistde",
               "ipsum"
@@ -9666,104 +9764,6 @@
           },
           {
             "ip": "195.222.43.138",
-            "sources": [
-              "blocklistde",
-              "ipsum"
-            ]
-          }
-        ]
-      },
-      {
-        "code": "DO",
-        "indicators": 8,
-        "by_source": {
-          "blocklistde": 7,
-          "ipsum": 4
-        },
-        "multi_source_count": 3,
-        "samples_by_source": {
-          "blocklistde": [
-            {
-              "ip": "38.224.238.25",
-              "sources": [
-                "blocklistde"
-              ]
-            },
-            {
-              "ip": "45.172.152.74",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "45.172.153.100",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "152.0.37.48",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "152.167.165.235",
-              "sources": [
-                "blocklistde"
-              ]
-            }
-          ],
-          "ipsum": [
-            {
-              "ip": "45.172.152.74",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "45.172.153.100",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "152.0.37.48",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "186.7.4.141",
-              "sources": [
-                "ipsum"
-              ]
-            }
-          ]
-        },
-        "examples": [
-          {
-            "ip": "45.172.152.74",
-            "sources": [
-              "blocklistde",
-              "ipsum"
-            ]
-          },
-          {
-            "ip": "45.172.153.100",
-            "sources": [
-              "blocklistde",
-              "ipsum"
-            ]
-          },
-          {
-            "ip": "152.0.37.48",
             "sources": [
               "blocklistde",
               "ipsum"
@@ -10330,6 +10330,67 @@
         ]
       },
       {
+        "code": "NZ",
+        "indicators": 6,
+        "by_source": {
+          "blocklistde": 6,
+          "ipsum": 1
+        },
+        "multi_source_count": 1,
+        "samples_by_source": {
+          "blocklistde": [
+            {
+              "ip": "45.120.118.148",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "103.75.11.132",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "118.148.192.229",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "122.58.226.134",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "219.89.198.191",
+              "sources": [
+                "blocklistde"
+              ]
+            }
+          ],
+          "ipsum": [
+            {
+              "ip": "219.89.206.236",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            }
+          ]
+        },
+        "examples": [
+          {
+            "ip": "219.89.206.236",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
         "code": "CR",
         "indicators": 5,
         "by_source": {
@@ -10541,68 +10602,6 @@
           ]
         },
         "examples": []
-      },
-      {
-        "code": "NZ",
-        "indicators": 5,
-        "by_source": {
-          "blocklistde": 5,
-          "ipsum": 1
-        },
-        "multi_source_count": 1,
-        "samples_by_source": {
-          "blocklistde": [
-            {
-              "ip": "45.120.118.148",
-              "sources": [
-                "blocklistde"
-              ]
-            },
-            {
-              "ip": "103.75.11.132",
-              "sources": [
-                "blocklistde"
-              ]
-            },
-            {
-              "ip": "118.148.192.229",
-              "sources": [
-                "blocklistde"
-              ]
-            },
-            {
-              "ip": "219.89.198.191",
-              "sources": [
-                "blocklistde"
-              ]
-            },
-            {
-              "ip": "219.89.206.236",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            }
-          ],
-          "ipsum": [
-            {
-              "ip": "219.89.206.236",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            }
-          ]
-        },
-        "examples": [
-          {
-            "ip": "219.89.206.236",
-            "sources": [
-              "blocklistde",
-              "ipsum"
-            ]
-          }
-        ]
       },
       {
         "code": "QA",
@@ -11847,6 +11846,31 @@
         "examples": []
       },
       {
+        "code": "GN",
+        "indicators": 2,
+        "by_source": {
+          "blocklistde": 2
+        },
+        "multi_source_count": 0,
+        "samples_by_source": {
+          "blocklistde": [
+            {
+              "ip": "41.223.49.130",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "197.149.242.123",
+              "sources": [
+                "blocklistde"
+              ]
+            }
+          ]
+        },
+        "examples": []
+      },
+      {
         "code": "GY",
         "indicators": 2,
         "by_source": {
@@ -12224,6 +12248,25 @@
         "examples": []
       },
       {
+        "code": "DM",
+        "indicators": 1,
+        "by_source": {
+          "blocklistde": 1
+        },
+        "multi_source_count": 0,
+        "samples_by_source": {
+          "blocklistde": [
+            {
+              "ip": "198.101.29.225",
+              "sources": [
+                "blocklistde"
+              ]
+            }
+          ]
+        },
+        "examples": []
+      },
+      {
         "code": "FM",
         "indicators": 1,
         "by_source": {
@@ -12234,25 +12277,6 @@
           "blocklistde": [
             {
               "ip": "14.1.91.220",
-              "sources": [
-                "blocklistde"
-              ]
-            }
-          ]
-        },
-        "examples": []
-      },
-      {
-        "code": "GN",
-        "indicators": 1,
-        "by_source": {
-          "blocklistde": 1
-        },
-        "multi_source_count": 0,
-        "samples_by_source": {
-          "blocklistde": [
-            {
-              "ip": "197.149.242.123",
               "sources": [
                 "blocklistde"
               ]
@@ -12495,7 +12519,7 @@
         "id": "blocklistde",
         "name": "blocklist.de",
         "status": "ok",
-        "records": 26063,
+        "records": 26186,
         "meaning": "IP addresses reported in recent 48-hour attacks against participating systems",
         "url": "https://lists.blocklist.de/lists/all.txt"
       },
@@ -13442,6 +13466,42 @@
     ]
   },
   "failures": [],
+  "extra_health": [
+    {
+      "id": "urlhaus",
+      "name": "URLhaus / abuse.ch",
+      "url": "https://urlhaus.abuse.ch/api/",
+      "status": "unavailable",
+      "records": null,
+      "meaning": "URLs directly hosted on geolocated public IPv4 hosts only; domain URLs cannot be located without DNS. Listed URLs hosted in this country, not attacker location or successful infection.",
+      "reason": "no key configured"
+    },
+    {
+      "id": "threatfox",
+      "name": "ThreatFox / abuse.ch",
+      "url": "https://threatfox.abuse.ch/api/",
+      "status": "unavailable",
+      "records": null,
+      "meaning": "Geolocated public IPv4 IoCs only. Some IoCs are domains, hashes or URLs and cannot be attributed to a country. Hosted/listed IoCs do not identify attackers.",
+      "reason": "no key configured"
+    },
+    {
+      "id": "iptoasn",
+      "name": "IPtoASN / Frank Denis",
+      "url": "https://iptoasn.com/",
+      "status": "ok",
+      "records": 37793,
+      "meaning": "ASNs announcing listed source IPs; a provider's appearance is not evidence its owners are malicious."
+    },
+    {
+      "id": "ioda",
+      "name": "IODA / Georgia Tech",
+      "url": "https://ioda.inetintel.cc.gatech.edu/",
+      "status": "ok",
+      "records": 0,
+      "meaning": "Observed connectivity disruption events, not verified cyberattacks. Outages have many causes including weather, outages and maintenance."
+    }
+  ],
   "history": [
     {
       "generated_at": "2026-11-10T22:34:16.413074+00:00",
@@ -14119,6 +14179,190 @@
         "CW": 1,
         "FM": 1,
         "GN": 1,
+        "GP": 1,
+        "HT": 1,
+        "KY": 1,
+        "LR": 1,
+        "MV": 1,
+        "MW": 1,
+        "RE": 1,
+        "ST": 1,
+        "SZ": 1,
+        "VG": 1
+      }
+    },
+    {
+      "generated_at": "2026-11-10T23:44:03.318937+00:00",
+      "unique_indicators": 38337,
+      "available_sources": [
+        "blocklistde",
+        "dshield",
+        "feodo",
+        "ipsum"
+      ],
+      "feed_status": {
+        "blocklistde": "ok",
+        "ipsum": "ok",
+        "dshield": "ok",
+        "feodo": "ok",
+        "urlhaus": "unavailable",
+        "threatfox": "unavailable",
+        "iptoasn": "ok",
+        "ioda": "ok"
+      },
+      "country_counts": {
+        "US": 13792,
+        "RU": 3031,
+        "FR": 2428,
+        "CN": 2186,
+        "CA": 2012,
+        "GB": 1335,
+        "DE": 1325,
+        "BR": 870,
+        "IN": 730,
+        "ID": 708,
+        "NL": 703,
+        "HK": 675,
+        "SG": 632,
+        "UA": 600,
+        "KR": 519,
+        "AE": 430,
+        "BE": 407,
+        "BD": 342,
+        "PT": 337,
+        "IT": 316,
+        "BG": 313,
+        "LT": 298,
+        "VN": 287,
+        "AR": 283,
+        "PL": 229,
+        "MY": 212,
+        "ZA": 202,
+        "PK": 178,
+        "MX": 158,
+        "TW": 150,
+        "SE": 133,
+        "ES": 119,
+        "RO": 116,
+        "JP": 114,
+        "CO": 107,
+        "IE": 106,
+        "TR": 100,
+        "TH": 93,
+        "AU": 87,
+        "IR": 66,
+        "GH": 61,
+        "CL": 59,
+        "SC": 59,
+        "PH": 56,
+        "IL": 45,
+        "SI": 45,
+        "TN": 43,
+        "UZ": 42,
+        "EC": 41,
+        "ET": 38,
+        "CH": 37,
+        "UG": 37,
+        "AF": 36,
+        "FI": 34,
+        "KZ": 34,
+        "KE": 33,
+        "SA": 31,
+        "HU": 30,
+        "MA": 30,
+        "PE": 29,
+        "CZ": 26,
+        "IS": 26,
+        "BW": 25,
+        "EG": 23,
+        "PA": 23,
+        "PY": 23,
+        "RS": 23,
+        "AT": 22,
+        "BJ": 22,
+        "NP": 20,
+        "IQ": 19,
+        "NG": 19,
+        "NO": 18,
+        "AZ": 17,
+        "BO": 17,
+        "DK": 17,
+        "VE": 17,
+        "DZ": 14,
+        "GE": 14,
+        "TZ": 14,
+        "MD": 13,
+        "OM": 13,
+        "SK": 13,
+        "AL": 12,
+        "KH": 12,
+        "LB": 12,
+        "MU": 12,
+        "PS": 12,
+        "SN": 12,
+        "CI": 11,
+        "TT": 11,
+        "CM": 10,
+        "ZM": 10,
+        "DO": 9,
+        "LV": 9,
+        "SY": 9,
+        "BA": 8,
+        "EE": 8,
+        "MM": 8,
+        "GR": 7,
+        "AM": 6,
+        "BY": 6,
+        "CV": 6,
+        "LK": 6,
+        "NZ": 6,
+        "CR": 5,
+        "GM": 5,
+        "HN": 5,
+        "JM": 5,
+        "QA": 5,
+        "UY": 5,
+        "ZW": 5,
+        "AO": 4,
+        "BB": 4,
+        "BZ": 4,
+        "CY": 4,
+        "KW": 4,
+        "LA": 4,
+        "SO": 4,
+        "SV": 4,
+        "TM": 4,
+        "BN": 3,
+        "CD": 3,
+        "GT": 3,
+        "KG": 3,
+        "LY": 3,
+        "MK": 3,
+        "MN": 3,
+        "MO": 3,
+        "MZ": 3,
+        "TG": 3,
+        "BF": 2,
+        "BH": 2,
+        "BI": 2,
+        "CG": 2,
+        "GN": 2,
+        "GY": 2,
+        "HR": 2,
+        "JO": 2,
+        "LC": 2,
+        "LS": 2,
+        "LU": 2,
+        "NI": 2,
+        "PR": 2,
+        "RW": 2,
+        "AD": 1,
+        "AQ": 1,
+        "BS": 1,
+        "BT": 1,
+        "CW": 1,
+        "DM": 1,
+        "FM": 1,
         "GP": 1,
         "HT": 1,
         "KY": 1,
