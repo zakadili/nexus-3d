@@ -197,7 +197,7 @@ def collect_cves():
         try:return datetime.strptime(v["dateAdded"],"%Y-%m-%d").date()
         except (KeyError,TypeError,ValueError):return datetime(1970,1,1).date()
     latest=sorted(vulns,key=cve_date,reverse=True)
-    selection={v["cveID"]:v for v in latest[:300] if re.fullmatch(r"CVE-\d{4}-\d{4,}",v.get("cveID",""))}
+    selection={v["cveID"]:v for v in latest[:300] if isinstance(v.get("cveID"),str) and re.fullmatch(r"CVE-\d{4}-\d{4,}",v["cveID"])}
     for v in latest:
         if v.get("knownRansomwareCampaignUse")=="Known" and len(selection)<550 and isinstance(v.get("cveID"),str) and re.fullmatch(r"CVE-\\d{4}-\\d{4,}",v["cveID"]):selection[v["cveID"]]=v
     epss=get_epss(list(selection))
