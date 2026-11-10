@@ -107,7 +107,7 @@ function renderCountryOverview(row){
   const cves=Array.isArray(country.cves)?country.cves.slice(0,6):[];
   if(cves.length){
    for(const item of cves){
-    if(!/^CVE-\\d{4}-\\d{4,}$/.test(item.id))continue;
+    if(!/^CVE-\d{4}-\d{4,}$/.test(item.id))continue;
     const line=create('div','overview-finding');
     line.append(link(item.id+' ↗','https://nvd.nist.gov/vuln/detail/'+encodeURIComponent(item.id)),create('span','',fmt(item.sample_ips)+' sampled IPs'));
     box.append(line);
