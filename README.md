@@ -1,23 +1,52 @@
-# NEXUS SENTINEL — Global Threat Radar
+# NEXUS SENTINEL — Global Cyber Intelligence
 
-**The homepage is now a geographic threat-intelligence observatory**, not a CVE search form. The previous live CISA KEV dashboard is preserved at [intel.html](./intel.html), and the evidence-linked synthetic attack graph remains at [sentinel.html](./sentinel.html).
+A working multi-source cyber-intelligence command center: an interactive country-level threat-indicator globe, CISA exploited-CVE prioritization, reported EU sector impact, authorized active scanning, and an evidence-linked attack-path lab.
 
-## Live modules
+**Live project:** https://zakadili.github.io/nexus-3d/
 
-| Module | What it actually does | Data provenance |
-|---|---|---|
-| **Global Radar** (`index.html`) | Rotating geographic globe, source-country ranking, source-IP drill-down, sampled report counters and top targeted ports | SANS ISC / DShield top-IP and top-port sensor summaries, enriched with approximate ipwho.is location |
-| **CVE Intelligence** (`intel.html`) | CISA Known Exploited Vulnerabilities, filtering and FIRST EPSS lookup | CISA + FIRST |
-| **SENTINEL Attack Paths** (`sentinel.html`) | Network/identity graph, potential path analysis, simulated remediation | Clearly labeled **synthetic** lab fixture |
-| **Scope-Controlled Scanner** (`scanner/`) | Local TCP, HTTP-header and TLS checks against explicitly authorized IPs | Live results from your own authorized scan |
+## Intelligence platform
 
-### Open the public radar
+### Multi-source country radar
 
-GitHub Pages: https://zakadili.github.io/nexus-3d/
+GitHub Actions collects and deduplicates public IPv4 indicators from:
 
-The public page can request SANS and ipwho.is directly. **Browser CORS policies, provider rate limits, or upstream outages may prevent direct collection.** In that case, the UI shows a failure rather than fictitious telemetry.
+1. [blocklist.de](https://www.blocklist.de/en/export.html) — addresses reported during the last 48 hours.
+2. [IPsum](https://github.com/stamparm/ipsum) — IP addresses appearing on at least three constituent lists.
+3. [SANS ISC / DShield](https://isc.sans.edu/) — a sample of observed source addresses from reporting sensors.
+4. [abuse.ch Feodo Tracker](https://feodotracker.abuse.ch/) — observed online botnet C2 infrastructure; its active feed may be empty.
 
-## Run with a real local collector (recommended)
+Countries are inferred from the [DB-IP Lite](https://db-ip.com/) country range database (CC BY 4.0), distributed by [sapics](https://github.com/sapics/ip-location-db). The data pipeline uses IP-range binary search; it does **not** send tens of thousands of addresses to a per-IP lookup API.
+
+**First successful collection, November 10, 2026:** 37,985 distinct listed IPv4 indicators, 37,983 country-matched, 159 countries; 25,874 blocklist.de records, 17,226 IPsum records, 300 DShield sample IPs, 1 online Feodo C2. These are source-list counts, **not global attacks**. Numbers change as feeds update; current counts are shown in the dashboard.
+
+Use the map's **DATA LAYER** selector to compare source-specific coverage and select a country for counts from every provider. Source subtotals overlap, so do not sum them.
+
+### Vulnerability priority engine
+
+- [CISA Known Exploited Vulnerabilities](https://www.cisa.gov/known-exploited-vulnerabilities-catalog) full catalog.
+- [FIRST EPSS](https://www.first.org/epss/) for selected recent or ransomware-linked candidates.
+- [NIST NVD](https://nvd.nist.gov/) CVSS for a small number of top-ranked CVEs, respecting public rate limits.
+- Transparent ordering heuristic: EPSS probability × 100 + 25 if CISA identifies known ransomware use + 10 if added in the last 30 days.
+
+This is **not** a CVSS rating or exploit validation for a host. The user must interpret asset exposure and business impact separately.
+
+### Industry impact research
+
+The [ENISA Threat Landscape 2026](https://www.enisa.europa.eu/topics/cyber-threats/threat-landscape) provides historically observed incident shares for EU sectors over January–December 2025, not live worldwide sector counts. Top entries include public administration 31.8%, business services 8.5%, transport 8%, manufacturing 6.9%, and finance/banking 5.6%.
+
+### Other modules
+
+- [CVE Intel](./intel.html) — searchable CISA catalog with on-demand EPSS.
+- [SENTINEL Attack Graph](./sentinel.html) — synthetic network/identity relationships and remediation simulation, backed by FastAPI.
+- [Scoped Active Scanner](./scanner/) — real authorized TCP/HTTP/TLS checks with explicit CIDR allowlisting.
+
+## How the live website works
+
+A workflow at [`.github/workflows/intelligence.yml`](./.github/workflows/intelligence.yml) runs **every six hours** (also manually triggerable), runs [`sentinel/intelligence_pipeline.py`](./sentinel/intelligence_pipeline.py), and commits the JSON snapshot to [`data/overview.json`](./data/overview.json). The GitHub Pages homepage reads this committed JSON without needing API keys or a hosted backend.
+
+The snapshot includes independent feed-health statuses. If a source fails, that source is explicitly marked unavailable; if no source succeeds, the snapshot is not overwritten. This is periodically updated intelligence, **not a live packet stream**.
+
+## Run locally
 
 ```bash
 git clone https://github.com/zakadili/nexus-3d.git
@@ -25,57 +54,34 @@ cd nexus-3d
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r sentinel/requirements.txt
-
-# Optional but recommended: contact information for API provider's custom User-Agent
-export NEXUS_CONTACT='your-public-contact@example.com'
-
 python3 -m uvicorn sentinel.main:app --host 127.0.0.1 --port 8765
 ```
 
-Then open: **http://127.0.0.1:8765/**
+Open http://127.0.0.1:8765/ for the global radar and http://127.0.0.1:8765/sentinel.html for the attack-path lab.
 
-- **http://127.0.0.1:8765/** — Global Radar UI.
-- **http://127.0.0.1:8765/api/radar** — backend-collected telemetry JSON.
-- **http://127.0.0.1:8765/sentinel.html** — attack-path intelligence.
-- **http://127.0.0.1:8765/intel.html** — original CISA KEV dashboard.
-- **http://127.0.0.1:8765/docs** — FastAPI OpenAPI docs.
+To regenerate the snapshot manually on a networked machine:
 
-The Python collector uses a one-hour in-memory cache. It requests 30 ranked source IPs and 12 ranked port summaries from DShield and enriches the source IP locations with ipwho.is. It does **not** scan the displayed source IPs or any third party. Geolocation is best-effort and may be missing.
+```bash
+python3 sentinel/intelligence_pipeline.py
+```
 
-## Accuracy contract
-
-- **A CVE has no country of origin.** NEXUS maps *observed source-IP infrastructure*, not where a vulnerability was discovered or successfully exploited.
-- The numbers are for a small selected sample and are **not** global attack totals.
-- Source network location is **not** attacker attribution.
-- DShield reports may include benign research scanning and false positives; **do not use as a blocklist**.
-- No fabricated attack arcs, victim locations, attack rates, or confirmed CVE exploitations.
-- Historical data and samples are not a packet-by-packet real-time stream.
-- SANS data has its own license; see [methodology](./radar-methodology.html). MIT applies to the software source, not externally obtained telemetry.
-
-## Quality checks
-
-A GitHub Actions workflow runs JavaScript syntax checks and Python unit tests for the graph model and feed parser.
+To run the tests:
 
 ```bash
 PYTHONPATH=.:sentinel python3 -m unittest discover -s sentinel -p 'test_*.py' -v
-node --check radar.js
+node --check radar-plus.js
 ```
 
-## Interview demo
+## Professional interpretation & ethics
 
-1. Open Global Radar and explain what every number actually measures.
-2. Select a country to inspect observed IPs and report volumes.
-3. Examine the independent top-port sensor telemetry.
-4. Open CISA intelligence and inspect evidence for an actively exploited CVE.
-5. Launch `sentinel.html` with the local FastAPI backend to demonstrate evidence-linked hypothetical attack paths and remediation simulation.
-6. Run `scanner/nexus_scan.py` only on a machine explicitly within your authorized lab scope.
+A public IP on a suspicious-IP list is **not proof of malicious ownership**, a country code is **not attacker attribution**, and a CISA-listed CVE does **not prove any specific host is vulnerable**. Sensor-based rankings can be heavily biased by where sensors are deployed and what protocols they observe. Sectors use a dated ENISA EU study and are not combined with unrelated sources to create false global totals.
 
-## Next roadmap
+Read the full [methodology and licenses](./radar-methodology.html). The code is MIT licensed; third-party intelligence data retains its providers' own terms (including SANS attribution/noncommercial obligations and DB-IP attribution).
 
-- Country-level vulnerability exposure data from an explicitly licensed provider, with coverage and time-window controls.
-- Historical country and port time series with alert thresholds.
-- Correlation between exploit *observations* and CVE records without fabricated attribution.
-- Scoped authorized scanner result import into the attack graph.
-- Self-hosted deployment, caching, and reliable monitoring.
+## Next milestones
 
-**Status:** implementation committed; check Actions and live browser behavior before calling it production-ready.
+- Longitudinal country trends and change detection across snapshots.
+- Licensed country-level *vulnerable-device exposure* statistics to complement suspicious-IP infrastructure maps.
+- Verified asset context (authorized scans, owned domains, confidence & provenance).
+- Incident case builder and report generator.
+- Advanced global map overlays and real-time event ingestion from an authorized honeypot fleet.
