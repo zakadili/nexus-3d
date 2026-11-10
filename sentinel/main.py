@@ -81,6 +81,16 @@ def public_asset(asset_name: str):
         raise HTTPException(status_code=404, detail="Asset not found")
     return FileResponse(ROOT.parent / asset_name)
 
+@app.get("/api/overview")
+def global_overview():
+    path = ROOT.parent / "data" / "overview.json"
+    if not path.exists():
+        raise HTTPException(status_code=503, detail="Run scheduled intelligence collection to generate overview.json")
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError) as exc:
+        raise HTTPException(status_code=503, detail="Intelligence snapshot is unreadable") from exc
+
 @app.get("/api/radar")
 def radar():
     try:
