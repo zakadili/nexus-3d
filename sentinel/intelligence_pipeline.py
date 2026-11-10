@@ -374,7 +374,12 @@ def main():
         previous=None
     # Supplementary feeds are best-effort and never change source-IP totals.
     # Store their compact aggregates separately from overview.json.
-    from sentinel import extra_feeds
+    try:
+        from sentinel import extra_feeds
+    except ModuleNotFoundError as exc:
+        if exc.name != "sentinel":
+            raise
+        import extra_feeds  # Direct execution: python3 sentinel/intelligence_pipeline.py
     if extra_inputs:
         extra=extra_feeds.collect_all(*extra_inputs)
     else:
