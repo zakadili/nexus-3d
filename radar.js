@@ -111,7 +111,7 @@ function renderPorts(){const container=$('#ports');container.replaceChildren();c
 function render(){const data=STATE.data;const groups=groupCountries(data.sources);setText('#sources',fmt(data.sources.length));setText('#reports',fmt(data.sources.reduce((n,s)=>n+s.reports,0)));setText('#countries',fmt(groups.length));setText('#hot-port',data.ports[0]?':'+data.ports[0].port:'—');setText('#port-caption',data.ports[0]?fmt(data.ports[0].reports)+' reports in port summary':'No port data');
  setText('#mode',data.mode||'OBSERVED');setText('#freshness','Sample / recent observations');setText('#updated','Collected '+new Date(data.retrieved_at).toLocaleString());setText('#observation-window','SANS / DSHIELD · '+data.source_date);
  const missing=data.sources.filter(s=>!s.code).length;if(missing)notice(missing+' sampled IPs had no geolocation. Country counts cover resolved sources only.');
- renderRankings();renderTable();renderPorts();drawGlobe();$('#map-loading').style.display=groups.length?'none':'block';
+ renderRankings();renderTable();renderPorts();drawGlobe();$('#map-loading').style.display=groups.length?'none':'block';if(!groups.length)$('#map-loading').textContent='COUNTRY GEOLOCATION UNAVAILABLE';
 }
 async function initGlobe(){
   try{const [d3,topo]=await Promise.all([import('https://cdn.jsdelivr.net/npm/d3@7/+esm'),import('https://cdn.jsdelivr.net/npm/topojson-client@3/+esm')]);
