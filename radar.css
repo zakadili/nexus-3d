@@ -4,3 +4,49 @@
 @media(max-width:1230px){.layout{grid-template-columns:minmax(400px,1fr) 280px}.bottom-grid{grid-template-columns:1fr 320px}.topbar{flex-wrap:wrap;padding-top:15px;padding-bottom:15px}.logo{font-size:23px}}
 @media(max-width:900px){.layout,.bottom-grid{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(3,1fr)}.side{display:grid;grid-template-columns:1fr 1fr}.globe-container{height:450px}.intro h1{font-size:65px}}
 @media(max-width:620px){.intro{display:block}.intro h1{font-size:47px}.top-actions{align-items:start;margin-top:16px}.metrics{grid-template-columns:repeat(2,1fr)}.side{display:block}.side .subpanel{margin-bottom:12px}.globe-container{height:350px}.map-label{font-size:7px}.map-tools{display:none}.topbar nav{gap:10px}.topbar a{font-size:9px}.metric{padding:14px}.metric strong{font-size:33px}.panel-top{padding:13px}.panel-top h2{font-size:9px}.map-foot{font-size:8px}.map-foot span:last-child{display:none}footer span:last-child{display:none}}
+
+
+/* NEXUS multi-source intelligence layers */
+.map-tools select{background:#151923;border:1px solid #683040;color:#dfdce1;padding:8px 9px;font:10px 'DM Mono',monospace;max-width:170px}
+.intelligence-columns{display:grid;grid-template-columns:minmax(450px,1.35fr) minmax(350px,1fr);gap:14px;margin-top:14px}
+.intel-board{min-height:380px}
+.intel-board h2{font-size:10px;color:#888f9c;font-weight:400;margin:7px 0 0;letter-spacing:.05em}
+.cve-board{max-height:410px;overflow-y:auto;padding:6px 16px}
+.cve-row{width:100%;display:grid;grid-template-columns:120px minmax(0,1fr) 95px 86px;align-items:center;gap:12px;color:#cbd0d9;text-align:left;background:transparent;border:0;border-bottom:1px solid #33232e;padding:13px 4px;transition:background .15s}
+.cve-row:hover{background:#321523}
+.cve-row strong{color:#ff6c82;font-size:11px;overflow-wrap:anywhere}
+.cve-row .cve-description{font-size:11px;line-height:1.5;color:#a2acb8}
+.cve-row .cve-description small{color:#7d8998;display:block;margin-top:3px}
+.cve-row .score{font-size:12px;color:#e6e9ee;text-align:right}
+.cve-row .score small{font-size:9px;display:block;color:#7e8998}
+.cve-row .ransom{border:1px solid #8a3144;color:#ef7289;font-size:9px;padding:4px;text-align:center}
+.cve-row .ransom.blank{border:0;color:#616b78}
+.sector-board{padding:6px 20px 8px}
+.sector-row{margin:17px 0 19px}
+.sector-row .name{display:flex;justify-content:space-between;gap:12px;margin-bottom:9px;font-size:11px;color:#cbd0d9}
+.sector-row .name strong{font-size:13px;color:#f1687c}
+.sector-row .track{background:#2c1c28;height:7px;width:100%;overflow:hidden}
+.sector-row .track>span{background:linear-gradient(90deg,#81223b,#fc4e65);height:100%;display:block}
+.mini-note{border-top:1px solid #31232c;padding:12px 16px;font-size:10px;line-height:1.7;color:#89929e}
+.mini-note a{color:#ed788b}
+.feed-health{padding:10px 17px}
+.feed{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:11px 0;border-bottom:1px solid #32232c}
+.feed strong{display:block;font-size:11px;color:#dedee6}
+.feed small{display:block;font-size:9px;color:#7e8794;margin-top:5px;line-height:1.5}
+.feed .count{white-space:nowrap;text-align:right;color:#f7778d;font-size:12px}
+.feed .count small{color:#798796}
+.collection-info{padding:18px;color:#abb3bd;font-size:11px;line-height:2}
+.collection-info strong{color:#f07889}
+.collection-info a{color:#f3798e}
+.country-metrics.cols3{grid-template-columns:repeat(3,1fr)}
+.country-breakdown{padding:9px 15px 18px}
+.country-breakdown .detail-line{display:flex;justify-content:space-between;border-top:1px solid #35222e;padding:8px 0;color:#a4b0bf;font-size:10px}
+.country-breakdown b{color:#fb6a80}
+#world-layer path.country-shape{cursor:pointer}
+#world-layer path.country-shape:hover{stroke:#ff8499;stroke-width:1.25}
+#cve-detail{border-top:1px solid #5a2938;margin:12px 15px;padding:12px 0}
+#cve-detail h3{font-size:14px;color:#ff6e84}
+#cve-detail p{font-size:11px;line-height:1.7;color:#a2adbb}
+#cve-detail a{color:#ff778b}
+@media(max-width:1130px){.intelligence-columns{grid-template-columns:1fr}}
+@media(max-width:700px){.cve-row{grid-template-columns:100px 1fr 65px;gap:8px}.cve-row .ransom{display:none}.intelligence-columns{grid-template-columns:1fr}.map-tools select{max-width:130px}}
