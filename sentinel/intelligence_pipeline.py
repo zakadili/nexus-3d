@@ -345,7 +345,7 @@ def main():
                      {"name":"Transport","percent":8.0},{"name":"Manufacturing","percent":6.9},{"name":"Finance / banking","percent":5.6}]}
     output={"schema":2,"generated_at":generated,"data_lag":"Feeds update on different schedules; this is a collection snapshot, not live packet streaming.",
             "indicators":indicators,"cves":cves,"sectors":sectors,"failures":failures}
-    if failures==["indicators","cves"]:raise RuntimeError("No live indicators and no live CVE feed; refusing empty snapshot")
+    if "indicators" in failures:raise RuntimeError("No usable IP feeds; refusing to overwrite last valid country snapshot")
     previous=None
     try:
         if OUT.exists():
