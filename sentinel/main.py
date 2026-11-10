@@ -10,7 +10,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
 from sentinel.radar_feed import snapshot
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 ROOT = Path(__file__).resolve().parent
 DATA = json.loads((ROOT / "lab.json").read_text(encoding="utf-8"))
@@ -18,10 +18,17 @@ app = FastAPI(title="NEXUS SENTINEL", version="0.1.0")
 app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:8000", "http://127.0.0.1:8000", "http://localhost:5173", "http://127.0.0.1:5173"], allow_methods=["GET", "POST"], allow_headers=["Content-Type"])
 
 class Scenario(BaseModel):
-    source: str = "internet"
-    target: str = "dc"
+    source: str = Field(default="internet", min_length=1, max_length=80)
+    target: str = Field(default="dc", min_length=1, max_length=80)
     disabled_edges: list[str] = Field(default_factory=list, max_length=100)
     disabled_nodes: list[str] = Field(default_factory=list, max_length=100)
+
+    @field_validator("disabled_edges", "disabled_nodes")
+    @classmethod
+    def validate_items(cls, values: list[str]) -> list[str]:
+        if any(not isinstance(item, str) or not 1 <= len(item) <= 160 for item in values):
+            raise ValueError("Each graph identifier must be a nonempty string of at most 160 characters")
+        return values
 
 def edge_key(e):
     return e["source"] + "->" + e["target"]
@@ -75,7 +82,7 @@ def sentinel_dashboard():
 
 @app.get("/{asset_name}")
 def public_asset(asset_name: str):
-    allowed = {"radar.js", "radar.css", "intel.html", "app.js", "styles.css",
+    allowed = {"radar.js", "radar-plus.js", "radar.css", "intel.html", "app.js", "styles.css",
                "radar-methodology.html", "index.html"}
     if asset_name not in allowed:
         raise HTTPException(status_code=404, detail="Asset not found")
