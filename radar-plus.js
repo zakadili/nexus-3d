@@ -5,7 +5,7 @@ const $=s=>document.querySelector(s);
 const txt=(s,v)=>{$(s).textContent=String(v)};
 const fmt=n=>Number(n||0).toLocaleString('en-US');
 const DOM={svg:$('#globe'),map:$('#world-layer'),markers:$('#points-layer')};
-const state={data:null,world:null,d3:null,projection:null,path:null,iso:null,byCode:new Map(),layer:'all',selected:null,spin:true,draggedAt:0,extra:null,extraError:null,pinned:null,tab:'overview',focusFrame:0,hovered:null,searchIndex:0,pending:new URLSearchParams(location.search).get('country')?.toUpperCase()||null};
+const state={data:null,world:null,d3:null,projection:null,path:null,iso:null,byCode:new Map(),layer:'all',selected:null,spin:true,draggedAt:0,extra:null,extraError:null,snapshotFailed:false,pinned:null,tab:'overview',focusFrame:0,hovered:null,searchIndex:0,pending:new URLSearchParams(location.search).get('country')?.toUpperCase()||null};
 const SOURCES={blocklistde:'blocklist.de / 48h',ipsum:'IPsum / 3+ source lists',dshield:'DShield / sensor source IPs',feodo:'Feodo / botnet C2'};
 function create(tag,cls,value){const el=document.createElement(tag);if(cls)el.className=cls;if(value!==undefined)el.textContent=String(value);return el;}
 function link(label,url){const a=create('a','',label);a.href=url;a.target='_blank';a.rel='noopener noreferrer';return a;}
@@ -677,7 +677,7 @@ function updateTimestamp(){
  const epoch=Date.parse(time);if(!Number.isFinite(epoch))return;
  const delta=Math.max(0,Math.floor((Date.now()-epoch)/60000));
  const relative=delta<1?'just now':delta<60?delta+'m ago':delta<1440?Math.floor(delta/60)+'h ago':Math.floor(delta/1440)+'d ago';
- txt('#updated','Last updated: '+new Date(epoch).toISOString().replace('.000Z','Z')+' ('+relative+')');
+ txt('#updated',(state.snapshotFailed?'Snapshot unavailable, last good snapshot: ':'Last updated: ')+new Date(epoch).toISOString().replace('.000Z','Z')+' ('+relative+')');
 }
 async function loadExtra(){
  try{
@@ -701,18 +701,18 @@ async function load(){setHealth('COLLECTING');$('#refresh').disabled=true;
  try{const url=location.port==='8765'?'/api/overview':'./data/overview.json';
  const response=await fetch(url+'?v='+Date.now(),{cache:'no-store'});if(!response.ok)throw Error('Snapshot HTTP '+response.status);
  const d=await response.json();if(d.schema!==2 || !Array.isArray(d.indicators?.countries))throw Error('Unknown snapshot format');
- state.data=d;state.extra={schema:1,feeds:{},source_health:d.extra_health||[]};state.extraError=null;
+ state.snapshotFailed=false;state.data=d;state.extra={schema:1,feeds:{},source_health:d.extra_health||[]};state.extraError=null;
  try{localStorage.setItem('nexus.last.good.overview',JSON.stringify(d));}catch(e){}
  render();setHealth('MULTI-SOURCE ONLINE',true);loadExtra();
  document.querySelectorAll('.skeleton').forEach(x=>x.classList.remove('skeleton','skeleton-metric','skeleton-panel'));
  if(state.pending){const code=state.pending;state.pending=null;const row=allCountries().find(r=>r.code===code);if(row)select(code,{zoom:!!state.projection,updateUrl:false});}
  else if(state.selected && state.projection)draw();
  }catch(e){
- setHealth('SNAPSHOT UNAVAILABLE',false);
+ state.snapshotFailed=true;setHealth('SNAPSHOT UNAVAILABLE',false);
  let cached=null;try{cached=JSON.parse(localStorage.getItem('nexus.last.good.overview')||'null');}catch(error){}
  if(cached?.schema===2&&Array.isArray(cached.indicators?.countries)){
   state.data=cached;state.extra={schema:1,feeds:{},source_health:cached.extra_health||[]};
-  render();txt('#updated','Snapshot unavailable, last good snapshot: '+new Date(cached.generated_at).toISOString());
+  render();updateTimestamp();
   txt('#notice','Showing cached, potentially stale observations. Latest snapshot failed: '+e.message);
   loadExtra();
  }else{
