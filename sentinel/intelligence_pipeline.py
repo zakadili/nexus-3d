@@ -58,11 +58,16 @@ def dshield_rows(document):
         if not isinstance(rows,list):rows=[val for key,val in document.items() if str(key).isdigit() and isinstance(val,dict)]
     else:rows=[]
     out=[]
-    for row in rows:
+    for row in rows or []:
         if not isinstance(row,dict):continue
         ip=global_v4(row.get("source") or row.get("ip") or row.get("ipaddress"))
         if ip:
-            out.append({"ip":ip,"reports":int(row.get("reports",0) or 0),"targets":int(row.get("targets",0) or 0)})
+            try:
+                reports=max(0,int(row.get("reports",0) or 0))
+                targets=max(0,int(row.get("targets",0) or 0))
+            except (TypeError,ValueError):
+                reports=targets=0
+            out.append({"ip":ip,"reports":reports,"targets":targets})
     return out
 
 def get_feed(key):
@@ -74,6 +79,8 @@ def get_feed(key):
             return key,ips,{"id":key,"name":label,"status":"ok","records":len(ips),"meaning":meaning,"url":url},parsed[:80]
         if key=="feodo":
             parsed=json.loads(raw)
+            if isinstance(parsed,dict) and isinstance(parsed.get("data"),list):
+                parsed=parsed["data"]
             if not isinstance(parsed,list):raise ValueError("unexpected Feodo JSON")
             ips={ip for row in parsed if isinstance(row,dict) and row.get("status")=="online" if (ip:=global_v4(row.get("ip_address")))}
         else:
@@ -181,6 +188,8 @@ def collect_cves():
         doc=get_json(CISA)
         vulns=doc.get("vulnerabilities",[])
         if not isinstance(vulns,list) or not vulns:raise ValueError("bad CISA KEV format")
+        vulns=[v for v in vulns if isinstance(v,dict)]
+        if not vulns:raise ValueError("no valid KEV records")
     except Exception as exc:
         return {"status":"unavailable","error":str(exc)[:170],"source":CISA}
     now=datetime.now(timezone.utc).date()
@@ -190,7 +199,7 @@ def collect_cves():
     latest=sorted(vulns,key=cve_date,reverse=True)
     selection={v["cveID"]:v for v in latest[:300] if re.fullmatch(r"CVE-\d{4}-\d{4,}",v.get("cveID",""))}
     for v in latest:
-        if v.get("knownRansomwareCampaignUse")=="Known" and len(selection)<550:selection[v["cveID"]]=v
+        if v.get("knownRansomwareCampaignUse")=="Known" and len(selection)<550 and isinstance(v.get("cveID"),str) and re.fullmatch(r"CVE-\\d{4}-\\d{4,}",v["cveID"]):selection[v["cveID"]]=v
     epss=get_epss(list(selection))
     ranked=[]
     for v in selection.values():
