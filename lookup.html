@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#07080d"><title>NEXUS SENTINEL — Private IOC Lookup</title><meta name="description" content="Browser-only, evidence-labeled IOC and CISA KEV investigation with honest source coverage.">
+<link rel="stylesheet" href="./lookup.css"></head>
+<body><header class="nav"><a href="./index.html" class="brand">◈ NEXUS <small>// SENTINEL</small></a>
+<nav aria-label="Modules"><a href="./index.html">GLOBAL RADAR</a><a href="./lookup.html" aria-current="page">IOC LOOKUP</a><a href="./intel.html">CVE INTEL</a><a href="./sentinel.html">ATTACK GRAPH</a></nav><div class="pill" id="status">LOADING PUBLIC DATA</div></header>
+<main><div class="eyebrow">SECURITY ANALYST WORKSPACE / PRIVATE LOCAL LOOKUP</div>
+<h1>INVESTIGATE THE <em>INDICATOR.</em></h1>
+<p class="intro">Evidence-labeled IP, CIDR, CVE and ASN research. Domains, URLs, hashes and IPv6 are recognized, but never claimed covered by feeds that we do not index.</p>
+<section class="privacy"><strong>LOCAL-ONLY LOOKUP</strong> All search and filtering runs inside your browser. Nothing you type is sent to a server. Public static data files are fetched before the lookup is enabled, independently of what you enter. <strong>Not listed means not found in the feeds we collect, not that it is safe.</strong></section>
+<div class="workspace"><section class="panel controls"><h2>01 / INDICATOR INPUT</h2>
+<label for="single">SINGLE IOC</label><input id="single" type="text" autocomplete="off" spellcheck="false" placeholder="CVE-2026-12345 · 8.8.8.8 · AS13335">
+<label for="bulk">BULK LOOKUP (MAX 1,000 LINES)</label><textarea id="bulk" rows="9" spellcheck="false" placeholder="One IP, CIDR, domain, URL, hash, CVE or ASN per line"></textarea>
+<button id="analyze" class="primary" disabled>◈ ANALYZE LOCALLY</button>
+<div class="subnote" id="load-note" role="status">Loading public, licensed indicator shards and CISA KEV catalog…</div>
+<h2>02 / COVERAGE & LICENSING</h2><div id="coverage" class="coverage"></div>
+<p class="fine">IP matching currently uses explicitly redistributable abuse.ch Feodo CC0 data. Other public feeds inform the country dashboard, but are not automatically republished as a complete downloadable IOC database. CISA KEV (CC0) provides the vulnerability records. ASN summary data is from IPtoASN (PDDL).</p></section>
+<section class="panel results"><div class="title-row"><h2>03 / LOCAL RESULTS <span id="count">0</span></h2><label>FILTER <select id="filter"><option value="all">ALL</option><option value="listed">LISTED</option><option value="cve">CISA KEV</option><option value="notfound">NOT IN INDEX</option><option value="unsupported">UNSUPPORTED / ERROR</option></select></label></div>
+<div class="toolbar"><button id="csv">↓ CSV</button><button id="json">↓ JSON</button><button id="stix">↓ STIX 2.1</button><button id="ip-list">↓ IP LIST</button><button id="cidr-list">↓ CIDR /32</button></div>
+<p class="fine">Exports contain only publicly redistributable records. Review every address before blocking; false positives and shared hosting are possible.</p>
+<div class="table-wrap"><table><thead><tr><th><button data-sort="value">INDICATOR ↕</button></th><th>TYPE</th><th><button data-sort="status">RESULT ↕</button></th><th>DATASET</th><th>PROVENANCE</th></tr></thead><tbody id="results"><tr><td colspan="5">Enter an IOC to begin. No searches leave the browser.</td></tr></tbody></table></div><div id="detail" class="detail" aria-live="polite"></div></section></div>
+</main><footer>NEXUS SENTINEL — 6-HOUR PUBLISHED SNAPSHOTS · NEVER A LIVE ATTACK FEED · <a href="./radar-methodology.html">METHODOLOGY</a></footer>
+<script type="module" src="./lookup.js"></script></body></html>
