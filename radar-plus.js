@@ -71,7 +71,7 @@ function select(code,{zoom=true,updateUrl=true,autoTour=false}={}){
  // and scroll position instead of repeatedly triggering focus animations.
  if(state.selected===code && !autoTour){state.draggedAt=Date.now();return;}
  const row=allCountries().find(r=>r.code===code);
- state.selected=code;state.tab='sources';hideTip();rankings();
+ state.selected=code;state.tab='overview';hideTip();rankings();
  if(row)renderDossier();else renderUnavailableCountry(code);
  txt('#map-mode','◉ COUNTRY INVESTIGATION / '+code);txt('#focused-title',name(code).toUpperCase());
  $('#map-focus-controls').hidden=false;setFocusSummary();
@@ -88,6 +88,53 @@ function renderUnavailableCountry(code){
  body.append(note('Data depends on provider coverage, IP allocation and list inclusion. Country-level vulnerability exposure is not measured by this module.'));
  panel.append(body);txt('#dossier-mode','COVERAGE NOT OBSERVED / '+code);
 }
+function renderCountryOverview(row){
+ const box=create('div','country-overview'),signals=state.data?.country_cve_signals;
+ const country=signals?.countries?.[row.code];
+ box.append(create('h3','','COUNTRY THREAT INTELLIGENCE / '+row.code));
+ const cards=create('div','overview-cards');
+ for(const [label,value] of [
+  ['LISTED IP INDICATORS',fmt(row.indicators)],
+  ['C2 SOURCE LIST',fmt(row.by_source?.feodo||0)],
+  ['SENSOR SOURCE LIST',fmt(row.by_source?.dshield||0)],
+  ['CROSS-LISTED IPs',Number.isInteger(row.multi_source_count)?fmt(row.multi_source_count):'N/A']]){
+   const card=create('div','overview-card');card.append(create('small','',label),create('strong','',value));cards.append(card);
+ }
+ box.append(cards);
+ box.append(create('h3','','TOP CVE SIGNALS · COUNTRY IP SAMPLE'));
+ if(country?.responded>0){
+  box.append(note('Shodan InternetDB passive enrichment: '+country.responded+' of '+country.requested+' sampled IPs returned data; '+country.with_cves+' had possible CVE matches. NOT national CVE prevalence.'));
+  const cves=Array.isArray(country.cves)?country.cves.slice(0,6):[];
+  if(cves.length){
+   for(const item of cves){
+    if(!/^CVE-\\d{4}-\\d{4,}$/.test(item.id))continue;
+    const line=create('div','overview-finding');
+    line.append(link(item.id+' ↗','https://nvd.nist.gov/vuln/detail/'+encodeURIComponent(item.id)),create('span','',fmt(item.sample_ips)+' sampled IPs'));
+    box.append(line);
+   }
+  }else box.append(note('No possible CVEs reported for these sampled IPs; this does not establish national safety.'));
+  const ports=Array.isArray(country.ports)?country.ports.slice(0,5):[];
+  box.append(create('h3','','EXPOSED PORTS · COUNTRY IP SAMPLE'));
+  if(ports.length)for(const item of ports){const line=create('div','overview-finding');line.append(create('span','',':'+item.port),create('strong','',fmt(item.sample_ips)+' sampled IPs'));box.append(line);}
+  else box.append(note('No exposed ports returned in the sampled metadata.'));
+ }else{
+  box.append(note('Country-specific CVE sample data is not available in this snapshot. No CVE ranking can be inferred from global KEV data.'));
+ }
+ box.append(create('h3','','ACTIVITY SIGNALS · PUBLIC SOURCE LISTS'));
+ const labels=[['FEODO / BOTNET C2',row.by_source?.feodo||0],['DSHIELD / SENSOR SOURCES',row.by_source?.dshield||0],['BLOCKLIST.DE / REPORTED ABUSE',row.by_source?.blocklistde||0],['IPSUM / AGGREGATED LISTS',row.by_source?.ipsum||0]];
+ for(const [label,value] of labels){const line=create('div','overview-finding');line.append(create('span','',label),create('strong','',fmt(value)+' IPs'));box.append(line);}
+ box.append(note('These categories describe public IP list membership, not confirmed attacks originating in this country.'));
+ box.append(create('h3','','MOST IMPACTED SECTORS · GLOBAL CONTEXT'));
+ const sector=state.data?.sectors;
+ if(Array.isArray(sector?.rows)&&sector.rows.length){
+  for(const item of sector.rows.slice(0,4)){const line=create('div','overview-finding');line.append(create('span','',item.name),create('strong','',Number(item.percent).toFixed(1)+'%'));box.append(line);}
+  box.append(note('GLOBAL sector distribution from '+(sector.source||'the source report')+'. This is NOT a country-specific sector breakdown.'));
+ }else box.append(note('No sector statistics available in this snapshot.'));
+ box.append(countryTrend(row.code));
+ const action=create('button','primary research-action','◈ EXPLORE COUNTRY CVE EVIDENCE');
+ action.addEventListener('click',()=>{state.tab='cves';renderDossier();});box.append(action);
+ return box;
+}
 function renderDossier(){
  const row=allCountries().find(r=>r.code===state.selected),panel=$('#country-detail');if(!row)return;
  panel.className='dossier';panel.replaceChildren();
@@ -99,11 +146,13 @@ function renderDossier(){
  metrics.append(kpi(fmt(score(row)),'IN SELECTED LAYER'),kpi(fmt(row.indicators),'ALL FEEDS / UNIQUE'),
    kpi(rank?'#'+rank:'—','RANK IN THIS LAYER'),kpi(Number.isInteger(row.multi_source_count)?fmt(row.multi_source_count):'—','IN 2+ SOURCE LISTS'));
  panel.append(metrics);
- const tabs=create('div','dossier-tabs');for(const [key,label] of [['sources','SOURCES'],['cves','CVE SIGNALS'],['evidence','EVIDENCE'],['context','CONTEXT']]){
+ const tabs=create('div','dossier-tabs');for(const [key,label] of [['overview','OVERVIEW'],['sources','SOURCES'],['cves','CVE SIGNALS'],['evidence','EVIDENCE'],['context','CONTEXT']]){
   const b=create('button',key===state.tab?'active':'',label);b.addEventListener('click',()=>{state.tab=key;renderDossier();});tabs.append(b);
  }panel.append(tabs);
  const body=create('div','dossier-section');
- if(state.tab==='sources'){
+ if(state.tab==='overview'){
+  body.append(renderCountryOverview(row));
+ }else if(state.tab==='sources'){
   body.append(create('h3','',fmt(row.indicators)+' DISTINCT SOURCE IP ADDRESSES'));
   const max=Math.max(1,...Object.keys(SOURCES).map(k=>Number(row.by_source?.[k]||0)));
   for(const [key,label] of Object.entries(SOURCES)){
@@ -439,7 +488,7 @@ function flyToCountry(code){const feature=state.byCode.get(code);if(!feature||!s
  updateSpin(false);flyTo([-center[0],-center[1],0],zoom);
 }
 function backToWorld({exitImmersive=false}={}){
- state.selected=null;state.pinned=null;state.tab='sources';$('#country-detail').className='empty-state';
+ state.selected=null;state.pinned=null;state.tab='overview';$('#country-detail').className='empty-state';
  txt('#country-detail','Select any mapped country or search all source countries to begin an investigation.');
  txt('#dossier-mode','SELECT COUNTRY');txt('#map-mode','◎ GLOBAL OBSERVATION MODE');$('#map-floating-summary').hidden=true;
  $('#map-focus-controls').hidden=true;$('#compare-panel').hidden=true;hideTip();
