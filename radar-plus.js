@@ -26,6 +26,14 @@ function score(row){
    return Number(state.extra?.feeds?.[state.layer]?.countries?.[row.code]||0);
  return Number(row.by_source?.[state.layer]||0);
 }
+function layerAvailable(){
+ if(state.layer==='all')return true;
+ const records=[...(state.data?.indicators?.source_health||[]),...(state.extra?.source_health||[])];
+ const info=records.find(r=>r.id===state.layer);
+ if(info?.status!=='ok')return false;
+ if(['urlhaus','threatfox'].includes(state.layer)&&!state.extra?.feeds?.[state.layer])return false;
+ return true;
+}
 function layerUnits(){return state.layer==='urlhaus'?'LISTED URLs ON IPv4 HOSTS':state.layer==='threatfox'?'LISTED IPv4 IOCs':'LISTED IPv4 IPs';}
 function countries(){return allCountries().filter(c=>score(c)>0).sort((a,b)=>score(b)-score(a));}
 function name(code){if(state.iso?.byCode?.has(code))return state.iso.byCode.get(code).name;
@@ -66,7 +74,7 @@ function draw(){if(!state.d3||!state.world)return;const d3=state.d3,p=state.proj
  }
 }
 function rankings(){const pane=$('#rankings');pane.replaceChildren();const all=countries();
- if(!all.length){pane.append(create('div','empty-state','No countries are present in this source layer.'));return;}
+ if(!all.length){pane.append(create('div','empty-state',layerAvailable()?'No country entries appeared in this source layer.':'SOURCE UNAVAILABLE — no data available for this layer.'));return;}
  all.forEach((row,i)=>{const b=create('button','rank'+(row.code===state.selected?' selected':'')),left=create('span','',String(i+1).padStart(2,'0')+'  '+name(row.code));
  left.append(create('small','',row.code+' · '+fmt(score(row))+' '+layerUnits()));
  b.append(left,create('b','',fmt(score(row))));b.addEventListener('click',()=>select(row.code));pane.append(b);});
@@ -175,7 +183,7 @@ function renderDossier(){
  const heading=create('div','dossier-heading');heading.append(create('div','dossier-eyebrow','◉ INVESTIGATION DOSSIER // '+row.code));
  const title=create('div','dossier-country');title.append(create('span','flag',flag(row.code)),create('span','',name(row.code)));heading.append(title,create('div','dossier-sub',row.code==='MA'?'FULL GEOGRAPHIC VIEW INCLUDING WESTERN SAHARA · STATUS DISPUTED · IP COUNTS: MA ONLY':'COUNTRY-LEVEL IP ALLOCATION · NOT ACTOR ATTRIBUTION'));panel.append(heading);
  const metrics=create('div','dossier-summary');
- metrics.append(kpi(fmt(score(row)),'IN SELECTED LAYER'),kpi(fmt(row.indicators),'ALL FEEDS / UNIQUE'),
+ metrics.append(kpi(layerAvailable()?fmt(score(row)):'UNAVAILABLE','IN SELECTED LAYER'),kpi(fmt(row.indicators),'ALL FEEDS / UNIQUE'),
    kpi(rank?'#'+rank:'—','RANK IN THIS LAYER'),kpi(Number.isInteger(row.multi_source_count)?fmt(row.multi_source_count):'—','IN 2+ SOURCE LISTS'));
  panel.append(metrics);
  const tabs=create('div','dossier-tabs');for(const [key,label] of [['overview','INTELLIGENCE'],['cves','CVE RESEARCH'],['evidence','EVIDENCE'],['context','CONTEXT'],['sources','SOURCES']]){
@@ -392,15 +400,15 @@ function render(){const d=state.data;if(!d)return;
  const healthy=(d.indicators.source_health||[]).filter(r=>r.status==='ok').length;txt('#mode',healthy+' / '+(d.indicators.source_health||[]).length);
  txt('#freshness','IP feeds · CISA · FIRST · ENISA');updateTimestamp();txt('#observation-window','SOURCE COUNTS / OBSERVATION LISTS');
  const layer=state.layer;const active=countries();if(layer!=='all'){
- txt('#countries',fmt(active.length));txt('#sources',fmt(active.reduce((n,c)=>n+score(c),0)));
- txt('#reports','—');txt('#freshness','FILTERED LAYER / '+layerUnits()+' ONLY');
+ txt('#countries',layerAvailable()?fmt(active.length):'—');txt('#sources',layerAvailable()?fmt(active.reduce((n,c)=>n+score(c),0)):'UNAVAILABLE');
+ txt('#reports','—');txt('#freshness',layerAvailable()?'FILTERED LAYER / '+layerUnits()+' ONLY':'SOURCE UNAVAILABLE — NO DATA');
  const label=document.querySelector('.metric label');if(label)label.textContent=layerUnits();
 }else{
  const label=document.querySelector('.metric label');if(label)label.textContent='UNIQUE LISTED IPs';
  txt('#freshness','Deduplicated by IP / all sources');
 }
  renderCVEs();renderSectors();renderSources();renderTable();renderSummary();extraUI.renderGlobal();extraUI.renderHealthTimeline(d.history||[],d.indicators.source_health||[]);rankings();renderCountryChanges();draw();if(state.selected){if(allCountries().some(r=>r.code===state.selected))renderDossier();else renderUnavailableCountry(state.selected);setFocusSummary();}txt('#map-total',fmt(d.indicators.countries.length)+' COUNTRIES · '+fmt(d.indicators.unique_indicators)+' INDICATORS');
- $('#map-loading').style.display=state.world?'none':'block';txt('#notice','IP-list entries are not confirmed attacks. Country is IP-location only. Sources have different measurement windows; never add their counts as incidents.');
+ $('#map-loading').style.display=state.world?'none':'block';txt('#notice',layerAvailable()?'IP-list entries are not confirmed attacks. Country is IP-location only. Sources have different measurement windows; never add their counts as incidents.':'Selected feed unavailable. Missing data is NOT zero activity; check feed-health status and API key configuration.');
 }
 function comparableSnapshots(){
  const all=Array.isArray(state.data?.history)?state.data.history.slice(-28):[];
