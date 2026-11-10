@@ -199,7 +199,7 @@ def collect_cves():
     latest=sorted(vulns,key=cve_date,reverse=True)
     selection={v["cveID"]:v for v in latest[:300] if isinstance(v.get("cveID"),str) and re.fullmatch(r"CVE-\d{4}-\d{4,}",v["cveID"])}
     for v in latest:
-        if v.get("knownRansomwareCampaignUse")=="Known" and len(selection)<550 and isinstance(v.get("cveID"),str) and re.fullmatch(r"CVE-\\d{4}-\\d{4,}",v["cveID"]):selection[v["cveID"]]=v
+        if v.get("knownRansomwareCampaignUse")=="Known" and len(selection)<550 and isinstance(v.get("cveID"),str) and re.fullmatch(r"CVE-\d{4}-\d{4,}",v["cveID"]):selection[v["cveID"]]=v
     epss=get_epss(list(selection))
     ranked=[]
     for v in selection.values():
@@ -277,7 +277,7 @@ def _internetdb_ip(ip):
     try:
         d=get_json(url,cap=150_000,timeout=9)
         return {"ip":ip,"status":"ok",
-                "vulns":[c for c in d.get("vulns",[]) if isinstance(c,str) and re.fullmatch(r"CVE-\\d{4}-\\d{4,}",c)][:100],
+                "vulns":[c for c in d.get("vulns",[]) if isinstance(c,str) and re.fullmatch(r"CVE-\d{4}-\d{4,}",c)][:100],
                 "ports":[p for p in d.get("ports",[]) if isinstance(p,int) and 0<p<=65535][:100]}
     except HTTPError as exc:
         if exc.code==404:
