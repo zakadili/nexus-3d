@@ -158,6 +158,7 @@ def collect_indicators():
         "unresolved_indicators":unresolved,
         "countries":records,"source_health":[r[2] for r in results],
         "_extra_inputs": (geodb, dict(country_ips)),
+        "_analyst_index_inputs": (dict(by_ip), geodb),
         "dshield_sample":dshield,
         "geo_method":"DB-IP Lite Country via sapics/ip-location-db, CC BY 4.0, approximate IP allocation; not attacker attribution",
         "geo_url":"https://db-ip.com/"
@@ -228,7 +229,7 @@ def collect_cves():
     for v in ranked[:3]:
         v["cvss"]=nvd_score(v["id"])
         time.sleep(6.5)
-    return {"status":"ok","source":CISA,"total_kev":len(vulns),
+    return {"_full_kev_payload": doc, "status":"ok","source":CISA,"total_kev":len(vulns),
             "catalog_version":doc.get("catalogVersion"),"date_released":doc.get("dateReleased"),
             "epss_source":"https://www.first.org/epss/","scored_candidates":len(ranked),
             "ranking_method":"Heuristic: EPSS probability x100 + 25 if known ransomware use + 10 if added within 30 days; ONLY CISA KEV candidates. Not a CVSS or asset-specific risk score.",
@@ -355,7 +356,9 @@ def main():
     try:indicators=collect_indicators()
     except Exception as exc:indicators={"status":"unavailable","countries":[],"unique_indicators":None,"source_health":[],"error":str(exc)[:200]};failures.append("indicators")
     extra_inputs=indicators.pop("_extra_inputs", None)
+    index_inputs=indicators.pop("_analyst_index_inputs", None)
     cves=collect_cves()
+    full_kev_payload=cves.pop("_full_kev_payload", None)
     if cves.get("status")!="ok":failures.append("cves")
     # ENISA ETL 2026: January–December 2025 EU observed incidents, NOT real-time world stats.
     sectors={"source":"ENISA Threat Landscape 2026","source_url":"https://www.enisa.europa.eu/topics/cyber-threats/threat-landscape",
@@ -387,12 +390,39 @@ def main():
                "source_health":[extra_feeds.unavailable(k,"base geolocation unavailable") for k in extra_feeds.SOURCES]}
     output["extra_health"]=extra["source_health"]
     output["history"]=assemble_history(output,previous)
+    # CISA KEV IDs are public domain. Historical KEV ID sets are retained
+    # prospectively so future diffs can be exact; older history lacks IDs.
+    if full_kev_payload:
+        kev_ids=sorted({v["cveID"] for v in full_kev_payload["vulnerabilities"]
+                       if isinstance(v,dict) and isinstance(v.get("cveID"),str)
+                       and re.fullmatch(r"CVE-\\d{4}-\\d{4,}",v["cveID"])})
+        output["kev_ids"]=kev_ids
+        if output["history"]:
+            output["history"][-1]["kev_ids"]=kev_ids
+    else:
+        output["kev_ids"]=None
     try:
         output["country_cve_signals"]=collect_country_cve_samples(indicators,previous)
     except Exception as exc:
         output["country_cve_signals"]={"status":"unavailable","reason":str(exc)[:180]}
     OUT.parent.mkdir(exist_ok=True,parents=True)
     OUT.write_text(json.dumps(output,indent=2)+"\n",encoding="utf-8")
+    # Publish only data with clear redistribution rights: CISA (CC0) and
+    # Feodo Tracker (CC0). Other raw IP feeds are deliberately excluded.
+    try:
+        from sentinel import analyst_index
+    except ModuleNotFoundError as exc:
+        if exc.name != "sentinel":
+            raise
+        import analyst_index
+    if index_inputs is not None:
+        membership, geo_index=index_inputs
+        shards=analyst_index.build_ip_index(membership,geo_index,generated)
+        if full_kev_payload:
+            catalog=analyst_index.clean_kev(full_kev_payload,generated)
+        else:
+            catalog=None
+        analyst_index.write_static_index(OUT.parent/"index",shards,catalog)
     # Compact separate file, consumed lazily by the browser.
     extra_path=OUT.parent/"extra.json"
     extra_path.write_text(json.dumps(extra,separators=(",",":"))+"\n",encoding="utf-8")
