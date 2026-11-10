@@ -4,7 +4,7 @@ const $=s=>document.querySelector(s);
 const txt=(s,v)=>{$(s).textContent=String(v)};
 const fmt=n=>Number(n||0).toLocaleString('en-US');
 const DOM={svg:$('#globe'),map:$('#world-layer'),markers:$('#points-layer')};
-const state={data:null,world:null,d3:null,projection:null,path:null,iso:null,byCode:new Map(),layer:'all',selected:null,spin:true,draggedAt:0,pinned:null,tab:'sources',focusFrame:0,hovered:null,searchIndex:0,pending:new URLSearchParams(location.search).get('country')?.toUpperCase()||null};
+const state={data:null,world:null,d3:null,projection:null,path:null,iso:null,byCode:new Map(),layer:'all',selected:null,spin:true,draggedAt:0,pinned:null,tab:'overview',focusFrame:0,hovered:null,searchIndex:0,pending:new URLSearchParams(location.search).get('country')?.toUpperCase()||null};
 const SOURCES={blocklistde:'blocklist.de / 48h',ipsum:'IPsum / 3+ source lists',dshield:'DShield / sensor source IPs',feodo:'Feodo / botnet C2'};
 function create(tag,cls,value){const el=document.createElement(tag);if(cls)el.className=cls;if(value!==undefined)el.textContent=String(value);return el;}
 function link(label,url){const a=create('a','',label);a.href=url;a.target='_blank';a.rel='noopener noreferrer';return a;}
@@ -69,9 +69,9 @@ function select(code,{zoom=true,updateUrl=true,autoTour=false}={}){
  if(tourActive&&!autoTour)stopTour();
  // Repeated clicks on the currently selected country preserve camera framing
  // and scroll position instead of repeatedly triggering focus animations.
- if(state.selected===code && !autoTour){state.draggedAt=Date.now();return;}
+ if(state.selected===code && !autoTour){state.draggedAt=Date.now();state.tab='overview';renderDossier();triggerCountryPulse();return;}
  const row=allCountries().find(r=>r.code===code);
- state.selected=code;state.tab='overview';hideTip();rankings();
+ state.selected=code;state.tab='overview';hideTip();rankings();triggerCountryPulse();
  if(row)renderDossier();else renderUnavailableCountry(code);
  txt('#map-mode','◉ COUNTRY INVESTIGATION / '+code);txt('#focused-title',name(code).toUpperCase());
  $('#map-focus-controls').hidden=false;setFocusSummary();
@@ -88,6 +88,16 @@ function renderUnavailableCountry(code){
  body.append(note('Data depends on provider coverage, IP allocation and list inclusion. Country-level vulnerability exposure is not measured by this module.'));
  panel.append(body);txt('#dossier-mode','COVERAGE NOT OBSERVED / '+code);
 }
+function triggerCountryPulse(){
+ const container=$('#globe-container');if(!container)return;
+ container.classList.remove('country-focus-activated');void container.offsetWidth;
+ container.classList.add('country-focus-activated');
+ const existing=container.querySelector('.country-focus-flash');if(existing)existing.remove();
+ const flash=create('div','country-focus-flash');
+ flash.append(create('small','','◈ TARGET LOCK / GEO INTELLIGENCE'),create('strong','',name(state.selected).toUpperCase()),create('span','','PASSIVE THREAT OBSERVATION'));
+ container.append(flash);
+ flash.addEventListener('animationend',()=>flash.remove(),{once:true});
+}
 function renderCountryOverview(row){
  const box=create('div','country-overview'),signals=state.data?.country_cve_signals;
  const country=signals?.countries?.[row.code];
@@ -101,7 +111,12 @@ function renderCountryOverview(row){
    const card=create('div','overview-card');card.append(create('small','',label),create('strong','',value));cards.append(card);
  }
  box.append(cards);
- box.append(create('h3','','TOP CVE SIGNALS · COUNTRY IP SAMPLE'));
+ const executive=create('div','overview-executive');
+ executive.append(create('div','overview-eyebrow','◈ INTELLIGENCE SNAPSHOT · '+name(row.code).toUpperCase()));
+ executive.append(create('div','overview-executive-title',fmt(row.indicators)+' LISTED NETWORK INDICATORS'));
+ executive.append(note('Country of public IP infrastructure, not attacker nationality. Data is refreshed every six hours.'));
+ box.prepend(executive);
+ box.append(create('h3','','PRIORITY VULNERABILITY SIGNALS · SAMPLED IPs'));
  if(country?.responded>0){
   box.append(note('Shodan InternetDB passive enrichment: '+country.responded+' of '+country.requested+' sampled IPs returned data; '+country.with_cves+' had possible CVE matches. NOT national CVE prevalence.'));
   const cves=Array.isArray(country.cves)?country.cves.slice(0,6):[];
@@ -146,7 +161,7 @@ function renderDossier(){
  metrics.append(kpi(fmt(score(row)),'IN SELECTED LAYER'),kpi(fmt(row.indicators),'ALL FEEDS / UNIQUE'),
    kpi(rank?'#'+rank:'—','RANK IN THIS LAYER'),kpi(Number.isInteger(row.multi_source_count)?fmt(row.multi_source_count):'—','IN 2+ SOURCE LISTS'));
  panel.append(metrics);
- const tabs=create('div','dossier-tabs');for(const [key,label] of [['overview','OVERVIEW'],['sources','SOURCES'],['cves','CVE SIGNALS'],['evidence','EVIDENCE'],['context','CONTEXT']]){
+ const tabs=create('div','dossier-tabs');for(const [key,label] of [['overview','INTELLIGENCE'],['cves','CVE RESEARCH'],['evidence','EVIDENCE'],['context','CONTEXT'],['sources','SOURCES']]){
   const b=create('button',key===state.tab?'active':'',label);b.addEventListener('click',()=>{state.tab=key;renderDossier();});tabs.append(b);
  }panel.append(tabs);
  const body=create('div','dossier-section');
