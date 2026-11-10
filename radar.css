@@ -166,3 +166,27 @@ body.immersive .globe-container .map-label{bottom:22px}
 
 #stop-tour[hidden]{display:none!important}
 #stop-tour:not([hidden]){background:#a52640;color:#fff;border-color:#f25a70}
+
+
+/* Country vulnerability research desk: separate real exposure evidence from IP-list volumes. */
+.cve-signals{display:flex;flex-direction:column;gap:12px}
+.cve-signals>h3{font-size:11px;color:#f68a9a;letter-spacing:.06em}
+.research-callout{padding:14px;border:1px solid #5d3143;background:linear-gradient(120deg,#1b111f,#111823);display:flex;flex-direction:column;gap:9px}
+.research-callout>strong{font-size:10px;color:#ff8599;letter-spacing:.05em;line-height:1.5}
+.research-callout .dossier-note{margin:3px 0}
+.research-links{display:flex;flex-direction:column;gap:7px}
+.research-links a{background:#291b2a;border:1px solid #71374a;color:#ffc0cc;padding:12px;text-decoration:none;font-size:10px;line-height:1.5}
+.research-links a:hover{background:#4b2334}
+.research-action{background:#ba2d49!important;border:1px solid #e95b75!important;padding:12px 10px!important;color:white;font-size:10px!important}
+.research-action:disabled{opacity:.5}
+.research-results{margin-top:7px;border-top:1px solid #4d2d3b;padding-top:9px}
+.research-results:empty{display:none}
+.research-results h3{color:#f38fa1;font-size:10px;letter-spacing:.06em;margin-top:14px}
+.research-stat,.research-cve{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:10px;color:#adb5c3;border-bottom:1px solid #362734;padding:8px 0;flex-wrap:wrap}
+.research-stat strong,.research-cve span{color:#ff8fa0;font-size:11px}
+.research-cve a{color:#ff8295;text-decoration:none}
+.research-cve small{width:100%;font-size:9px;color:#7f91a2;overflow-wrap:anywhere}
+.research-foot{font-size:9px;color:#667588;letter-spacing:.04em;border-top:1px solid #372834;padding-top:10px}
+.dossier-tabs button{font-size:9px}
+.dossier-section{max-height:340px}
+.map-foot strong{color:#f27c92}
