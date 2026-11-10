@@ -4,7 +4,7 @@ const $=s=>document.querySelector(s);
 const txt=(s,v)=>{$(s).textContent=String(v)};
 const fmt=n=>Number(n||0).toLocaleString('en-US');
 const DOM={svg:$('#globe'),map:$('#world-layer'),markers:$('#points-layer')};
-const state={data:null,world:null,d3:null,projection:null,path:null,iso:null,byCode:new Map(),layer:'all',selected:null,spin:true,draggedAt:0};
+const state={data:null,world:null,d3:null,projection:null,path:null,iso:null,byCode:new Map(),layer:'all',selected:null,spin:true,draggedAt:0,pinned:null,tab:'sources',focusFrame:0,hovered:null,searchIndex:0,pending:new URLSearchParams(location.search).get('country')?.toUpperCase()||null};
 const SOURCES={blocklistde:'blocklist.de / 48h',ipsum:'IPsum / 3+ source lists',dshield:'DShield / sensor source IPs',feodo:'Feodo / botnet C2'};
 function create(tag,cls,value){const el=document.createElement(tag);if(cls)el.className=cls;if(value!==undefined)el.textContent=String(value);return el;}
 function link(label,url){const a=create('a','',label);a.href=url;a.target='_blank';a.rel='noopener noreferrer';return a;}
@@ -15,44 +15,129 @@ function countries(){return allCountries().filter(c=>score(c)>0).sort((a,b)=>sco
 function name(code){if(state.iso?.byCode?.has(code))return state.iso.byCode.get(code).name;
  try{return new Intl.DisplayNames(['en'],{type:'region'}).of(code)||code;}catch(e){return code;}}
 function getISO(f){const n=String(f.id||'').padStart(3,'0');return state.iso?.byNumeric?.get(n)||null;}
+function showTip(event,code){const row=allCountries().find(v=>v.code===code);if(!row)return;const tip=$('#map-tooltip'),bounds=$('#globe-container').getBoundingClientRect();
+ tip.replaceChildren();tip.append(create('strong','',name(code)),create('div','',code+' / '+fmt(score(row))+' listed IPs'),create('small','',fmt(row.indicators)+' across all available feeds'));
+ tip.hidden=false;let x=event.clientX-bounds.left+14,y=event.clientY-bounds.top+16;
+ tip.style.left=Math.max(8,Math.min(bounds.width-250,x))+'px';tip.style.top=Math.max(8,Math.min(bounds.height-105,y))+'px';
+}
+function hideTip(){const tip=$('#map-tooltip');if(tip)tip.hidden=true;}
 function draw(){if(!state.d3||!state.world)return;const d3=state.d3,p=state.projection,path=state.path;
  const earth=d3.select(DOM.map);earth.selectAll('*').remove();const top=d3.select(DOM.markers);top.selectAll('*').remove();
- earth.append('circle').attr('cx',450).attr('cy',260).attr('r',253).attr('fill','url(#glow)').attr('opacity',.78).attr('filter','url(#softglow)');
- earth.append('path').datum({type:'Sphere'}).attr('d',path).attr('fill','url(#planet-fill)').attr('stroke','#b54057').attr('stroke-width',1.6);
- earth.append('path').datum(d3.geoGraticule10()).attr('d',path).attr('fill','none').attr('stroke','#502838').attr('opacity',.55).attr('stroke-width',.55);
+ earth.append('circle').attr('cx',450).attr('cy',260).attr('r',Math.max(253,p.scale()+16)).attr('fill','url(#glow)').attr('opacity',.72).attr('filter','url(#softglow)');
+ earth.append('path').datum({type:'Sphere'}).attr('d',path).attr('fill','url(#planet-fill)').attr('stroke','#b54057').attr('stroke-width',1.4);
+ earth.append('path').datum(d3.geoGraticule10()).attr('d',path).attr('fill','none').attr('stroke','#502838').attr('opacity',.48).attr('stroke-width',.55);
  const rows=new Map(countries().map(c=>[c.code,c]));const values=[...rows.values()].map(score);const max=Math.max(1,...values);
  earth.selectAll('path.country-shape').data(state.world).join('path').attr('class','country-shape').attr('d',path)
-  .attr('fill',f=>{const code=getISO(f),val=rows.get(code)?score(rows.get(code)):0;if(val===0)return '#1b1d29';return d3.interpolateRgb('#491c2e','#f54a63')(Math.max(.08,Math.log1p(val)/Math.log1p(max)));})
-  .attr('stroke',f=>rows.has(getISO(f))?'#e35770':'#572d3b').attr('stroke-width',f=>rows.has(getISO(f))?.85:.45)
+  .attr('fill',f=>{const code=getISO(f),val=rows.get(code)?score(rows.get(code)):0;if(val===0)return '#1b1d29';if(code===state.selected)return '#ff6079';return d3.interpolateRgb('#491c2e','#f54a63')(Math.max(.08,Math.log1p(val)/Math.log1p(max)));})
+  .attr('stroke',f=>getISO(f)===state.selected?'#ffb1bf':rows.has(getISO(f))?'#e35770':'#572d3b')
+  .attr('stroke-width',f=>getISO(f)===state.selected?1.7:rows.has(getISO(f))?.8:.45)
   .on('click',(event,f)=>{const code=getISO(f);if(code&&rows.has(code))select(code);})
+  .on('mousemove',(event,f)=>{const code=getISO(f);if(code&&rows.has(code))showTip(event,code);else hideTip();})
+  .on('mouseleave',hideTip)
   .append('title').text(f=>{const code=getISO(f);return code?name(code)+' / '+fmt(rows.get(code)?score(rows.get(code)):0)+' listed IPs':'Unmapped territory'});
  const center=p.rotate().map(v=>-v);
  for(const row of countries()){
-  const feature=state.byCode.get(row.code);if(!feature)continue;let lonlat=d3.geoCentroid(feature);
+  const feature=state.byCode.get(row.code);if(!feature)continue;const lonlat=d3.geoCentroid(feature);
   if(!lonlat||d3.geoDistance(lonlat,center)>=Math.PI/2-.05)continue;
   const xy=p(lonlat);if(!xy||xy.some(x=>!Number.isFinite(x)))continue;
-  const count=score(row);const r=Math.min(12,2.6+Math.log10(1+count)*1.8);
+  const count=score(row);const r=Math.min(11,2.5+Math.log10(1+count)*1.7);
   const marker=top.append('g').attr('transform',`translate(${xy[0]},${xy[1]})`).attr('style','cursor:pointer');
-  marker.append('circle').attr('r',r+7).attr('fill','none').attr('stroke','#ff3c59').attr('opacity',.2);
+  marker.append('circle').attr('r',r+7).attr('fill','none').attr('stroke','#ff3c59').attr('opacity',.16);
   marker.append('circle').attr('r',r).attr('fill',row.code===state.selected?'#fff':'#fa435f').attr('fill-opacity',.76).attr('stroke','#fd8da2');
   marker.append('title').text(name(row.code)+' — '+fmt(count)+' listed IPs from selected feed(s)');
-  marker.on('click',event=>{event.stopPropagation();select(row.code)});
+  marker.on('click',event=>{event.stopPropagation();select(row.code)})
+        .on('mousemove',event=>showTip(event,row.code)).on('mouseleave',hideTip);
  }
 }
 function rankings(){const pane=$('#rankings');pane.replaceChildren();const all=countries();
  if(!all.length){pane.append(create('div','empty-state','No countries are present in this source layer.'));return;}
- all.slice(0,70).forEach((row,i)=>{const b=create('button','rank'+(row.code===state.selected?' selected':'')),left=create('span','',String(i+1).padStart(2,'0')+'  '+name(row.code));
+ all.forEach((row,i)=>{const b=create('button','rank'+(row.code===state.selected?' selected':'')),left=create('span','',String(i+1).padStart(2,'0')+'  '+name(row.code));
  left.append(create('small','',row.code+' · '+fmt(score(row))+' listed IPv4 indicators'));
  b.append(left,create('b','',fmt(score(row))));b.addEventListener('click',()=>select(row.code));pane.append(b);});
+ const active=pane.querySelector('.rank.selected');if(active)active.scrollIntoView({block:'nearest'});
 }
-function select(code){const row=allCountries().find(r=>r.code===code);if(!row)return;state.selected=code;rankings();
- const panel=$('#country-detail');panel.replaceChildren();panel.append(create('div','country-name',name(code)),create('div','country-code',code+' / LISTED IP INFRASTRUCTURE'));
- const metrics=create('div','country-metrics');const a=create('div');a.append(create('strong','',fmt(score(row))),create('small','','LISTED IPv4 IN THIS LAYER'));const b=create('div');b.append(create('strong','',fmt(row.indicators)),create('small','','ALL SOURCES DEDUPLICATED'));metrics.append(a,b);panel.append(metrics);
- const breakdown=create('div','country-breakdown');for(const [key,label] of Object.entries(SOURCES)){const line=create('div','detail-line');line.append(create('span','',label),create('b','',fmt(row.by_source?.[key]||0)));breakdown.append(line);}
- const foot=create('p','muted','Cross-source counts overlap: source subtotals must not be summed. IP geolocation does not attribute attackers.');breakdown.append(foot);
- for(const sample of row.examples||[]){const p=create('p','muted',sample.ip+' · '+sample.sources.join(', '));breakdown.append(p);}
- panel.append(breakdown);
- const feature=state.byCode.get(code);if(feature&&state.projection){const [lng,lat]=state.d3.geoCentroid(feature);state.projection.rotate([-lng,-lat]);state.draggedAt=Date.now();draw();}
+function flag(code){return /^[A-Z]{2}$/.test(code)?String.fromCodePoint(...[...code].map(c=>127397+c.charCodeAt(0))):'◎';}
+function kpi(value,label){const e=create('div','dossier-kpi');e.append(create('strong','',value),create('small','',label));return e;}
+function note(text){return create('p','dossier-note',text);}
+function select(code,{zoom=true,updateUrl=true}={}){
+ const row=allCountries().find(r=>r.code===code);if(!row)return;
+ state.selected=code;state.tab='sources';hideTip();rankings();renderDossier();
+ txt('#map-mode','◉ COUNTRY INVESTIGATION / '+code);txt('#focused-title',name(code).toUpperCase());
+ $('#map-focus-controls').hidden=false;setFocusSummary();
+ if(zoom)flyToCountry(code);
+ if(updateUrl)syncAddress();
+}
+function renderDossier(){
+ const row=allCountries().find(r=>r.code===state.selected),panel=$('#country-detail');if(!row)return;
+ panel.className='dossier';panel.replaceChildren();
+ const rank=countries().findIndex(x=>x.code===row.code)+1;const globalRank=allCountries().findIndex(x=>x.code===row.code)+1;
+ txt('#dossier-mode','COUNTRY INTELLIGENCE / '+row.code);
+ const heading=create('div','dossier-heading');heading.append(create('div','dossier-eyebrow','◉ INVESTIGATION DOSSIER // '+row.code));
+ const title=create('div','dossier-country');title.append(create('span','flag',flag(row.code)),create('span','',name(row.code)));heading.append(title,create('div','dossier-sub','COUNTRY-LEVEL IP ALLOCATION · NOT ACTOR ATTRIBUTION'));panel.append(heading);
+ const metrics=create('div','dossier-summary');
+ metrics.append(kpi(fmt(score(row)),'IN SELECTED LAYER'),kpi(fmt(row.indicators),'ALL FEEDS / UNIQUE'),
+   kpi(rank?'#'+rank:'—','RANK IN THIS LAYER'),kpi(Number.isInteger(row.multi_source_count)?fmt(row.multi_source_count):'—','IN 2+ SOURCE LISTS'));
+ panel.append(metrics);
+ const tabs=create('div','dossier-tabs');for(const [key,label] of [['sources','SOURCES'],['evidence','EVIDENCE'],['context','CONTEXT']]){
+  const b=create('button',key===state.tab?'active':'',label);b.addEventListener('click',()=>{state.tab=key;renderDossier();});tabs.append(b);
+ }panel.append(tabs);
+ const body=create('div','dossier-section');
+ if(state.tab==='sources'){
+  body.append(create('h3','',fmt(row.indicators)+' DISTINCT SOURCE IP ADDRESSES'));
+  const max=Math.max(1,...Object.keys(SOURCES).map(k=>Number(row.by_source?.[k]||0)));
+  for(const [key,label] of Object.entries(SOURCES)){
+   const n=Number(row.by_source?.[key]||0),r=create('div','dossier-source'),top=create('div','dossier-source-top');
+   top.append(create('span','',label),create('strong','',fmt(n)));r.append(top);
+   const meter=create('div','dossier-meter'),bar=create('span');bar.style.width=(100*n/max)+'%';meter.append(bar);r.append(meter);body.append(r);
+  }
+  body.append(note('Counts from individual feeds overlap. All-feeds totals are deduplicated across providers.'));
+ }else if(state.tab==='evidence'){
+  body.append(create('h3','','SOURCE-ATTRIBUTED IP EVIDENCE / SAMPLE'));
+  const samples=row.samples_by_source||{};let shown=0;
+  for(const [key,label] of Object.entries(SOURCES)){
+   const entries=samples[key]||[];
+   if(!entries.length)continue;
+   body.append(create('h3','',label+' · '+entries.length+' representative records'));
+   for(const sample of entries){
+    const e=create('div','dossier-evidence'),left=create('div');left.append(create('code','',sample.ip),create('small','',Array.isArray(sample.sources)?sample.sources.join(' / '):key));
+    e.append(left,link('IP CONTEXT ↗','https://isc.sans.edu/ipinfo/'+encodeURIComponent(sample.ip)));body.append(e);shown++;
+   }
+  }
+  if(!shown){const old=row.examples||[];for(const sample of old){const el=create('div','dossier-evidence');el.append(create('code','',sample.ip),create('small','',(sample.sources||[]).join(' + ')));body.append(el);}
+   if(!old.length)body.append(note('Per-provider evidence samples will appear after the new collection workflow completes. Existing country totals remain valid.'));}
+  body.append(note('Evidence IPs are examples from public indicator lists, not a list of all addresses, validated compromise, or an endorsement to scan them.'));
+ }else{
+  const date=state.data.generated_at||'unknown';
+  const rows=[['POSITION','Country #'+globalRank+' by unique listed IPs (all sources)'],
+   ['SAMPLE SHARE',((100*row.indicators)/Math.max(1,state.data.indicators.resolved_indicators)).toFixed(2)+'% of country-resolved indicators in this snapshot'],
+   ['COLLECTED',new Date(date).toLocaleString()],['LOCATION','DB-IP Lite country-level allocation'],
+   ['CVE CORRELATION','No per-country vulnerable-device or CVE evidence in this source collection'],
+   ['PROVENANCE','blocklist.de · IPsum · SANS DShield · abuse.ch Feodo']];
+  for(const [label,value] of rows){const e=create('div','dossier-source');e.append(create('div','dossier-eyebrow',label),note(value));body.append(e);}
+  body.append(link('METHODS & LIMITATIONS ↗','./radar-methodology.html'));
+ }
+ panel.append(body);
+ const actions=create('div','dossier-actions');
+ const pin=create('button','primary',state.pinned===row.code?'UNPIN COUNTRY':'⚖ PIN / COMPARE');
+ pin.addEventListener('click',()=>pinCountry(row.code));actions.append(pin);
+ const copy=create('button','','↗ SHARE LINK');copy.addEventListener('click',shareCountry);actions.append(copy);
+ const brief=create('button','','↓ EXPORT BRIEF');brief.addEventListener('click',downloadBrief);actions.append(brief);
+ panel.append(actions);
+}
+function pinCountry(code){
+ if(state.pinned===code){state.pinned=null;$('#compare-panel').hidden=true;showToast('Comparison pin removed.');renderDossier();return;}
+ if(!state.pinned){state.pinned=code;showToast('Pinned '+name(code)+'. Select another country, then click PIN / COMPARE.');renderDossier();return;}
+ if(state.pinned!==code){renderComparison(state.pinned,code);showToast('Comparing '+name(state.pinned)+' and '+name(code));}
+}
+function renderComparison(a,b){const left=allCountries().find(x=>x.code===a),right=allCountries().find(x=>x.code===b);if(!left||!right)return;
+ const panel=$('#compare-panel'),box=$('#compare-content');panel.hidden=false;box.replaceChildren();box.className='compare-content';
+ box.append(create('div','compare-title',name(a)+'  ⚖  '+name(b)));
+ const add=(label,x,y)=>{box.append(create('p','dossier-eyebrow',label));const grid=create('div','compare-grid');
+ grid.append(create('b','',fmt(x)),create('span','','VS'),create('b','',fmt(y)));box.append(grid);
+ const track=create('div','compare-mini'),sum=Math.max(1,x+y);const l=create('div');l.style.width=100*x/sum+'%';const r=create('div','right');r.style.width=100*y/sum+'%';track.append(l,r);box.append(track);};
+ add('DISTINCT IPs / ALL FEEDS',left.indicators,right.indicators);
+ for(const key of Object.keys(SOURCES))add(SOURCES[key].toUpperCase(),Number(left.by_source?.[key]||0),Number(right.by_source?.[key]||0));
+ box.append(note('Different list coverage does not imply that one country has greater cybercrime or security risk.'));
 }
 function renderCVEs(){const box=$('#cve-board');box.replaceChildren();const data=state.data.cves;
  if(data.status!=='ok'){box.append(create('div','empty-state','CISA/EPSS enrichment unavailable: '+(data.error||'no data')));return;}
