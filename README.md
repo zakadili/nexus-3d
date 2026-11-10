@@ -4,6 +4,23 @@ A working multi-source cyber-intelligence command center: an interactive country
 
 **Live project:** https://zakadili.github.io/nexus-3d/
 
+## Geographic integrity & country-level vulnerability intelligence
+
+### Morocco geographical display and the southern territory
+For the user-facing globe, NEXUS combines the Morocco geometry (ISO numeric 504) and the adjoining Western Sahara geometry (732) into a contiguous **Morocco-focused geographical outline** using TopoJSON merge at 1:50m resolution. Western Sahara's international political status is disputed. This is a **cartographic display choice**, not a determination of sovereignty. The country statistics labeled `MA` still represent only IP addresses assigned country code `MA` by the source IP database; `EH` allocations are **not silently added**.
+
+The country camera is capped to keep the globe visible while zooming. Repeated clicks do not invoke `scrollIntoView` on the page; the selected ranking is scrolled only within its own panel.
+
+### CVE Signals tab
+Click a country → **CVE SIGNALS** to access two complementary sources:
+
+1. **Shadowserver**'s public country-filtered exposed web-service vulnerability and honeypot exploitation views. NEXUS links out to the official provider rather than scraping data the provider restricts.
+2. **Shodan InternetDB** on-demand, read-only enrichment of up to **10 source IP evidence samples** attributed to that country. It displays possible CVE identifiers, open ports and the number of sampled IPs referencing each CVE. Records may contain both verified and unverified vulnerabilities; this is NOT a country-wide prevalence ranking.
+
+Results clearly report number of sampled IPs, successful lookups, missing observations and errors. A failed API request is never interpreted as absence of vulnerability. Some browsers or networks may restrict cross-origin access to InternetDB; when that happens, the provider links remain available.
+
+Country IP indicator statistics, exploit-attempt origin, and vulnerable infrastructure locations are distinct kinds of evidence and must not be conflated.
+
 ## Investigation experience (v0.3)
 
 The homepage is built for an actual on-screen investigation, not merely browsing threat lists:
