@@ -182,7 +182,7 @@ function render(){const d=state.data;if(!d)return;
  txt('#freshness','IP feeds · CISA · FIRST · ENISA');txt('#updated','Snapshot '+new Date(d.generated_at).toLocaleString());txt('#observation-window','SOURCE COUNTS / OBSERVATION LISTS');
  const layer=state.layer;const active=countries();if(layer!=='all'){txt('#countries',fmt(active.length));txt('#sources',fmt(active.reduce((n,c)=>n+score(c),0)));txt('#reports','—');txt('#freshness','FILTERED LAYER / IP count only');}else txt('#freshness','Deduplicated by IP / all sources');
  renderCVEs();renderSectors();renderSources();renderTable();renderSummary();rankings();draw();if(state.selected){renderDossier();setFocusSummary();}txt('#map-total',fmt(d.indicators.countries.length)+' COUNTRIES · '+fmt(d.indicators.unique_indicators)+' INDICATORS');
- $('#map-loading').style.display='none';txt('#notice','IP-list entries are not confirmed attacks. Country is IP-location only. Sources have different measurement windows; never add their counts as incidents.');
+ $('#map-loading').style.display=state.world?'none':'block';txt('#notice','IP-list entries are not confirmed attacks. Country is IP-location only. Sources have different measurement windows; never add their counts as incidents.');
 }
 function countryTrend(code){
  const section=create('div','dossier-trend');
@@ -346,7 +346,7 @@ async function prepareMap(){
   for(const c of iso){const code=c['alpha-2'],numeric=c['country-code'];if(code&&numeric){const rec={code,name:c.name};byNumeric.set(String(numeric).padStart(3,'0'),code);byCode.set(code,rec);}}
   state.iso={byNumeric,byCode};state.d3=d3;state.world=topo.feature(world,world.objects.countries).features;state.byCode=new Map(state.world.map(f=>[getISO(f),f]).filter(([a,b])=>a));
   state.projection=d3.geoOrthographic().scale(235).translate([450,260]).clipAngle(90).precision(.5).rotate([-10,-12]);
-  state.path=d3.geoPath(state.projection);draw();
+  state.path=d3.geoPath(state.projection);draw();if(state.data)$('#map-loading').style.display='none';
   if(state.selected)flyToCountry(state.selected);
   else if(state.pending && state.data){const code=state.pending;state.pending=null;select(code,{updateUrl:false});}
   let start=null,rot=null;d3.select('#globe').call(d3.drag().on('start',e=>{cancelAnimationFrame(state.focusFrame);start=[e.x,e.y];rot=state.projection.rotate();state.draggedAt=Date.now();})
