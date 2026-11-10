@@ -91,12 +91,12 @@ function renderDossier(){
  const rank=countries().findIndex(x=>x.code===row.code)+1;const globalRank=allCountries().findIndex(x=>x.code===row.code)+1;
  txt('#dossier-mode','COUNTRY INTELLIGENCE / '+row.code);
  const heading=create('div','dossier-heading');heading.append(create('div','dossier-eyebrow','◉ INVESTIGATION DOSSIER // '+row.code));
- const title=create('div','dossier-country');title.append(create('span','flag',flag(row.code)),create('span','',name(row.code)));heading.append(title,create('div','dossier-sub','COUNTRY-LEVEL IP ALLOCATION · NOT ACTOR ATTRIBUTION'));panel.append(heading);
+ const title=create('div','dossier-country');title.append(create('span','flag',flag(row.code)),create('span','',name(row.code)));heading.append(title,create('div','dossier-sub',row.code==='MA'?'FULL GEOGRAPHIC VIEW INCLUDING WESTERN SAHARA · STATUS DISPUTED · IP COUNTS: MA ONLY':'COUNTRY-LEVEL IP ALLOCATION · NOT ACTOR ATTRIBUTION'));panel.append(heading);
  const metrics=create('div','dossier-summary');
  metrics.append(kpi(fmt(score(row)),'IN SELECTED LAYER'),kpi(fmt(row.indicators),'ALL FEEDS / UNIQUE'),
    kpi(rank?'#'+rank:'—','RANK IN THIS LAYER'),kpi(Number.isInteger(row.multi_source_count)?fmt(row.multi_source_count):'—','IN 2+ SOURCE LISTS'));
  panel.append(metrics);
- const tabs=create('div','dossier-tabs');for(const [key,label] of [['sources','SOURCES'],['evidence','EVIDENCE'],['context','CONTEXT']]){
+ const tabs=create('div','dossier-tabs');for(const [key,label] of [['sources','SOURCES'],['cves','CVE SIGNALS'],['evidence','EVIDENCE'],['context','CONTEXT']]){
   const b=create('button',key===state.tab?'active':'',label);b.addEventListener('click',()=>{state.tab=key;renderDossier();});tabs.append(b);
  }panel.append(tabs);
  const body=create('div','dossier-section');
@@ -109,6 +109,8 @@ function renderDossier(){
    const meter=create('div','dossier-meter'),bar=create('span');bar.style.width=(100*n/max)+'%';meter.append(bar);r.append(meter);body.append(r);
   }
   body.append(note('Counts from individual feeds overlap. All-feeds totals are deduplicated across providers.'));
+ }else if(state.tab==='cves'){
+  body.append(renderCVESignals(row));
  }else if(state.tab==='evidence'){
   body.append(create('h3','','SOURCE-ATTRIBUTED IP EVIDENCE / SAMPLE'));
   const samples=row.samples_by_source||{};let shown=0;
@@ -128,7 +130,7 @@ function renderDossier(){
   const date=state.data.generated_at||'unknown';
   const rows=[['POSITION','Country #'+globalRank+' by unique listed IPs (all sources)'],
    ['SAMPLE SHARE',((100*row.indicators)/Math.max(1,state.data.indicators.resolved_indicators)).toFixed(2)+'% of country-resolved indicators in this snapshot'],
-   ['COLLECTED',new Date(date).toLocaleString()],['LOCATION','DB-IP Lite country-level allocation'],
+   ['COLLECTED',new Date(date).toLocaleString()],['LOCATION',row.code==='MA'?'Geographic outline includes Western Sahara; international status disputed. Source-IP statistics use MA allocation only.':'DB-IP Lite country-level allocation'],
    ['CVE CORRELATION','No per-country vulnerable-device or CVE evidence in this source collection'],
    ['PROVENANCE','blocklist.de · IPsum · SANS DShield · abuse.ch Feodo']];
   for(const [label,value] of rows){const e=create('div','dossier-source');e.append(create('div','dossier-eyebrow',label),note(value));body.append(e);}
@@ -141,6 +143,103 @@ function renderDossier(){
  const copy=create('button','','↗ SHARE LINK');copy.addEventListener('click',shareCountry);actions.append(copy);
  const brief=create('button','','↓ EXPORT BRIEF');brief.addEventListener('click',downloadBrief);actions.append(brief);
  panel.append(actions);
+}
+const internetDbCache=new Map();
+const sampleResearchCache=new Map();
+function sampledIPs(row,limit=10){
+ const bySource=row.samples_by_source||{};
+ // Prefer IPs across providers, not just the dominant list. These are small
+ // deterministic samples, not representative or exhaustive.
+ const groups=Object.keys(SOURCES).map(k=>(bySource[k]||[]).map(x=>x.ip));
+ const seen=new Set(),result=[];
+ for(let depth=0;depth<6 && result.length<limit;depth++){
+  for(const group of groups){const ip=group[depth];if(!ip||seen.has(ip))continue;seen.add(ip);result.push(ip);if(result.length===limit)break;}
+ }
+ return result;
+}
+function vendorRow(label,value){const row=create('div','research-stat');row.append(create('span','',label),create('strong','',String(value)));return row;}
+function sourceResearchLinks(code){
+ const links=create('div','research-links');
+ const attackUrl='https://dashboard.shadowserver.org/statistics/honeypot/vulnerability/monitoring/?category=monitoring&geo='+encodeURIComponent(code)+'&limit=100&statistic=unique_ips';
+ const exposureUrl='https://dashboard.shadowserver.org/statistics/combined/visualisation/?date_range=1&group_by=tag&source=http_vulnerable&geo='+encodeURIComponent(code)+'&style=table';
+ const shadowA=link('SHADOWSERVER / EXPLOIT ATTEMPTS ↗',attackUrl);
+ const shadowB=link('SHADOWSERVER / EXPOSED WEB CVEs ↗',exposureUrl);
+ links.append(shadowA,shadowB);
+ return links;
+}
+function renderCVESignals(row){
+ const wrap=create('div','cve-signals');
+ wrap.append(create('h3','','COUNTRY-SCOPED VULNERABILITY RESEARCH / '+row.code));
+ const callout=create('div','research-callout');
+ callout.append(create('strong','','DATASET 01 · SHADOWSERVER COUNTRY STATISTICS'),
+  note('Review Shadowserver’s country-filtered honeypot exploitation observations or its exposed vulnerable web services. These external reports can distinguish traffic originating from a country from vulnerable devices within it.'));
+ callout.append(sourceResearchLinks(row.code));
+ callout.append(note('Shadowserver publishes country-level figures on its own site. NEXUS does not scrape, reproduce, or invent these restricted datasets.'));
+ wrap.append(callout);
+ const ips=sampledIPs(row),samplePanel=create('div','research-callout');
+ samplePanel.append(create('strong','','DATASET 02 · SHODAN INTERNETDB / PASSIVE IP ENRICHMENT'));
+ samplePanel.append(note('Inspect '+ips.length+' selected IP indicators from '+name(row.code)+'. Identify possible CVEs and exposed ports observed by Shodan. These are not the country’s most common vulnerabilities or confirmed exploits; results can be stale or unverified.'));
+ if(row.code==='MA')samplePanel.append(note('Only IP addresses geolocated as MA are included. The contiguous geographic outline does not change country-of-IP reporting.'));
+ const action=create('button','primary research-action','⌁ ANALYZE '+ips.length+' SAMPLE IPs');
+ action.disabled=!ips.length;
+ const results=create('div','research-results');
+ action.addEventListener('click',()=>{action.disabled=true;action.textContent='ANALYZING PUBLIC DATA…';runCountryPassiveResearch(row,results).finally(()=>{action.disabled=false;action.textContent='↻ REFRESH SAMPLE RESEARCH';});});
+ samplePanel.append(action,results);
+ if(sampleResearchCache.has(row.code))populatePassiveResearch(results,sampleResearchCache.get(row.code),row);
+ if(!ips.length)samplePanel.append(note('No attributed sample addresses are available yet. Wait for the next data-collection snapshot.'));
+ wrap.append(samplePanel);
+ return wrap;
+}
+async function lookupInternetDB(ip){
+ if(internetDbCache.has(ip))return internetDbCache.get(ip);
+ const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),8500);
+ try{
+  const response=await fetch('https://internetdb.shodan.io/'+encodeURIComponent(ip),{signal:controller.signal});
+  if(response.status===404){const empty={ip,ports:[],vulns:[],tags:[],cpes:[],unindexed:true};internetDbCache.set(ip,empty);return empty;}
+  if(!response.ok)throw Error('Shodan '+response.status);
+  const raw=await response.json(),data={ip,ports:Array.isArray(raw.ports)?raw.ports.slice(0,100):[],
+   vulns:Array.isArray(raw.vulns)?raw.vulns.filter(x=>/^CVE-\d{4}-\d{4,}$/.test(x)).slice(0,150):[],
+   tags:Array.isArray(raw.tags)?raw.tags.slice(0,20):[],cpes:Array.isArray(raw.cpes)?raw.cpes.slice(0,40):[]};
+  internetDbCache.set(ip,data);return data;
+ }finally{clearTimeout(timer);}
+}
+async function runCountryPassiveResearch(row,box){
+ box.replaceChildren();box.append(note('Consulting Shodan InternetDB for a small set of public addresses. No direct network probes are sent to those IPs.'));
+ const ips=sampledIPs(row);let cursor=0;const records=[],errors=[];
+ await Promise.all(Array.from({length:Math.min(3,ips.length)},async()=>{
+  while(cursor<ips.length){const ip=ips[cursor++];
+   try{records.push(await lookupInternetDB(ip));}
+   catch(e){errors.push(ip+': '+e.message);}
+  }
+ }));
+ const result={records,errors,checked_at:new Date().toISOString(),requested:ips.length};
+ sampleResearchCache.set(row.code,result);
+ if(state.selected===row.code&&state.tab==='cves'&&box.isConnected)populatePassiveResearch(box,result,row);
+}
+function populatePassiveResearch(box,result,row){
+ box.replaceChildren();const records=result.records||[];
+ box.append(create('h3','','SAMPLED-IP FINDINGS / '+row.code));
+ box.append(vendorRow('PUBLIC IPs QUERIED',result.requested));
+ box.append(vendorRow('RESPONSES RETURNED',records.length));
+ const indexed=records.filter(x=>!x.unindexed),cveIPs=new Map(),portIPs=new Map();
+ for(const r of records){
+  for(const cve of new Set(r.vulns||[])){if(!cveIPs.has(cve))cveIPs.set(cve,new Set());cveIPs.get(cve).add(r.ip);}
+  for(const port of new Set(r.ports||[])){if(!portIPs.has(port))portIPs.set(port,new Set());portIPs.get(port).add(r.ip);}
+ }
+ box.append(vendorRow('SAMPLED IPs WITH ANY CVE',records.filter(r=>r.vulns?.length>0).length));
+ box.append(create('h3','','CVE MENTIONS IN RETURNED IP RECORDS'));
+ const most=[...cveIPs.entries()].sort((a,b)=>b[1].size-a[1].size||a[0].localeCompare(b[0])).slice(0,12);
+ if(!most.length)box.append(note('No CVEs were returned for these sampled IPs. This does not prove the selected country or these hosts are free of vulnerabilities.'));
+ for(const [cve,ips] of most){const e=create('div','research-cve');
+  e.append(link(cve+' ↗','https://nvd.nist.gov/vuln/detail/'+encodeURIComponent(cve)),create('span','',ips.size+' sampled IP'+(ips.size===1?'':'s')));
+  const detail=create('small','',Array.from(ips).slice(0,3).join(', '));e.append(detail);box.append(e);}
+ box.append(create('h3','','COMMON OBSERVED PORTS / SAMPLED IPs'));
+ const ports=[...portIPs.entries()].sort((a,b)=>b[1].size-a[1].size||a[0]-b[0]).slice(0,10);
+ for(const [port,ips] of ports){const e=create('div','research-stat');e.append(create('span','',':'+port),create('strong','',ips.size+' sampled IPs'));box.append(e);}
+ if(!ports.length)box.append(note('No service information returned.'));
+ box.append(note('Shodan InternetDB updates periodically. Its vulns include both verified and unverified identifications. Country totals here are a tiny, biased sample of listed source IP infrastructure, not country-wide exposure estimates.'));
+ if(result.errors?.length)box.append(note(result.errors.length+' lookups failed (possibly browser CORS or provider rate limits). No failed query is treated as a negative vulnerability result.'));
+ box.append(create('div','research-foot','READ-ONLY ENRICHMENT · NO DIRECT SCANNING · '+new Date(result.checked_at).toLocaleString()));
 }
 function pinCountry(code){
  if(state.pinned===code){state.pinned=null;$('#compare-panel').hidden=true;showToast('Comparison pin removed.');renderDossier();return;}
