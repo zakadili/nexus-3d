@@ -67,6 +67,9 @@ function kpi(value,label){const e=create('div','dossier-kpi');e.append(create('s
 function note(text){return create('p','dossier-note',text);}
 function select(code,{zoom=true,updateUrl=true,autoTour=false}={}){
  if(tourActive&&!autoTour)stopTour();
+ // Repeated clicks on the currently selected country preserve camera framing
+ // and scroll position instead of repeatedly triggering focus animations.
+ if(state.selected===code && !autoTour){state.draggedAt=Date.now();return;}
  const row=allCountries().find(r=>r.code===code);
  state.selected=code;state.tab='sources';hideTip();rankings();
  if(row)renderDossier();else renderUnavailableCountry(code);
