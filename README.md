@@ -1,5 +1,13 @@
 # NEXUS SENTINEL — Global Cyber Intelligence
 
+**Explore the world's published cyber-threat indicators, investigate country-level evidence, and analyze known exploited vulnerabilities.**
+
+**[Launch the live demo](https://zakadili.github.io/nexus-3d/)** · [Methodology](https://zakadili.github.io/nexus-3d/radar-methodology.html)
+
+> **Screenshot / GIF placeholder:** Add a recorded country fly-to and CVE investigation demo at `assets/nexus-demo.gif`. No promotional image is claimed to exist yet.
+
+**Data refreshes every six hours through GitHub Actions. This is not a real-time packet stream.**
+
 A working multi-source cyber-intelligence command center: an interactive country-level threat-indicator globe, CISA exploited-CVE prioritization, reported EU sector impact, authorized active scanning, and an evidence-linked attack-path lab.
 
 **Live project:** https://zakadili.github.io/nexus-3d/
@@ -116,3 +124,24 @@ Read the full [methodology and licenses](./radar-methodology.html). The code is 
 - Verified asset context (authorized scans, owned domains, confidence & provenance).
 - Incident case builder and report generator.
 - Advanced global map overlays and real-time event ingestion from an authorized honeypot fleet.
+
+## Limitations
+
+- **Not live:** GitHub Actions attempts refreshes every six hours; individual feeds have their own reporting delays and outages.
+- **Not attack counts:** country totals are distinct IPv4 addresses appearing in participating public indicator lists, not verified incidents, infected machines, attackers or victims.
+- **Geolocation is approximate:** country codes describe network IP allocation, not attacker identity or location.
+- **Not national CVE prevalence:** Shodan InternetDB checks a small, nonrandom sample of listed IPs. A possible CVE match is not proof of exploitability; no match is not proof of safety.
+- **Comparable trends only:** rises and falls compare snapshots with the same successful provider set. Changes are **changes in list membership, not new compromises**.
+- **Incomplete geographic coverage:** a missing country or feed entry does not imply an absence of security threats.
+- **Data-source licensing:** third-party datasets retain their own licensing and attribution requirements.
+- **Deployment differences:** the GitHub Pages interface uses static snapshots; local FastAPI modules require a separately running backend. Third-party APIs may be unavailable or blocked by CORS.
+
+## Responsible use & disclaimer
+
+NEXUS SENTINEL is provided for educational, research, and authorized security-testing purposes only.
+
+The active scanner must only be used against systems you own or have explicit written permission to test. Unauthorized scanning may be illegal in your jurisdiction.
+
+The author is not responsible for any misuse of this software or for any damage, loss, or legal consequences resulting from its use. You are solely responsible for how you use it and for complying with applicable laws.
+
+Threat-intelligence data is provided for informational purposes. IP and country listings do not prove malicious ownership or attacker attribution.
