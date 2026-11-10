@@ -1,0 +1,115 @@
+{
+  "name": "SENTINEL authorized synthetic lab",
+  "nodes": [
+    {
+      "id": "internet",
+      "label": "External tester",
+      "kind": "entry"
+    },
+    {
+      "id": "web",
+      "label": "WEB-01",
+      "kind": "host"
+    },
+    {
+      "id": "api",
+      "label": "API-01",
+      "kind": "host"
+    },
+    {
+      "id": "db",
+      "label": "DB-01",
+      "kind": "host"
+    },
+    {
+      "id": "ws",
+      "label": "WS-01",
+      "kind": "host"
+    },
+    {
+      "id": "alice",
+      "label": "alice",
+      "kind": "identity"
+    },
+    {
+      "id": "admins",
+      "label": "IT Admins",
+      "kind": "group"
+    },
+    {
+      "id": "dc",
+      "label": "DC-01",
+      "kind": "critical"
+    }
+  ],
+  "edges": [
+    {
+      "source": "internet",
+      "target": "web",
+      "type": "network_reachable",
+      "evidence": "LAB-NET-01",
+      "confidence": "observed"
+    },
+    {
+      "source": "web",
+      "target": "api",
+      "type": "network_reachable",
+      "evidence": "LAB-NET-02",
+      "confidence": "observed"
+    },
+    {
+      "source": "api",
+      "target": "db",
+      "type": "network_reachable",
+      "evidence": "LAB-NET-03",
+      "confidence": "observed"
+    },
+    {
+      "source": "web",
+      "target": "ws",
+      "type": "network_reachable",
+      "evidence": "LAB-NET-04",
+      "confidence": "observed"
+    },
+    {
+      "source": "ws",
+      "target": "alice",
+      "type": "session_observed",
+      "evidence": "LAB-SESSION-01",
+      "confidence": "observed"
+    },
+    {
+      "source": "alice",
+      "target": "admins",
+      "type": "member_of",
+      "evidence": "LAB-AD-01",
+      "confidence": "observed"
+    },
+    {
+      "source": "admins",
+      "target": "dc",
+      "type": "admin_access",
+      "evidence": "LAB-ACL-01",
+      "confidence": "observed"
+    }
+  ],
+  "findings": [
+    {
+      "id": "F-001",
+      "asset": "web",
+      "title": "Outdated web framework (lab assertion)",
+      "cve": "CVE-2021-44228",
+      "status": "hypothesis",
+      "evidence": "LAB-SBOM-01",
+      "detail": "Fictional lab assertion; no exploit performed."
+    },
+    {
+      "id": "F-002",
+      "asset": "ws",
+      "title": "Unrestricted administrative session exposure",
+      "status": "observed",
+      "evidence": "LAB-SESSION-01",
+      "detail": "Synthetic identity relationship for attack-path modeling."
+    }
+  ]
+}
