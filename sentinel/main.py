@@ -82,7 +82,7 @@ def sentinel_dashboard():
 
 @app.get("/{asset_name}")
 def public_asset(asset_name: str):
-    allowed = {"radar.js", "radar-plus.js", "radar.css", "intel.html", "app.js", "styles.css",
+    allowed = {"radar.js", "radar-plus.js", "radar-extras.js", "radar.css", "intel.html", "app.js", "styles.css",
                "radar-methodology.html", "index.html"}
     if asset_name not in allowed:
         raise HTTPException(status_code=404, detail="Asset not found")
@@ -97,6 +97,19 @@ def global_overview():
         return json.loads(path.read_text(encoding="utf-8"))
     except (OSError, ValueError) as exc:
         raise HTTPException(status_code=503, detail="Intelligence snapshot is unreadable") from exc
+
+@app.get("/api/extra")
+def supplementary_intelligence():
+    path = ROOT.parent / "data" / "extra.json"
+    if not path.exists():
+        raise HTTPException(status_code=503, detail="No supplementary intelligence snapshot generated")
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        if not isinstance(payload, dict) or payload.get("schema") != 1:
+            raise ValueError("Invalid supplementary schema")
+        return payload
+    except (OSError, ValueError) as exc:
+        raise HTTPException(status_code=503, detail="Supplementary snapshot unavailable") from exc
 
 @app.get("/api/radar")
 def radar():
