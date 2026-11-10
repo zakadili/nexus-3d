@@ -125,6 +125,28 @@ Read the full [methodology and licenses](./radar-methodology.html). The code is 
 - Incident case builder and report generator.
 - Advanced global map overlays and real-time event ingestion from an authorized honeypot fleet.
 
+## Four supplementary intelligence sources
+
+NEXUS adds four independent, source-attributed research features. They are collected into a compact **`data/extra.json`** file; the browser loads it separately from `data/overview.json`. No active scan is performed and no totals from unrelated datasets are added together.
+
+| Source | What the dashboard shows | Access / collection |
+|---|---|---|
+| [URLhaus / abuse.ch](https://urlhaus.abuse.ch/api/) | Deduplicated malicious URL listings that have a **literal public IPv4 host** and can be mapped to an IP-country allocation; global URL tags | `ABUSECH_AUTH_KEY` GitHub Actions secret required; `recent.csv` export; 6-hour polling. Provider says exports regenerate every 5 minutes and must not be polled more frequently. |
+| [ThreatFox / abuse.ch](https://threatfox.abuse.ch/api/) | Recent IOC listings with **literal public IPv4 endpoints**, top malware families and tags | Same `ABUSECH_AUTH_KEY` secret; authenticated `get_iocs` API, `days=7` (documented maximum), 6-hour polling. |
+| [IPtoASN](https://iptoasn.com/) | Top networks (ASNs) announcing already-listed source IPs, per country and top 10 globally | Downloadable `ip2asn-v4.tsv.gz` range database; no API key and no per-IP lookups; **PDDL v1.0** public-domain dedication. |
+| [IODA / Georgia Tech](https://ioda.inetintel.cc.gatech.edu/) | Recent reported country outage events, signal source and observed start/end timestamps | Public v2 `outages/events` API; no API key documented; one bounded request every six hours. No numeric rate limit is published on the endpoint reference consulted. |
+
+**Set up abuse.ch:** create a free authentication key via the [abuse.ch authentication portal](https://auth.abuse.ch/). Store it under **GitHub repository Settings → Secrets and variables → Actions → New repository secret**, named `ABUSECH_AUTH_KEY`. Do not add a key to client-side JavaScript or commit it to the repository. Missing or invalid keys are shown as **unavailable**, not as zero observations. abuse.ch Community APIs are governed by fair-use/terms; commercial usage may require a paid product. <https://www.spamhaus.com/faqs/abuse-ch/>
+
+### Interpretation boundaries
+
+- **Listed URLs/IOCs hosted in this country, not attacker location.** Unresolvable domain-only URLs and non-IP IOCs are not assigned to countries; their global families/tags may still be counted.
+- **Top ASNs are network allocations, not malicious providers.** A hosting company appearing on a list does not make that company responsible for the listed activity.
+- **Outages have many causes and are not necessarily related to cyber activity.** IODA provides connectivity evidence, not proof of a cyberattack.
+- **Feed availability is independent.** Each source gets a success/unavailable status and a short provenance note. The 28-snapshot timeline indicates success/failure/missing only when those states were recorded.
+
+The dashboard loads the **most recently published six-hour collection snapshot**, never a live packet stream. If the main snapshot fails in the browser and a previous valid one was cached locally, the page labels it as the last good snapshot rather than presenting it as fresh.
+
 ## Limitations
 
 - **Not live:** GitHub Actions attempts refreshes every six hours; individual feeds have their own reporting delays and outages.
