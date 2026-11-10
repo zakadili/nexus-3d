@@ -29,5 +29,6 @@ jobs:
       - name: JavaScript syntax
         run: |
           node --check radar.js
+          node --check radar-plus.js
           node --check app.js
           node --check sentinel.js
