@@ -213,3 +213,17 @@ body.immersive .globe-container .map-label{bottom:22px}
 .overview-finding a{color:#ff9aaf;text-decoration:none}
 .overview-finding a:hover{text-decoration:underline}
 .dossier-section{max-height:540px;overflow:auto}
+
+/* Cinematic country selection, while respecting reduced-motion preferences. */
+#globe-container{isolation:isolate}
+.country-focus-flash{pointer-events:none;position:absolute;z-index:12;top:18%;left:50%;transform:translateX(-50%);min-width:min(75%,350px);padding:22px 26px;text-align:center;background:linear-gradient(125deg,rgba(17,13,26,.94),rgba(74,18,40,.85));border:1px solid #ff6c8a;box-shadow:0 0 65px #ed315455, inset 0 0 30px #ff47751c;display:flex;flex-direction:column;gap:8px;animation:countryFocusReveal 1.5s ease both}
+.country-focus-flash small{font-size:10px;letter-spacing:.15em;color:#ff9eb1}
+.country-focus-flash strong{font-family:'Barlow Condensed',sans-serif;font-size:clamp(32px,5vw,64px);line-height:1;color:#fff;text-shadow:0 0 22px #ff4268}
+.country-focus-flash span{font-size:10px;letter-spacing:.1em;color:#a8afc0}
+.country-focus-activated #globe{animation:countryGlobeSurge 1.2s ease-out}
+@keyframes countryFocusReveal{0%{opacity:0;filter:blur(12px);transform:translate(-50%,20px) scale(.85)}20%{opacity:1;filter:blur(0);transform:translate(-50%,0) scale(1)}75%{opacity:1}100%{opacity:0;transform:translate(-50%,-12px) scale(1.03)}}
+@keyframes countryGlobeSurge{0%{filter:brightness(1.8) drop-shadow(0 0 22px #f43d70)}100%{filter:brightness(1) drop-shadow(0 0 0 transparent)}}
+.overview-executive{padding:18px;background:radial-gradient(circle at top right,#7c224b88,transparent 65%),linear-gradient(130deg,#201525,#10121d);border:1px solid #7a3a55}
+.overview-eyebrow{font-size:10px;letter-spacing:.12em;color:#ff829d}
+.overview-executive-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(25px,3vw,39px);font-weight:800;line-height:1.1;color:#f8eff3;margin:12px 0}
+@media(prefers-reduced-motion:reduce){.country-focus-flash{animation:none;opacity:1}.country-focus-activated #globe{animation:none}}
