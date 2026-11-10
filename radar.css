@@ -200,3 +200,16 @@ body.immersive .globe-container .map-label{bottom:22px}
 .side{align-self:start}
 .side .ranking{flex:0 0 auto}
 @media(max-width:900px){.layout{align-items:stretch}}
+
+/* Country-first investigation view: meaningful evidence on initial click. */
+.country-overview{display:flex;flex-direction:column;gap:10px}
+.country-overview h3{color:#f46e8a;font-size:10px;letter-spacing:.09em;margin:10px 0 2px}
+.overview-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.overview-card{background:#17131e;border:1px solid #603044;padding:12px;display:flex;flex-direction:column;gap:8px}
+.overview-card small{font-size:9px;color:#a6adbb;line-height:1.5}
+.overview-card strong{font-size:23px;color:#f6eaf0;font-family:'Barlow Condensed',sans-serif}
+.overview-finding{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid #422839;font-size:11px;color:#c7d0d9}
+.overview-finding strong,.overview-finding>span:last-child{color:#f17a91;white-space:nowrap}
+.overview-finding a{color:#ff9aaf;text-decoration:none}
+.overview-finding a:hover{text-decoration:underline}
+.dossier-section{max-height:540px;overflow:auto}
