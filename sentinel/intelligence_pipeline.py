@@ -118,15 +118,25 @@ def collect_indicators():
     by_ip=defaultdict(set)
     for key,ips,meta,rows in available:
         for ip in ips:by_ip[ip].add(key)
-    countries=defaultdict(lambda:{"total":0,"by_source":Counter(),"examples":[]})
+    countries=defaultdict(lambda:{"total":0,"by_source":Counter(),"examples":[],"samples_by_source":defaultdict(list),"multi_source_count":0})
     unresolved=0
-    for ip,origins in by_ip.items():
+    # Deterministic evidence samples: at most five IPs per provider/country, plus up to
+    # three overlapping IPs. The samples are NOT severity-ranked or comprehensive.
+    for ip,origins in sorted(by_ip.items(),key=lambda item:int(ipaddress.IPv4Address(item[0]))):
         code=geodb.locate(ip)
         if not code:unresolved+=1;continue
         c=countries[code];c["total"]+=1
-        for origin in origins:c["by_source"][origin]+=1
-        if len(c["examples"])<3 and len(origins)>1:c["examples"].append({"ip":ip,"sources":sorted(origins)})
-    records=[{"code":code,"indicators":row["total"],"by_source":dict(row["by_source"]),"examples":row["examples"]} for code,row in countries.items()]
+        if len(origins)>1:
+            c["multi_source_count"]+=1
+            if len(c["examples"])<3:c["examples"].append({"ip":ip,"sources":sorted(origins)})
+        for origin in sorted(origins):
+            c["by_source"][origin]+=1
+            if len(c["samples_by_source"][origin])<5:
+                c["samples_by_source"][origin].append({"ip":ip,"sources":sorted(origins)})
+    records=[{"code":code,"indicators":row["total"],"by_source":dict(row["by_source"]),
+              "multi_source_count":row["multi_source_count"],
+              "samples_by_source":dict(row["samples_by_source"]),
+              "examples":row["examples"]} for code,row in countries.items()]
     records.sort(key=lambda x:(-x["indicators"],x["code"]))
     dshield=next((r for _,_,_,rows in available for r in [rows] if rows),[])
     return {
