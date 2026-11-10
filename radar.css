@@ -227,3 +227,33 @@ body.immersive .globe-container .map-label{bottom:22px}
 .overview-eyebrow{font-size:10px;letter-spacing:.12em;color:#ff829d}
 .overview-executive-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(25px,3vw,39px);font-weight:800;line-height:1.1;color:#f8eff3;margin:12px 0}
 @media(prefers-reduced-motion:reduce){.country-focus-flash{animation:none;opacity:1}.country-focus-activated #globe{animation:none}}
+
+/* Four new data-source workbenches; no numeric placeholders for failed feeds. */
+.extra-panel{padding:16px;max-height:390px;overflow:auto}
+.extra-panel h3,.extra-panel h4{font-size:10px;letter-spacing:.12em;color:#fa7a8d;margin:16px 0 8px}
+.extra-subtitle{color:#ef6b87;font-size:10px;letter-spacing:.1em}
+.extra-row{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:9px 0;border-bottom:1px solid #392737;font-size:10px;color:#b8c3d0;line-height:1.45}
+.extra-row strong{color:#f5758c;font-size:10px;white-space:nowrap;text-align:right}
+.extra-row span{overflow-wrap:anywhere}
+.clickable-row{width:100%;background:none;border-top:none;border-left:none;border-right:none;cursor:pointer;text-align:left}
+.clickable-row:hover{background:#261525}
+.country-extra{border-top:1px solid #7e344b;margin:15px 0;padding-top:9px}
+.country-extra h3{font-size:10px;letter-spacing:.1em;color:#ff8299;margin:18px 0 6px}
+.country-extra .dossier-note{margin:7px 0}
+.feed-timeline{padding:12px 18px;max-height:300px;overflow:auto}
+.health-timeline-row{display:grid;grid-template-columns:112px 1fr;align-items:center;gap:9px;margin:10px 0}
+.health-timeline-row small{font-size:9px;color:#bcc3d0}
+.health-dots{display:flex;align-items:center;gap:3px;flex-wrap:wrap}
+.health-dot{display:block;width:9px;height:12px;background:#555663;border-radius:1px}
+.health-dot.ok{background:#46bc94;box-shadow:0 0 5px #46bc9444}
+.health-dot.failed{background:#ee536e}
+.health-dot.missing{background:#373b47}
+.skeleton{position:relative;overflow:hidden;background:#20222e!important;color:transparent!important;border-radius:2px}
+.skeleton:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,#7e81951c,transparent);transform:translateX(-100%);animation:skeletonSweep 1.6s ease-in-out infinite}
+.skeleton-metric{width:60%;min-height:37px;margin-top:12px}
+.skeleton-panel{height:125px;width:100%}
+@keyframes skeletonSweep{100%{transform:translateX(100%)}}
+.extra-intel{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:1150px){.extra-intel{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:720px){.extra-intel{grid-template-columns:1fr}.health-timeline-row{grid-template-columns:90px 1fr}}
+@media(prefers-reduced-motion:reduce){.skeleton:after{animation:none}}
