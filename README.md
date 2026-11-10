@@ -1,35 +1,51 @@
-# NEXUS 1.0 — Interactive Network Universe
+# NEXUS Hybrid — Threat Intelligence & Authorized Assessment
 
-A cinematic black-and-blood-red 3D cybersecurity **simulation** built with Three.js and vanilla JavaScript. Explore eight fictional hosts, animated network connections, click-to-inspect nodes, and a functional command console.
+A working black-and-blood-red security intelligence dashboard, replacing the original fictional 3D network demo.
 
-## Run locally
+## What works now
+
+- **Live CISA KEV**: fetches the real Known Exploited Vulnerabilities JSON catalog from CISA's GitHub mirror (fallback to CISA's official feed). Displays catalog size, recent additions, search and filtering by CVE/vendor/product/date/ransomware flag.
+- **CVE investigation**: select a record to inspect the CISA description, required action, date and NVD link.
+- **FIRST EPSS**: fetches exploitation probability on demand for the selected CVE.
+- **CSV export**: download filtered KEV records.
+- **Local assessment workbench**: import Nmap XML, list hosts and open ports, inspect service fingerprint information and jump to NVD research. Import parsing stays inside the browser; the app does not upload scan evidence.
+- **JSON export**: download imported asset inventory.
+
+## Run
+
+Serve the repository root using a static web server:
 
 ```bash
 python3 -m http.server 8000
-# Open http://localhost:8000
 ```
 
-Requires internet access to load Three.js from esm.sh and fonts from Google Fonts. No npm installation required.
+Open http://localhost:8000. No build step required. Live intelligence requires network access and browser permission to fetch the public feeds.
 
-## Controls
+## Authorized assessment example
 
-- Drag to orbit; scroll to zoom; click a node to inspect it.
-- Terminal: `help`, `hosts`, `inspect web`, `focus db`, `links`, `scan`, `pulse`, `reset`, `clear`, `about`.
-- The `scan` command only prints built-in fictional data. **No live network scanning or backend is included.**
+Only scan systems you own or have explicit permission to assess:
 
-## Deploy
+```bash
+nmap -sV -oX report.xml <authorized-target>
+```
 
-Upload these files to a new GitHub repository, then deploy with GitHub Pages (Settings → Pages → Deploy from branch → main / root), Cloudflare Pages, or any static host.
+Open **ASSESSMENT LAB** and select `report.xml`. NEXUS parses it locally. A service version is **not** proof of a vulnerability, and KEV membership is **not** proof that a given host is affected.
 
-## Security and privacy
+## Data sources
 
-All hostnames, IPs, ports, and findings are simulated. There are no credentials, forms transmitting data, external scan requests, or server-side processes. The application loads Three.js via a third-party CDN; for production hardening, vendor and pin the dependency locally and set a restrictive CSP.
+- [CISA KEV](https://www.cisa.gov/known-exploited-vulnerabilities-catalog) / [CISA-maintained GitHub mirror](https://github.com/cisagov/kev-data)
+- [FIRST EPSS API](https://api.first.org/data/v1/epss)
+- [NIST NVD](https://nvd.nist.gov/) links for deeper research
 
-## Next milestones
+## Limits
 
-1. Editable topology and JSON import/export.
-2. Time-travel playback of simulated security events.
-3. Evidence-linked findings and an investigation timeline.
-4. Optional authenticated backend for explicitly scoped, authorized scans.
+This is a **read-only threat-intelligence and offline evidence-analysis tool**, not a global internet scanner. It does not discover internet hosts, perform active vulnerability checks, exploit targets, or verify CVEs. The feeds may be temporarily unavailable because of provider rate limits, CORS policy, or network restrictions. It deliberately does not invent host geolocation, global exposure counts, or confirmed findings.
 
-MIT License.
+## Planned
+
+- Authenticated backend with scope-validated asset ownership and rate-limited authorized checks
+- Optional licensed external exposure-search integration
+- Evidence-based version matching and triage
+- Case history, reports, and interactive graph exploration
+
+MIT licensed.
