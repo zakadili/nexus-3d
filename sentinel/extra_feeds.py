@@ -79,7 +79,17 @@ def parse_urlhaus(raw, geodb):
     if len(raw) > MAX_DOWNLOAD:
         raise ValueError("URLhaus export exceeds limit")
     text = raw.decode("utf-8-sig")
-    reader = csv.DictReader(line for line in text.splitlines() if line and not line.startswith("#"))
+    lines = []
+    for line in text.splitlines():
+        if not line.strip():
+            continue
+        if line.startswith("#"):
+            stripped = line.lstrip("# ").strip()
+            if "url" in stripped.lower().split(","):
+                lines.append(stripped)
+            continue
+        lines.append(line)
+    reader = csv.DictReader(lines)
     if not reader.fieldnames or "url" not in reader.fieldnames:
         raise ValueError("URLhaus CSV missing url header")
     countries = Counter()
@@ -132,7 +142,7 @@ def parse_threatfox(doc, geodb):
         family = row.get("malware_printable") or row.get("malware")
         if isinstance(family, str) and family[:80].strip():
             malware[family[:80]] += 1
-        for tag in row.get("tags") or []:
+        for tag in (row.get("tags") if isinstance(row.get("tags"), list) else []):
             if isinstance(tag, str) and tag[:80].strip():
                 tags[tag[:80]] += 1
         kind = row.get("ioc_type")
