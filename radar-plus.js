@@ -1,22 +1,38 @@
+import {buildExtrasUI} from './radar-extras.js';
 // NEXUS V2: country-level IP indicator observatory + CISA KEV priority + ENISA sectors.
 // Data comes only from the scheduled snapshot; no demonstration data is invented.
 const $=s=>document.querySelector(s);
 const txt=(s,v)=>{$(s).textContent=String(v)};
 const fmt=n=>Number(n||0).toLocaleString('en-US');
 const DOM={svg:$('#globe'),map:$('#world-layer'),markers:$('#points-layer')};
-const state={data:null,world:null,d3:null,projection:null,path:null,iso:null,byCode:new Map(),layer:'all',selected:null,spin:true,draggedAt:0,pinned:null,tab:'overview',focusFrame:0,hovered:null,searchIndex:0,pending:new URLSearchParams(location.search).get('country')?.toUpperCase()||null};
+const state={data:null,world:null,d3:null,projection:null,path:null,iso:null,byCode:new Map(),layer:'all',selected:null,spin:true,draggedAt:0,extra:null,extraError:null,pinned:null,tab:'overview',focusFrame:0,hovered:null,searchIndex:0,pending:new URLSearchParams(location.search).get('country')?.toUpperCase()||null};
 const SOURCES={blocklistde:'blocklist.de / 48h',ipsum:'IPsum / 3+ source lists',dshield:'DShield / sensor source IPs',feodo:'Feodo / botnet C2'};
 function create(tag,cls,value){const el=document.createElement(tag);if(cls)el.className=cls;if(value!==undefined)el.textContent=String(value);return el;}
 function link(label,url){const a=create('a','',label);a.href=url;a.target='_blank';a.rel='noopener noreferrer';return a;}
+const extraUI=buildExtrasUI(state,{create,note,fmt,name,link,select});
 function setHealth(msg,ok){txt('#status',msg);$('#connection-dot').className='beacon '+(ok===true?'live':ok===false?'error':'');}
-function allCountries(){return state.data?.indicators?.countries||[];}
-function score(row){return state.layer==='all'?row.indicators:Number(row.by_source?.[state.layer]||0);}
+function allCountries(){
+ const base=state.data?.indicators?.countries||[];
+ const additional=new Set();
+ for(const id of ['urlhaus','threatfox'])
+  for(const code of Object.keys(state.extra?.feeds?.[id]?.countries||{}))additional.add(code);
+ const known=new Set(base.map(x=>x.code));
+ return [...base,...[...additional].filter(code=>!known.has(code)&&/^[A-Z]{2}$/.test(code))
+ .map(code=>({code,indicators:0,by_source:{},examples:[],samples_by_source:{}}))];
+}
+function score(row){
+ if(state.layer==='all')return Number(row.indicators||0);
+ if(['urlhaus','threatfox'].includes(state.layer))
+   return Number(state.extra?.feeds?.[state.layer]?.countries?.[row.code]||0);
+ return Number(row.by_source?.[state.layer]||0);
+}
+function layerUnits(){return state.layer==='urlhaus'?'LISTED URLs ON IPv4 HOSTS':state.layer==='threatfox'?'LISTED IPv4 IOCs':'LISTED IPv4 IPs';}
 function countries(){return allCountries().filter(c=>score(c)>0).sort((a,b)=>score(b)-score(a));}
 function name(code){if(state.iso?.byCode?.has(code))return state.iso.byCode.get(code).name;
  try{return new Intl.DisplayNames(['en'],{type:'region'}).of(code)||code;}catch(e){return code;}}
 function getISO(f){const n=String(f.id||'').padStart(3,'0');return state.iso?.byNumeric?.get(n)||null;}
 function showTip(event,code){const row=allCountries().find(v=>v.code===code);const tip=$('#map-tooltip'),bounds=$('#globe-container').getBoundingClientRect();
- tip.replaceChildren();tip.append(create('strong','',name(code)),create('div','',row?code+' / '+fmt(score(row))+' listed IPs':code+' / NO LISTED INDICATORS'),create('small','',row?fmt(row.indicators)+' across all available feeds':'No coverage in this current feed sample.'));
+ tip.replaceChildren();tip.append(create('strong','',name(code)),create('div','',row?code+' / '+fmt(score(row))+' '+layerUnits():code+' / NO LISTED INDICATORS'),create('small','',row?fmt(row.indicators)+' across all available feeds':'No coverage in this current feed sample.'));
  tip.hidden=false;let x=event.clientX-bounds.left+14,y=event.clientY-bounds.top+16;
  tip.style.left=Math.max(8,Math.min(bounds.width-250,x))+'px';tip.style.top=Math.max(8,Math.min(bounds.height-105,y))+'px';
 }
@@ -52,7 +68,7 @@ function draw(){if(!state.d3||!state.world)return;const d3=state.d3,p=state.proj
 function rankings(){const pane=$('#rankings');pane.replaceChildren();const all=countries();
  if(!all.length){pane.append(create('div','empty-state','No countries are present in this source layer.'));return;}
  all.forEach((row,i)=>{const b=create('button','rank'+(row.code===state.selected?' selected':'')),left=create('span','',String(i+1).padStart(2,'0')+'  '+name(row.code));
- left.append(create('small','',row.code+' · '+fmt(score(row))+' listed IPv4 indicators'));
+ left.append(create('small','',row.code+' · '+fmt(score(row))+' '+layerUnits()));
  b.append(left,create('b','',fmt(score(row))));b.addEventListener('click',()=>select(row.code));pane.append(b);});
  const active=pane.querySelector('.rank.selected');if(active){
   // Only scroll inside the country ranking panel. scrollIntoView() also scrolls
@@ -146,6 +162,7 @@ function renderCountryOverview(row){
   box.append(note('GLOBAL sector distribution from '+(sector.source||'the source report')+'. This is NOT a country-specific sector breakdown.'));
  }else box.append(note('No sector statistics available in this snapshot.'));
  box.append(countryTrend(row.code));
+ box.append(extraUI.countrySection(row.code));
  const action=create('button','primary research-action','◈ EXPLORE COUNTRY CVE EVIDENCE');
  action.addEventListener('click',()=>{state.tab='cves';renderDossier();});box.append(action);
  return box;
@@ -357,7 +374,7 @@ function renderSectors(){const box=$('#sector-board');box.replaceChildren();cons
  for(const s of sector.rows){const row=create('div','sector-row');const title=create('div','name');title.append(create('span','',s.name),create('strong','',s.percent.toFixed(1)+'%'));
  const bar=create('div','track'),inner=create('span');inner.style.width=Math.min(100,s.percent/40*100)+'%';bar.append(inner);row.append(title,bar);box.append(row);}
 }
-function renderSources(){const box=$('#feed-health');box.replaceChildren();for(const row of state.data.indicators.source_health||[]){
+function renderSources(){const box=$('#feed-health');box.replaceChildren();for(const row of [...(state.data.indicators.source_health||[]),...(state.extra?.source_health||state.data.extra_health||[])]){
   const e=create('div','feed');const description=create('div');description.append(create('strong','',row.name),create('small','',row.meaning||''));
   const count=create('span','count',row.status==='ok'?fmt(row.records):'UNAVAILABLE');count.append(create('small','',row.status==='ok'?'INGESTED':'FAILED'));e.append(description,count);box.append(e);}
 }
@@ -373,9 +390,16 @@ function renderSummary(){const d=state.data,box=$('#collection-info');box.replac
 function render(){const d=state.data;if(!d)return;
  txt('#sources',fmt(d.indicators.unique_indicators));txt('#reports',fmt(d.indicators.resolved_indicators));txt('#countries',fmt(d.indicators.countries.length));txt('#hot-port',fmt(d.cves.total_kev||0));txt('#port-caption','CISA Known Exploited Vulnerabilities');
  const healthy=(d.indicators.source_health||[]).filter(r=>r.status==='ok').length;txt('#mode',healthy+' / '+(d.indicators.source_health||[]).length);
- txt('#freshness','IP feeds · CISA · FIRST · ENISA');txt('#updated','Snapshot '+new Date(d.generated_at).toLocaleString());txt('#observation-window','SOURCE COUNTS / OBSERVATION LISTS');
- const layer=state.layer;const active=countries();if(layer!=='all'){txt('#countries',fmt(active.length));txt('#sources',fmt(active.reduce((n,c)=>n+score(c),0)));txt('#reports','—');txt('#freshness','FILTERED LAYER / IP count only');}else txt('#freshness','Deduplicated by IP / all sources');
- renderCVEs();renderSectors();renderSources();renderTable();renderSummary();rankings();renderCountryChanges();draw();if(state.selected){if(allCountries().some(r=>r.code===state.selected))renderDossier();else renderUnavailableCountry(state.selected);setFocusSummary();}txt('#map-total',fmt(d.indicators.countries.length)+' COUNTRIES · '+fmt(d.indicators.unique_indicators)+' INDICATORS');
+ txt('#freshness','IP feeds · CISA · FIRST · ENISA');updateTimestamp();txt('#observation-window','SOURCE COUNTS / OBSERVATION LISTS');
+ const layer=state.layer;const active=countries();if(layer!=='all'){
+ txt('#countries',fmt(active.length));txt('#sources',fmt(active.reduce((n,c)=>n+score(c),0)));
+ txt('#reports','—');txt('#freshness','FILTERED LAYER / '+layerUnits()+' ONLY');
+ const label=document.querySelector('.metric label');if(label)label.textContent=layerUnits();
+}else{
+ const label=document.querySelector('.metric label');if(label)label.textContent='UNIQUE LISTED IPs';
+ txt('#freshness','Deduplicated by IP / all sources');
+}
+ renderCVEs();renderSectors();renderSources();renderTable();renderSummary();extraUI.renderGlobal();extraUI.renderHealthTimeline(d.history||[],d.indicators.source_health||[]);rankings();renderCountryChanges();draw();if(state.selected){if(allCountries().some(r=>r.code===state.selected))renderDossier();else renderUnavailableCountry(state.selected);setFocusSummary();}txt('#map-total',fmt(d.indicators.countries.length)+' COUNTRIES · '+fmt(d.indicators.unique_indicators)+' INDICATORS');
  $('#map-loading').style.display=state.world?'none':'block';txt('#notice','IP-list entries are not confirmed attacks. Country is IP-location only. Sources have different measurement windows; never add their counts as incidents.');
 }
 function comparableSnapshots(){
@@ -640,14 +664,55 @@ async function prepareMap(){
   const spin=()=>{if(state.spin && !state.selected && state.projection && Date.now()-state.draggedAt>4000 && !document.body.classList.contains('immersive')){const r=state.projection.rotate();state.projection.rotate([r[0]+.25,r[1]]);draw();}setTimeout(spin,160);};spin();
  }catch(e){txt('#map-loading','MAP ASSETS UNAVAILABLE');txt('#notice','Could not load external map assets: '+e.message+'. Source tables remain available.');}
 }
+function updateTimestamp(){
+ const time=state.data?.generated_at;if(!time)return;
+ const epoch=Date.parse(time);if(!Number.isFinite(epoch))return;
+ const delta=Math.max(0,Math.floor((Date.now()-epoch)/60000));
+ const relative=delta<1?'just now':delta<60?delta+'m ago':delta<1440?Math.floor(delta/60)+'h ago':Math.floor(delta/1440)+'d ago';
+ txt('#updated','Last updated: '+new Date(epoch).toISOString().replace('.000Z','Z')+' ('+relative+')');
+}
+async function loadExtra(){
+ try{
+  const route=location.port==='8765'?'/api/extra':'./data/extra.json';
+  const response=await fetch(route+'?v='+Date.now(),{cache:'no-store'});
+  if(!response.ok)throw Error('Extra feed HTTP '+response.status);
+  const data=await response.json();
+  if(data.schema!==1||!data.feeds||!Array.isArray(data.source_health))throw Error('Invalid extra feed snapshot');
+  state.extra=data;state.extraError=null;
+ }catch(e){
+  state.extraError=e.message;
+  state.extra={schema:1,feeds:{},source_health:state.data?.extra_health||[]};
+ }
+ if(state.data)render();
+}
+setInterval(updateTimestamp,60000);
+const isMac=/Mac|iPhone|iPad/.test(navigator.platform||'');
+const shortcut=document.querySelector('#shortcut-label');
+if(shortcut)shortcut.textContent=isMac?'⌘K':'Ctrl K';
 async function load(){setHealth('COLLECTING');$('#refresh').disabled=true;
  try{const url=location.port==='8765'?'/api/overview':'./data/overview.json';
  const response=await fetch(url+'?v='+Date.now(),{cache:'no-store'});if(!response.ok)throw Error('Snapshot HTTP '+response.status);
  const d=await response.json();if(d.schema!==2 || !Array.isArray(d.indicators?.countries))throw Error('Unknown snapshot format');
- state.data=d;render();setHealth('MULTI-SOURCE ONLINE',true);
+ state.data=d;state.extra={schema:1,feeds:{},source_health:d.extra_health||[]};state.extraError=null;
+ try{localStorage.setItem('nexus.last.good.overview',JSON.stringify(d));}catch(e){}
+ render();setHealth('MULTI-SOURCE ONLINE',true);loadExtra();
+ document.querySelectorAll('.skeleton').forEach(x=>x.classList.remove('skeleton','skeleton-metric','skeleton-panel'));
  if(state.pending){const code=state.pending;state.pending=null;const row=allCountries().find(r=>r.code===code);if(row)select(code,{zoom:!!state.projection,updateUrl:false});}
  else if(state.selected && state.projection)draw();
- }catch(e){setHealth('DATA PIPELINE OFFLINE',false);txt('#notice','Intelligence snapshot has not been generated or is unreachable: '+e.message+'. GitHub Actions → Refresh global intelligence snapshot → Run workflow. No figures are invented.');txt('#map-loading','AWAITING AUTOMATED FEED SNAPSHOT');}
+ }catch(e){
+ setHealth('SNAPSHOT UNAVAILABLE',false);
+ let cached=null;try{cached=JSON.parse(localStorage.getItem('nexus.last.good.overview')||'null');}catch(error){}
+ if(cached?.schema===2&&Array.isArray(cached.indicators?.countries)){
+  state.data=cached;state.extra={schema:1,feeds:{},source_health:cached.extra_health||[]};
+  render();txt('#updated','Snapshot unavailable, last good snapshot: '+new Date(cached.generated_at).toISOString());
+  txt('#notice','Showing cached, potentially stale observations. Latest snapshot failed: '+e.message);
+  loadExtra();
+ }else{
+  txt('#updated','Snapshot unavailable, last good snapshot: none stored');
+  txt('#notice','No real dataset loaded: '+e.message);
+  txt('#map-loading','SNAPSHOT UNAVAILABLE');
+ }
+}
  finally{$('#refresh').disabled=false;}
 }
 $('#refresh').addEventListener('click',load);
@@ -667,7 +732,7 @@ $('#country-search').addEventListener('input',()=>{searchCursor=0;refreshSearch(
 $('#search-overlay').addEventListener('click',e=>{if(e.target===$('#search-overlay'))closeSearch();});
 window.addEventListener('keydown',keyboard);
 const initialLayer=new URLSearchParams(location.search).get('layer');
-if(initialLayer&&['all',...Object.keys(SOURCES)].includes(initialLayer)){
+if(initialLayer&&['all',...Object.keys(SOURCES),'urlhaus','threatfox'].includes(initialLayer)){
  state.layer=initialLayer;$('#layer').value=initialLayer;
 }
 prepareMap();load();
