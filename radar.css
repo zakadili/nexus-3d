@@ -163,3 +163,6 @@ body.immersive .globe-container .map-label{bottom:22px}
 .ip-context a{color:#f48498;font-size:10px}
 .dossier-trend{margin:15px 0;border:1px solid #5a3142;background:#141520;padding:12px}
 .dossier-trend svg{display:block;width:100%;margin:10px 0}
+
+#stop-tour[hidden]{display:none!important}
+#stop-tour:not([hidden]){background:#a52640;color:#fff;border-color:#f25a70}
