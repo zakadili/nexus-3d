@@ -54,7 +54,13 @@ function rankings(){const pane=$('#rankings');pane.replaceChildren();const all=c
  all.forEach((row,i)=>{const b=create('button','rank'+(row.code===state.selected?' selected':'')),left=create('span','',String(i+1).padStart(2,'0')+'  '+name(row.code));
  left.append(create('small','',row.code+' · '+fmt(score(row))+' listed IPv4 indicators'));
  b.append(left,create('b','',fmt(score(row))));b.addEventListener('click',()=>select(row.code));pane.append(b);});
- const active=pane.querySelector('.rank.selected');if(active)active.scrollIntoView({block:'nearest'});
+ const active=pane.querySelector('.rank.selected');if(active){
+  // Only scroll inside the country ranking panel. scrollIntoView() also scrolls
+  // the whole page, which caused the screen to drift downward on repeated clicks.
+  const top=active.offsetTop-pane.offsetTop;
+  if(top<pane.scrollTop)pane.scrollTop=top;
+  else if(top+active.offsetHeight>pane.scrollTop+pane.clientHeight)pane.scrollTop=top+active.offsetHeight-pane.clientHeight;
+ }
 }
 function flag(code){return /^[A-Z]{2}$/.test(code)?String.fromCodePoint(...[...code].map(c=>127397+c.charCodeAt(0))):'◎';}
 function kpi(value,label){const e=create('div','dossier-kpi');e.append(create('strong','',value),create('small','',label));return e;}
@@ -286,9 +292,14 @@ function flyTo(rotation,scale,duration=1050,done=()=>{}){
  };state.focusFrame=requestAnimationFrame(frame);
 }
 function flyToCountry(code){const feature=state.byCode.get(code);if(!feature||!state.d3)return;
- const center=state.d3.geoCentroid(feature);const area=state.d3.geoArea(feature);
- const angle=2*Math.sqrt(Math.max(area,.000005)/Math.PI);
- const zoom=Math.min(650,Math.max(295,195/Math.max(.29,Math.sin(angle))));
+ // For the unified Moroccan geographical display, use a center that includes
+ // the southern area. For other countries choose a stable geographical centroid.
+ const center=code==='MA'?[-8.5,28.5]:state.d3.geoCentroid(feature);
+ const area=Math.max(.000005,state.d3.geoArea(feature));
+ const angle=2*Math.sqrt(area/Math.PI);
+ // Keep the orthographic globe within a useful viewport when focused.
+ // Excessive 650+ zoom was clipping the globe into apparently empty space.
+ const zoom=code==='MA'?415:Math.min(460,Math.max(280,175/Math.max(.31,Math.sin(angle))));
  updateSpin(false);flyTo([-center[0],-center[1],0],zoom);
 }
 function backToWorld({exitImmersive=false}={}){
@@ -397,11 +408,27 @@ function refreshSearchHighlights(){$('#search-results').querySelectorAll('.searc
 
 async function prepareMap(){
  try{const [d3,topo]=await Promise.all([import('https://cdn.jsdelivr.net/npm/d3@7/+esm'),import('https://cdn.jsdelivr.net/npm/topojson-client@3/+esm')]);
-  const [world,iso]=await Promise.all([fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json').then(r=>r.json()),
+  const [world,iso]=await Promise.all([fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json').then(r=>r.json()),
     fetch('https://raw.githubusercontent.com/lukes/ISO-3166-Countries-with-Regional-Codes/master/all/all.json').then(r=>r.json())]);
   const byNumeric=new Map(),byCode=new Map();
   for(const c of iso){const code=c['alpha-2'],numeric=c['country-code'];if(code&&numeric){const rec={code,name:c.name};byNumeric.set(String(numeric).padStart(3,'0'),code);byCode.set(code,rec);}}
-  state.iso={byNumeric,byCode};state.d3=d3;state.world=topo.feature(world,world.objects.countries).features;state.byCode=new Map(state.world.map(f=>[getISO(f),f]).filter(([a,b])=>a));
+  state.iso={byNumeric,byCode};state.d3=d3;
+  const rawFeatures=topo.feature(world,world.objects.countries).features;
+  // The upstream Natural Earth/World Atlas geography splits Western Sahara
+  // into ISO 732. Offer a contiguous Morocco-focused visualization by combining
+  // Morocco (504) with the adjacent territory (732) for DISPLAY ONLY.
+  // Political status remains disputed and is explicitly acknowledged in UI.
+  const morocco=rawFeatures.find(f=>String(f.id).padStart(3,'0')==='504');
+  const southern=rawFeatures.find(f=>String(f.id).padStart(3,'0')==='732');
+  if(morocco&&southern){
+   const pieces=world.objects.countries.geometries.filter(g=>['504','732'].includes(String(g.id).padStart(3,'0')));
+   if(pieces.length===2){
+    const combined=topo.merge(world,pieces);
+    const whole={type:'Feature',id:504,properties:{...morocco.properties,displayNote:'Includes Western Sahara geography; political status disputed'},geometry:combined};
+    state.world=rawFeatures.filter(f=>!['504','732'].includes(String(f.id).padStart(3,'0'))).concat([whole]);
+   }else state.world=rawFeatures;
+  }else state.world=rawFeatures;
+  state.byCode=new Map(state.world.map(f=>[getISO(f),f]).filter(([a,b])=>a));
   state.projection=d3.geoOrthographic().scale(235).translate([450,260]).clipAngle(90).precision(.5).rotate([-10,-12]);
   state.path=d3.geoPath(state.projection);draw();if(state.data)$('#map-loading').style.display='none';
   if(state.selected)flyToCountry(state.selected);
