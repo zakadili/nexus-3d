@@ -142,6 +142,11 @@ def collect_indicators():
             c["by_source"][origin]+=1
             if len(c["samples_by_source"][origin])<5:
                 c["samples_by_source"][origin].append({"ip":ip,"sources":sorted(origins)})
+    country_ips=defaultdict(list)
+    for ip in by_ip:
+        code=geodb.locate(ip)
+        if code:
+            country_ips[code].append(ip)
     records=[{"code":code,"indicators":row["total"],"by_source":dict(row["by_source"]),
               "multi_source_count":row["multi_source_count"],
               "samples_by_source":dict(row["samples_by_source"]),
@@ -152,6 +157,7 @@ def collect_indicators():
         "unique_indicators":len(by_ip),"resolved_indicators":len(by_ip)-unresolved,
         "unresolved_indicators":unresolved,
         "countries":records,"source_health":[r[2] for r in results],
+        "_extra_inputs": (geodb, dict(country_ips)),
         "dshield_sample":dshield,
         "geo_method":"DB-IP Lite Country via sapics/ip-location-db, CC BY 4.0, approximate IP allocation; not attacker attribution",
         "geo_url":"https://db-ip.com/"
@@ -239,6 +245,8 @@ def compact_snapshot(snapshot):
         "generated_at": snapshot.get("generated_at"),
         "unique_indicators": indicators.get("unique_indicators"),
         "available_sources": sorted(row["id"] for row in health if row.get("status")=="ok"),
+        "feed_status": {row.get("id"):row.get("status") for row in health if row.get("id")} |
+                       {row.get("id"):row.get("status") for row in snapshot.get("extra_health",[]) if row.get("id")},
         "country_counts": {r["code"]:r["indicators"] for r in countries}
     }
 
@@ -346,6 +354,7 @@ def main():
     failures=[]
     try:indicators=collect_indicators()
     except Exception as exc:indicators={"status":"unavailable","countries":[],"unique_indicators":None,"source_health":[],"error":str(exc)[:200]};failures.append("indicators")
+    extra_inputs=indicators.pop("_extra_inputs", None)
     cves=collect_cves()
     if cves.get("status")!="ok":failures.append("cves")
     # ENISA ETL 2026: January–December 2025 EU observed incidents, NOT real-time world stats.
@@ -363,6 +372,15 @@ def main():
             previous=json.loads(OUT.read_text(encoding="utf-8"))
     except (OSError,ValueError):
         previous=None
+    # Supplementary feeds are best-effort and never change source-IP totals.
+    # Store their compact aggregates separately from overview.json.
+    from sentinel import extra_feeds
+    if extra_inputs:
+        extra=extra_feeds.collect_all(*extra_inputs)
+    else:
+        extra={"schema":1,"collected_at":generated,"feeds":{k:None for k in extra_feeds.SOURCES},
+               "source_health":[extra_feeds.unavailable(k,"base geolocation unavailable") for k in extra_feeds.SOURCES]}
+    output["extra_health"]=extra["source_health"]
     output["history"]=assemble_history(output,previous)
     try:
         output["country_cve_signals"]=collect_country_cve_samples(indicators,previous)
@@ -370,6 +388,9 @@ def main():
         output["country_cve_signals"]={"status":"unavailable","reason":str(exc)[:180]}
     OUT.parent.mkdir(exist_ok=True,parents=True)
     OUT.write_text(json.dumps(output,indent=2)+"\n",encoding="utf-8")
+    # Compact separate file, consumed lazily by the browser.
+    extra_path=OUT.parent/"extra.json"
+    extra_path.write_text(json.dumps(extra,separators=(",",":"))+"\n",encoding="utf-8")
     print("Published:",OUT,"countries:",len(indicators["countries"]),"KEV:",cves.get("total_kev"),"failures:",failures)
 
 if __name__=="__main__":main()
