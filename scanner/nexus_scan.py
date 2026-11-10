@@ -10,6 +10,7 @@ import socket
 import ssl
 import time
 from pathlib import Path
+from verify import verify_3des
 
 DEFAULT_PORTS = (22, 80, 443, 8080, 8443, 3306, 5432, 3389)
 MAX_TARGETS = 32
@@ -82,6 +83,8 @@ def run(args):
         for port in sorted(open_ports):
             if port in (443, 8443):
                 record["checks"].append({"port": port, **tls_check(ip, port, args.timeout)})
+                if args.verify_3des:
+                    record["checks"].append(verify_3des(ip, port, args.timeout))
             if port in (80, 443, 8080, 8443):
                 record["checks"].append({"port": port, "check": "http_headers", **web_checks(ip, port, args.timeout)})
             time.sleep(0.15)
@@ -97,6 +100,7 @@ if __name__ == "__main__":
     parser.add_argument("--ports", nargs="+", type=int, default=list(DEFAULT_PORTS))
     parser.add_argument("--timeout", type=float, default=2.0)
     parser.add_argument("--output", default="nexus-scan.json")
+    parser.add_argument("--verify-3des", action="store_true", help="Non-destructive SWEET32/3DES TLS handshake check on 443/8443")
     args = parser.parse_args()
     if not 0.2 <= args.timeout <= 5:
         parser.error("--timeout must be between 0.2 and 5 seconds")
