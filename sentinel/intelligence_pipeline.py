@@ -244,6 +244,92 @@ def assemble_history(new_snapshot, previous=None, limit=28):
     return entries[-limit:]
 
 
+def _country_research_sample(row, limit=3):
+    """Select a few public source IPs across providers, without address scanning."""
+    by_source=row.get("samples_by_source") or {}
+    keys=("blocklistde","ipsum","dshield","feodo")
+    ordered=[];seen=set()
+    for i in range(5):
+        for key in keys:
+            entries=by_source.get(key) or []
+            if i>=len(entries):
+                continue
+            ip=global_v4(entries[i].get("ip"))
+            if ip and ip not in seen:
+                seen.add(ip);ordered.append(ip)
+                if len(ordered)>=limit:
+                    return ordered
+    return ordered
+
+
+def _internetdb_ip(ip):
+    """Read Shodan's public, weekly-updated InternetDB metadata (no port scans)."""
+    url="https://internetdb.shodan.io/"+quote(ip)
+    try:
+        d=get_json(url,cap=150_000,timeout=9)
+        return {"ip":ip,"status":"ok",
+                "vulns":[c for c in d.get("vulns",[]) if isinstance(c,str) and re.fullmatch(r"CVE-\\d{4}-\\d{4,}",c)][:100],
+                "ports":[p for p in d.get("ports",[]) if isinstance(p,int) and 0<p<=65535][:100]}
+    except HTTPError as exc:
+        if exc.code==404:
+            return {"ip":ip,"status":"not_indexed","vulns":[],"ports":[]}
+        return {"ip":ip,"status":"unavailable"}
+    except Exception:
+        return {"ip":ip,"status":"unavailable"}
+
+
+def collect_country_cve_samples(indicators, previous):
+    """Optional country research, once daily. Not a nationwide CVE prevalence claim."""
+    if not indicators.get("countries"):
+        return {"status":"unavailable","reason":"Country indicator dataset unavailable"}
+    old=(previous or {}).get("country_cve_signals") or {}
+    try:
+        age=(datetime.now(timezone.utc)-datetime.fromisoformat(old.get("collected_at",""))).total_seconds()
+        if old.get("status")=="ok" and 0<=age<24*3600:
+            return old
+    except (ValueError,TypeError):
+        pass
+    selected={}
+    all_ips=set()
+    for row in indicators["countries"]:
+        sample=_country_research_sample(row,3)
+        if sample:
+            selected[row["code"]]=sample
+            all_ips.update(sample)
+    if not all_ips:
+        return {"status":"unavailable","reason":"No eligible sample IPs"}
+    with ThreadPoolExecutor(max_workers=6) as pool:
+        result=list(pool.map(_internetdb_ip,sorted(all_ips)))
+    by_ip={entry["ip"]:entry for entry in result}
+    countries={}
+    successes=0
+    for code,ips in selected.items():
+        records=[by_ip[ip] for ip in ips]
+        hits=[r for r in records if r["status"]=="ok"]
+        successes+=len(hits)
+        cves=Counter(cve for r in hits for cve in set(r["vulns"]))
+        ports=Counter(port for r in hits for port in set(r["ports"]))
+        countries[code]={
+            "requested":len(records),
+            "responded":len(hits),
+            "unindexed":sum(r["status"]=="not_indexed" for r in records),
+            "failed":sum(r["status"]=="unavailable" for r in records),
+            "with_cves":sum(bool(r["vulns"]) for r in hits),
+            "cves":[{"id":id,"sample_ips":n} for id,n in sorted(cves.items(),key=lambda x:(-x[1],x[0]))[:10]],
+            "ports":[{"port":p,"sample_ips":n} for p,n in sorted(ports.items(),key=lambda x:(-x[1],x[0]))[:10]]
+        }
+    return {
+        "status":"ok" if successes else "unavailable",
+        "source":"Shodan InternetDB",
+        "source_url":"https://book.shodan.io/developer-apis/internetdb/",
+        "collected_at":datetime.now(timezone.utc).isoformat(),
+        "requested_ips":len(all_ips),
+        "responded_ips":successes,
+        "meaning":"Weekly-updated passive metadata for <=3 nonrandom, provider-list sample IPs per country; vulns include unverified entries. NOT country CVE prevalence or confirmed exploitation.",
+        "countries":countries
+    }
+
+
 def main():
     generated=datetime.now(timezone.utc).isoformat()
     failures=[]
@@ -267,6 +353,10 @@ def main():
     except (OSError,ValueError):
         previous=None
     output["history"]=assemble_history(output,previous)
+    try:
+        output["country_cve_signals"]=collect_country_cve_samples(indicators,previous)
+    except Exception as exc:
+        output["country_cve_signals"]={"status":"unavailable","reason":str(exc)[:180]}
     OUT.parent.mkdir(exist_ok=True,parents=True)
     OUT.write_text(json.dumps(output,indent=2)+"\n",encoding="utf-8")
     print("Published:",OUT,"countries:",len(indicators["countries"]),"KEV:",cves.get("total_kev"),"failures:",failures)
