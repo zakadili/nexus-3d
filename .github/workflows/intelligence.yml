@@ -27,6 +27,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Install runtime dependencies for full unittest discovery
+        run: python3 -m pip install -r sentinel/requirements.txt
       - name: Run parser regression tests before collecting
         run: PYTHONPATH=.:sentinel python3 -m unittest discover -s sentinel -p "test_*.py" -v
       - name: Collect licensed public threat intelligence
