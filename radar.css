@@ -190,3 +190,5 @@ body.immersive .globe-container .map-label{bottom:22px}
 .dossier-tabs button{font-size:9px}
 .dossier-section{max-height:340px}
 .map-foot strong{color:#f27c92}
+
+.trend-rankings{padding:12px 14px}.trend-subhead{font-size:10px;letter-spacing:.09em;color:#ef6882;margin:12px 0 7px}.trend-item{width:100%;display:flex;justify-content:space-between;gap:12px;padding:9px 6px;background:transparent;border:0;border-bottom:1px solid #3c2734;color:#d5dce5;text-align:left;font-size:11px}.trend-item:hover{background:#33212d}.trend-item b{font-weight:700}.trend-item .rise{color:#fb7088}.trend-item .fall{color:#92a8bb}.trend-disclaimer{padding:8px 14px 16px;color:#8592a2;font-size:10px;line-height:1.6}
