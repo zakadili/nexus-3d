@@ -181,7 +181,7 @@ function render(){const d=state.data;if(!d)return;
  const healthy=(d.indicators.source_health||[]).filter(r=>r.status==='ok').length;txt('#mode',healthy+' / '+(d.indicators.source_health||[]).length);
  txt('#freshness','IP feeds · CISA · FIRST · ENISA');txt('#updated','Snapshot '+new Date(d.generated_at).toLocaleString());txt('#observation-window','SOURCE COUNTS / OBSERVATION LISTS');
  const layer=state.layer;const active=countries();if(layer!=='all'){txt('#countries',fmt(active.length));txt('#sources',fmt(active.reduce((n,c)=>n+score(c),0)));txt('#reports','—');txt('#freshness','FILTERED LAYER / IP count only');}else txt('#freshness','Deduplicated by IP / all sources');
- renderCVEs();renderSectors();renderSources();renderTable();renderSummary();rankings();draw();
+ renderCVEs();renderSectors();renderSources();renderTable();renderSummary();rankings();draw();if(state.selected){renderDossier();setFocusSummary();}txt('#map-total',fmt(d.indicators.countries.length)+' COUNTRIES · '+fmt(d.indicators.unique_indicators)+' INDICATORS');
  $('#map-loading').style.display='none';txt('#notice','IP-list entries are not confirmed attacks. Country is IP-location only. Sources have different measurement windows; never add their counts as incidents.');
 }
 function setFocusSummary(){
@@ -327,8 +327,13 @@ async function prepareMap(){
   state.iso={byNumeric,byCode};state.d3=d3;state.world=topo.feature(world,world.objects.countries).features;state.byCode=new Map(state.world.map(f=>[getISO(f),f]).filter(([a,b])=>a));
   state.projection=d3.geoOrthographic().scale(235).translate([450,260]).clipAngle(90).precision(.5).rotate([-10,-12]);
   state.path=d3.geoPath(state.projection);draw();
-  let start=null,rot=null;d3.select('#globe').call(d3.drag().on('start',e=>{start=[e.x,e.y];rot=state.projection.rotate();state.draggedAt=Date.now();}).on('drag',e=>{state.projection.rotate([rot[0]+(e.x-start[0])*.33,Math.max(-70,Math.min(70,rot[1]-(e.y-start[1])*.23))]);state.draggedAt=Date.now();draw();}));
-  const spin=()=>{if(state.spin && state.projection && Date.now()-state.draggedAt>4000){const r=state.projection.rotate();state.projection.rotate([r[0]+.25,r[1]]);draw();}setTimeout(spin,160);};spin();
+  if(state.selected)flyToCountry(state.selected);
+  else if(state.pending && state.data){const code=state.pending;state.pending=null;select(code,{updateUrl:false});}
+  let start=null,rot=null;d3.select('#globe').call(d3.drag().on('start',e=>{cancelAnimationFrame(state.focusFrame);start=[e.x,e.y];rot=state.projection.rotate();state.draggedAt=Date.now();})
+   .on('drag',e=>{state.projection.rotate([rot[0]+(e.x-start[0])*.33,Math.max(-70,Math.min(70,rot[1]-(e.y-start[1])*.23))]);state.draggedAt=Date.now();draw();}));
+  d3.select('#globe').on('wheel.manualZoom',event=>{event.preventDefault();cancelAnimationFrame(state.focusFrame);
+   const next=Math.max(210,Math.min(720,state.projection.scale()*Math.exp(-event.deltaY*.001)));state.projection.scale(next);state.draggedAt=Date.now();draw();});
+  const spin=()=>{if(state.spin && !state.selected && state.projection && Date.now()-state.draggedAt>4000 && !document.body.classList.contains('immersive')){const r=state.projection.rotate();state.projection.rotate([r[0]+.25,r[1]]);draw();}setTimeout(spin,160);};spin();
  }catch(e){txt('#map-loading','MAP ASSETS UNAVAILABLE');txt('#notice','Could not load external map assets: '+e.message+'. Source tables remain available.');}
 }
 async function load(){setHealth('COLLECTING');$('#refresh').disabled=true;
@@ -336,11 +341,27 @@ async function load(){setHealth('COLLECTING');$('#refresh').disabled=true;
  const response=await fetch(url+'?v='+Date.now(),{cache:'no-store'});if(!response.ok)throw Error('Snapshot HTTP '+response.status);
  const d=await response.json();if(d.schema!==2 || !Array.isArray(d.indicators?.countries))throw Error('Unknown snapshot format');
  state.data=d;render();setHealth('MULTI-SOURCE ONLINE',true);
+ if(state.pending){const code=state.pending;state.pending=null;const row=allCountries().find(r=>r.code===code);if(row)select(code,{zoom:!!state.projection,updateUrl:false});}
+ else if(state.selected && state.projection)draw();
  }catch(e){setHealth('DATA PIPELINE OFFLINE',false);txt('#notice','Intelligence snapshot has not been generated or is unreachable: '+e.message+'. GitHub Actions → Refresh global intelligence snapshot → Run workflow. No figures are invented.');txt('#map-loading','AWAITING AUTOMATED FEED SNAPSHOT');}
  finally{$('#refresh').disabled=false;}
 }
 $('#refresh').addEventListener('click',load);
-$('#layer').addEventListener('change',e=>{state.layer=e.target.value;state.selected=null;if(state.data)render();});
-$('#spin').addEventListener('click',()=>{state.spin=!state.spin;$('#spin').setAttribute('aria-pressed',String(state.spin));txt('#spin',state.spin?'◉ AUTO ROTATE':'○ ROTATION PAUSED');});
-$('#reset-globe').addEventListener('click',()=>{if(state.projection){state.selected=null;state.projection.rotate([-10,-12]);draw();rankings();}});
+$('#layer').addEventListener('change',e=>{state.layer=e.target.value;syncAddress();if(state.data)render();});
+$('#spin').addEventListener('click',()=>updateSpin(!state.spin));
+$('#reset-globe').addEventListener('click',()=>backToWorld());
+$('#back-world').addEventListener('click',()=>backToWorld({exitImmersive:document.body.classList.contains('immersive')}));
+$('#focus-mode').addEventListener('click',()=>toggleImmersive());
+$('#exit-immersive').addEventListener('click',()=>toggleImmersive(false));
+$('#capture').addEventListener('click',captureMap);
+$('#open-search').addEventListener('click',openSearch);
+$('#close-search').addEventListener('click',closeSearch);
+$('#close-compare').addEventListener('click',()=>{state.pinned=null;$('#compare-panel').hidden=true;if(state.selected)renderDossier();});
+$('#country-search').addEventListener('input',()=>{searchCursor=0;refreshSearch();});
+$('#search-overlay').addEventListener('click',e=>{if(e.target===$('#search-overlay'))closeSearch();});
+window.addEventListener('keydown',keyboard);
+const initialLayer=new URLSearchParams(location.search).get('layer');
+if(initialLayer&&['all',...Object.keys(SOURCES)].includes(initialLayer)){
+ state.layer=initialLayer;$('#layer').value=initialLayer;
+}
 prepareMap();load();
