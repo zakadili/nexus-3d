@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "collected_at": null,
+  "feeds": {
+    "urlhaus": null,
+    "threatfox": null,
+    "iptoasn": null,
+    "ioda": null
+  },
+  "source_health": [
+    {
+      "id": "urlhaus",
+      "name": "URLhaus / abuse.ch",
+      "url": "https://urlhaus.abuse.ch/api/",
+      "status": "unavailable",
+      "records": null,
+      "reason": "no key configured / no completed collection",
+      "meaning": "Literal IPv4 malware URL hosts only, not attacker location."
+    },
+    {
+      "id": "threatfox",
+      "name": "ThreatFox / abuse.ch",
+      "url": "https://threatfox.abuse.ch/api/",
+      "status": "unavailable",
+      "records": null,
+      "reason": "no key configured / no completed collection",
+      "meaning": "Geolocated IPv4 IOC endpoints only, not attacker attribution."
+    },
+    {
+      "id": "iptoasn",
+      "name": "IPtoASN / Frank Denis",
+      "url": "https://iptoasn.com/",
+      "status": "unavailable",
+      "records": null,
+      "reason": "no completed collection",
+      "meaning": "Announced networks behind listed IPs; providers are not presumed malicious."
+    },
+    {
+      "id": "ioda",
+      "name": "IODA / Georgia Tech",
+      "url": "https://ioda.inetintel.cc.gatech.edu/",
+      "status": "unavailable",
+      "records": null,
+      "reason": "no completed collection",
+      "meaning": "Connectivity outages have multiple causes and are not confirmed cyberattacks."
+    }
+  ]
+}
