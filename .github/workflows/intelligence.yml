@@ -7,6 +7,8 @@ on:
   push:
     paths:
       - "sentinel/intelligence_pipeline.py"
+      - "sentinel/extra_feeds.py"
+      - "sentinel/test_extra_feeds.py"
       - ".github/workflows/intelligence.yml"
 
 permissions:
@@ -25,6 +27,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Run parser regression tests before collecting
+        run: PYTHONPATH=.:sentinel python3 -m unittest discover -s sentinel -p "test_*.py" -v
       - name: Collect licensed public threat intelligence
         env:
           ABUSECH_AUTH_KEY: ${{ secrets.ABUSECH_AUTH_KEY }}
@@ -35,7 +39,11 @@ jobs:
           import json
           d=json.load(open("data/overview.json"))
           assert d["schema"] == 2
-          assert d["cves"].get("status") == "ok" or d["indicators"].get("unique_indicators")
+          assert d["indicators"].get("unique_indicators") is not None
+          extra=json.load(open("data/extra.json"))
+          assert extra["schema"] == 1
+          assert len(extra["source_health"]) == 4
+          assert len(json.dumps(extra)) < 2_000_000
           print("Country rows:",len(d["indicators"].get("countries",[])))
           print("Indicator rows:",d["indicators"].get("unique_indicators"))
           PY
