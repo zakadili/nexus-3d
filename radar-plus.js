@@ -311,15 +311,39 @@ function render(){const d=state.data;if(!d)return;
  const healthy=(d.indicators.source_health||[]).filter(r=>r.status==='ok').length;txt('#mode',healthy+' / '+(d.indicators.source_health||[]).length);
  txt('#freshness','IP feeds · CISA · FIRST · ENISA');txt('#updated','Snapshot '+new Date(d.generated_at).toLocaleString());txt('#observation-window','SOURCE COUNTS / OBSERVATION LISTS');
  const layer=state.layer;const active=countries();if(layer!=='all'){txt('#countries',fmt(active.length));txt('#sources',fmt(active.reduce((n,c)=>n+score(c),0)));txt('#reports','—');txt('#freshness','FILTERED LAYER / IP count only');}else txt('#freshness','Deduplicated by IP / all sources');
- renderCVEs();renderSectors();renderSources();renderTable();renderSummary();rankings();draw();if(state.selected){if(allCountries().some(r=>r.code===state.selected))renderDossier();else renderUnavailableCountry(state.selected);setFocusSummary();}txt('#map-total',fmt(d.indicators.countries.length)+' COUNTRIES · '+fmt(d.indicators.unique_indicators)+' INDICATORS');
+ renderCVEs();renderSectors();renderSources();renderTable();renderSummary();rankings();renderCountryChanges();draw();if(state.selected){if(allCountries().some(r=>r.code===state.selected))renderDossier();else renderUnavailableCountry(state.selected);setFocusSummary();}txt('#map-total',fmt(d.indicators.countries.length)+' COUNTRIES · '+fmt(d.indicators.unique_indicators)+' INDICATORS');
  $('#map-loading').style.display=state.world?'none':'block';txt('#notice','IP-list entries are not confirmed attacks. Country is IP-location only. Sources have different measurement windows; never add their counts as incidents.');
+}
+function comparableSnapshots(){
+ const all=Array.isArray(state.data?.history)?state.data.history.slice(-28):[];
+ const latest=all.at(-1);if(!latest||!Array.isArray(latest.available_sources))return [];
+ const key=latest.available_sources.slice().sort().join('|');
+ return all.filter(x=>Array.isArray(x.available_sources)&&x.available_sources.slice().sort().join('|')===key&&x.country_counts&&typeof x.country_counts==='object');
+}
+function renderCountryChanges(){
+ const panel=$('#country-changes');if(!panel)return;panel.replaceChildren();
+ const snaps=comparableSnapshots();
+ if(snaps.length<2){panel.append(create('div','empty-state','Waiting for at least two comparable collections with the same successful feed set.'));return;}
+ const a=snaps[0].country_counts,b=snaps.at(-1).country_counts;
+ const codes=new Set([...Object.keys(a),...Object.keys(b)]);
+ const changes=[...codes].filter(code=>Number.isFinite(a[code]??0)&&Number.isFinite(b[code]??0))
+ .map(code=>({code,delta:(b[code]||0)-(a[code]||0),start:a[code]||0,end:b[code]||0}))
+ .filter(x=>x.delta!==0);
+ const groups=[['TOP RISERS',changes.filter(x=>x.delta>0).sort((x,y)=>y.delta-x.delta).slice(0,5)],
+ ['TOP FALLERS',changes.filter(x=>x.delta<0).sort((x,y)=>x.delta-y.delta).slice(0,5)]];
+ for(const [label,rows] of groups){
+  panel.append(create('h3','trend-subhead',label));
+  if(!rows.length){panel.append(note('No changes in the available comparable snapshots.'));continue;}
+  for(const r of rows){const btn=create('button','trend-item');
+   btn.append(create('span','',name(r.code)),create('b',r.delta>0?'rise':'fall',(r.delta>0?'+':'')+fmt(r.delta)));
+   btn.addEventListener('click',()=>select(r.code));panel.append(btn);}
+ }
+ panel.append(note(snaps.length+' comparable snapshots · '+new Date(snaps[0].generated_at).toLocaleString()+' to '+new Date(snaps.at(-1).generated_at).toLocaleString()));
 }
 function countryTrend(code){
  const section=create('div','dossier-trend');
  section.append(create('h3','','RECENT SNAPSHOT CHANGE / INDICATOR LISTINGS'));
- const all=state.data?.history||[];
- const current=all.at(-1)?.available_sources||[];
- const valid=all.filter(entry=>Array.isArray(entry.available_sources)&&entry.available_sources.join('|')===current.join('|')&&Number.isFinite(entry.country_counts?.[code]));
+ const valid=comparableSnapshots().filter(entry=>Number.isFinite(entry.country_counts?.[code]));
  if(valid.length<2){section.append(note('A comparable trend will appear after at least two successful snapshots using the same set of providers. This is not a live attack counter.'));return section;}
  const points=valid.slice(-20),vals=points.map(p=>p.country_counts[code]),min=Math.min(...vals),max=Math.max(...vals),span=Math.max(1,max-min);
  const width=285,height=80,pts=vals.map((v,i)=>[8+i*(width-16)/Math.max(1,vals.length-1),height-10-(v-min)/span*58]);
