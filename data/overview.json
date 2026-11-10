@@ -1,0 +1,4560 @@
+{
+  "schema": 2,
+  "generated_at": "2026-11-10T22:19:40.574605+00:00",
+  "data_lag": "Feeds update on different schedules; this is a collection snapshot, not live packet streaming.",
+  "indicators": {
+    "unique_indicators": 37985,
+    "resolved_indicators": 37983,
+    "unresolved_indicators": 2,
+    "countries": [
+      {
+        "code": "US",
+        "indicators": 13788,
+        "by_source": {
+          "blocklistde": 7430,
+          "ipsum": 7655,
+          "dshield": 61,
+          "feodo": 1
+        },
+        "examples": [
+          {
+            "ip": "107.150.105.153",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "45.135.142.205",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "77.239.124.143",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "RU",
+        "indicators": 3024,
+        "by_source": {
+          "blocklistde": 2875,
+          "ipsum": 222,
+          "dshield": 55
+        },
+        "examples": [
+          {
+            "ip": "212.113.226.222",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "154.83.196.237",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "91.144.158.231",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "FR",
+        "indicators": 2372,
+        "by_source": {
+          "blocklistde": 2151,
+          "ipsum": 346,
+          "dshield": 4
+        },
+        "examples": [
+          {
+            "ip": "80.67.167.81",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "85.208.51.193",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "51.75.200.186",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "CN",
+        "indicators": 2180,
+        "by_source": {
+          "blocklistde": 1716,
+          "ipsum": 1515,
+          "dshield": 14
+        },
+        "examples": [
+          {
+            "ip": "180.113.53.85",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "203.25.208.110",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "117.33.242.50",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "CA",
+        "indicators": 1817,
+        "by_source": {
+          "blocklistde": 1769,
+          "ipsum": 75,
+          "dshield": 3
+        },
+        "examples": [
+          {
+            "ip": "96.125.137.54",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "24.141.56.155",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "50.6.243.128",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "GB",
+        "indicators": 1335,
+        "by_source": {
+          "blocklistde": 254,
+          "ipsum": 1198,
+          "dshield": 8
+        },
+        "examples": [
+          {
+            "ip": "172.191.74.151",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "172.172.186.3",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "135.237.122.43",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "DE",
+        "indicators": 1319,
+        "by_source": {
+          "blocklistde": 764,
+          "ipsum": 671,
+          "dshield": 10
+        },
+        "examples": [
+          {
+            "ip": "93.152.221.37",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "134.209.233.141",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "142.93.166.142",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "BR",
+        "indicators": 862,
+        "by_source": {
+          "blocklistde": 773,
+          "ipsum": 255
+        },
+        "examples": [
+          {
+            "ip": "45.169.200.254",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "200.232.114.71",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "191.178.223.110",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "IN",
+        "indicators": 724,
+        "by_source": {
+          "blocklistde": 644,
+          "ipsum": 282,
+          "dshield": 3
+        },
+        "examples": [
+          {
+            "ip": "203.192.207.38",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "103.147.248.44",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "103.216.170.245",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "ID",
+        "indicators": 706,
+        "by_source": {
+          "blocklistde": 665,
+          "ipsum": 103
+        },
+        "examples": [
+          {
+            "ip": "103.126.9.102",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "103.159.199.43",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "116.193.190.225",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "NL",
+        "indicators": 702,
+        "by_source": {
+          "blocklistde": 246,
+          "ipsum": 449,
+          "dshield": 75
+        },
+        "examples": [
+          {
+            "ip": "192.42.116.102",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "185.168.48.14",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "185.65.134.198",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "HK",
+        "indicators": 671,
+        "by_source": {
+          "blocklistde": 256,
+          "ipsum": 606,
+          "dshield": 9
+        },
+        "examples": [
+          {
+            "ip": "152.32.208.73",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "152.32.180.86",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "152.32.150.26",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "SG",
+        "indicators": 631,
+        "by_source": {
+          "blocklistde": 420,
+          "ipsum": 353,
+          "dshield": 1
+        },
+        "examples": [
+          {
+            "ip": "101.47.20.56",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "118.139.164.171",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "206.189.159.74",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "UA",
+        "indicators": 589,
+        "by_source": {
+          "blocklistde": 575,
+          "ipsum": 16,
+          "dshield": 7
+        },
+        "examples": [
+          {
+            "ip": "94.178.242.87",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "46.201.247.21",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "176.103.15.155",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "KR",
+        "indicators": 517,
+        "by_source": {
+          "blocklistde": 455,
+          "ipsum": 341,
+          "dshield": 1
+        },
+        "examples": [
+          {
+            "ip": "183.106.237.242",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "211.169.212.206",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "118.37.49.119",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "AE",
+        "indicators": 410,
+        "by_source": {
+          "blocklistde": 105,
+          "ipsum": 327
+        },
+        "examples": [
+          {
+            "ip": "31.58.51.225",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "65.20.189.52",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "65.20.143.19",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "BE",
+        "indicators": 408,
+        "by_source": {
+          "blocklistde": 164,
+          "ipsum": 314
+        },
+        "examples": [
+          {
+            "ip": "35.210.125.90",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "35.210.29.250",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "35.206.183.110",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "BD",
+        "indicators": 407,
+        "by_source": {
+          "blocklistde": 392,
+          "ipsum": 36
+        },
+        "examples": [
+          {
+            "ip": "103.171.69.91",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "103.135.254.162",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "49.213.52.29",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "PT",
+        "indicators": 337,
+        "by_source": {
+          "blocklistde": 31,
+          "ipsum": 327
+        },
+        "examples": [
+          {
+            "ip": "87.103.126.54",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "185.180.141.7",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "45.156.128.71",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "IT",
+        "indicators": 315,
+        "by_source": {
+          "blocklistde": 302,
+          "ipsum": 37
+        },
+        "examples": [
+          {
+            "ip": "31.189.248.49",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "83.224.157.121",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "188.152.238.126",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "BG",
+        "indicators": 313,
+        "by_source": {
+          "blocklistde": 205,
+          "ipsum": 229,
+          "dshield": 19
+        },
+        "examples": [
+          {
+            "ip": "109.160.32.103",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "195.178.110.94",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "109.160.32.112",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "LT",
+        "indicators": 299,
+        "by_source": {
+          "blocklistde": 35,
+          "ipsum": 283
+        },
+        "examples": [
+          {
+            "ip": "45.138.12.47",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "45.138.12.18",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "141.98.9.103",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "VN",
+        "indicators": 286,
+        "by_source": {
+          "blocklistde": 211,
+          "ipsum": 196,
+          "dshield": 2
+        },
+        "examples": [
+          {
+            "ip": "150.95.115.9",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "27.75.71.8",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "103.48.192.48",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "AR",
+        "indicators": 272,
+        "by_source": {
+          "blocklistde": 265,
+          "ipsum": 36
+        },
+        "examples": [
+          {
+            "ip": "179.60.228.74",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "200.32.41.145",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "186.158.183.66",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "PL",
+        "indicators": 233,
+        "by_source": {
+          "blocklistde": 226,
+          "ipsum": 20
+        },
+        "examples": [
+          {
+            "ip": "31.41.84.98",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "83.168.110.67",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "31.0.140.250",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "MY",
+        "indicators": 207,
+        "by_source": {
+          "blocklistde": 181,
+          "ipsum": 66
+        },
+        "examples": [
+          {
+            "ip": "203.121.40.210",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "120.141.21.219",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "49.124.151.60",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "ZA",
+        "indicators": 196,
+        "by_source": {
+          "blocklistde": 194,
+          "ipsum": 10
+        },
+        "examples": [
+          {
+            "ip": "105.247.89.210",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "102.133.162.110",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "41.216.189.147",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "PK",
+        "indicators": 174,
+        "by_source": {
+          "blocklistde": 127,
+          "ipsum": 69
+        },
+        "examples": [
+          {
+            "ip": "111.68.98.152",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "103.120.116.162",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "110.39.181.194",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "TW",
+        "indicators": 150,
+        "by_source": {
+          "blocklistde": 134,
+          "ipsum": 75
+        },
+        "examples": [
+          {
+            "ip": "111.70.32.179",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "116.59.10.150",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "124.219.31.137",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "MX",
+        "indicators": 144,
+        "by_source": {
+          "blocklistde": 132,
+          "ipsum": 37
+        },
+        "examples": [
+          {
+            "ip": "177.229.197.38",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "201.149.53.243",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "201.124.247.112",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "SE",
+        "indicators": 134,
+        "by_source": {
+          "blocklistde": 115,
+          "ipsum": 97
+        },
+        "examples": [
+          {
+            "ip": "89.233.202.252",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "78.66.44.61",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "217.211.15.160",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "ES",
+        "indicators": 115,
+        "by_source": {
+          "blocklistde": 103,
+          "ipsum": 38,
+          "dshield": 1
+        },
+        "examples": [
+          {
+            "ip": "82.213.182.225",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "46.6.124.199",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "109.167.40.91",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "JP",
+        "indicators": 114,
+        "by_source": {
+          "blocklistde": 85,
+          "ipsum": 54,
+          "dshield": 11
+        },
+        "examples": [
+          {
+            "ip": "150.95.27.209",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "124.110.45.66",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "161.33.193.107",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "RO",
+        "indicators": 114,
+        "by_source": {
+          "blocklistde": 63,
+          "ipsum": 99
+        },
+        "examples": [
+          {
+            "ip": "193.32.162.15",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "80.94.92.55",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "92.118.39.92",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "CO",
+        "indicators": 104,
+        "by_source": {
+          "blocklistde": 93,
+          "ipsum": 35
+        },
+        "examples": [
+          {
+            "ip": "190.157.13.210",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "69.6.234.27",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "181.54.165.174",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "TR",
+        "indicators": 97,
+        "by_source": {
+          "blocklistde": 87,
+          "ipsum": 34
+        },
+        "examples": [
+          {
+            "ip": "45.136.7.37",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "31.141.216.143",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "185.231.111.71",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "IE",
+        "indicators": 96,
+        "by_source": {
+          "blocklistde": 95,
+          "ipsum": 3,
+          "dshield": 1
+        },
+        "examples": [
+          {
+            "ip": "51.183.0.245",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "80.233.12.109",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "80.233.77.136",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "TH",
+        "indicators": 93,
+        "by_source": {
+          "blocklistde": 79,
+          "ipsum": 42
+        },
+        "examples": [
+          {
+            "ip": "171.102.130.59",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "27.254.192.185",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "147.50.253.71",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "AU",
+        "indicators": 87,
+        "by_source": {
+          "blocklistde": 73,
+          "ipsum": 43
+        },
+        "examples": [
+          {
+            "ip": "101.168.3.207",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "203.196.42.114",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "118.209.210.29",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "IR",
+        "indicators": 66,
+        "by_source": {
+          "blocklistde": 55,
+          "ipsum": 43,
+          "dshield": 1
+        },
+        "examples": [
+          {
+            "ip": "213.177.179.109",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "213.177.179.35",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "213.177.179.91",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "GH",
+        "indicators": 60,
+        "by_source": {
+          "blocklistde": 59,
+          "ipsum": 5
+        },
+        "examples": [
+          {
+            "ip": "41.204.63.118",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "196.50.29.16",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "41.242.115.84",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "CL",
+        "indicators": 59,
+        "by_source": {
+          "blocklistde": 52,
+          "ipsum": 12,
+          "dshield": 1
+        },
+        "examples": [
+          {
+            "ip": "136.248.242.166",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "159.112.138.47",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "190.82.98.85",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "SC",
+        "indicators": 59,
+        "by_source": {
+          "blocklistde": 19,
+          "ipsum": 54
+        },
+        "examples": [
+          {
+            "ip": "196.251.121.128",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "196.251.121.125",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "196.251.121.215",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "PH",
+        "indicators": 56,
+        "by_source": {
+          "blocklistde": 51,
+          "ipsum": 13
+        },
+        "examples": [
+          {
+            "ip": "27.110.166.67",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "119.92.70.82",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "210.5.117.238",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "SI",
+        "indicators": 45,
+        "by_source": {
+          "blocklistde": 24,
+          "ipsum": 40
+        },
+        "examples": [
+          {
+            "ip": "102.220.161.170",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "102.220.161.61",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "102.220.161.85",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "IL",
+        "indicators": 43,
+        "by_source": {
+          "blocklistde": 40,
+          "ipsum": 20
+        },
+        "examples": [
+          {
+            "ip": "176.12.132.60",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "2.54.101.227",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "84.111.136.211",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "EC",
+        "indicators": 40,
+        "by_source": {
+          "blocklistde": 39,
+          "ipsum": 5
+        },
+        "examples": [
+          {
+            "ip": "177.53.215.134",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "186.68.83.104",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "186.68.83.105",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "TN",
+        "indicators": 40,
+        "by_source": {
+          "blocklistde": 35,
+          "ipsum": 9
+        },
+        "examples": [
+          {
+            "ip": "193.95.2.104",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "196.203.231.220",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "193.95.2.203",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "UZ",
+        "indicators": 40,
+        "by_source": {
+          "blocklistde": 37,
+          "ipsum": 15
+        },
+        "examples": [
+          {
+            "ip": "90.156.198.218",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "84.54.115.46",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "62.164.148.87",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "ET",
+        "indicators": 38,
+        "by_source": {
+          "blocklistde": 36,
+          "ipsum": 23
+        },
+        "examples": [
+          {
+            "ip": "196.190.93.251",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "196.190.180.18",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "196.189.126.10",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "AF",
+        "indicators": 37,
+        "by_source": {
+          "blocklistde": 30,
+          "ipsum": 19
+        },
+        "examples": [
+          {
+            "ip": "149.54.62.118",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "149.54.51.82",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "180.94.75.202",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "FI",
+        "indicators": 35,
+        "by_source": {
+          "blocklistde": 32,
+          "ipsum": 19
+        },
+        "examples": [
+          {
+            "ip": "45.144.52.239",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "62.220.236.203",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "128.1.198.78",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "UG",
+        "indicators": 35,
+        "by_source": {
+          "blocklistde": 35,
+          "ipsum": 4
+        },
+        "examples": [
+          {
+            "ip": "196.0.11.230",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "196.0.107.158",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "196.0.41.134",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "KE",
+        "indicators": 34,
+        "by_source": {
+          "blocklistde": 29,
+          "ipsum": 12
+        },
+        "examples": [
+          {
+            "ip": "102.210.148.92",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "102.209.76.137",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "102.209.76.136",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "KZ",
+        "indicators": 34,
+        "by_source": {
+          "blocklistde": 24,
+          "ipsum": 24
+        },
+        "examples": [
+          {
+            "ip": "93.95.241.150",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "212.154.234.9",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "82.200.235.132",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "CH",
+        "indicators": 32,
+        "by_source": {
+          "blocklistde": 25,
+          "ipsum": 15
+        },
+        "examples": [
+          {
+            "ip": "185.191.236.38",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "209.99.190.200",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "209.99.190.186",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "SA",
+        "indicators": 31,
+        "by_source": {
+          "blocklistde": 31,
+          "ipsum": 3
+        },
+        "examples": [
+          {
+            "ip": "185.106.244.111",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "144.24.209.174",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "158.101.238.118",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "HU",
+        "indicators": 30,
+        "by_source": {
+          "blocklistde": 26,
+          "ipsum": 9
+        },
+        "examples": [
+          {
+            "ip": "185.65.68.230",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "84.225.51.158",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "79.122.59.22",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "PE",
+        "indicators": 30,
+        "by_source": {
+          "blocklistde": 25,
+          "ipsum": 16,
+          "dshield": 2
+        },
+        "examples": [
+          {
+            "ip": "179.6.164.188",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "200.107.163.195",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "38.224.49.7",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "MA",
+        "indicators": 28,
+        "by_source": {
+          "blocklistde": 23,
+          "ipsum": 15
+        },
+        "examples": [
+          {
+            "ip": "102.53.15.17",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "81.192.46.49",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "81.192.46.45",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "CZ",
+        "indicators": 26,
+        "by_source": {
+          "blocklistde": 24,
+          "ipsum": 8
+        },
+        "examples": [
+          {
+            "ip": "109.248.156.49",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "109.238.212.91",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "95.85.244.92",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "IS",
+        "indicators": 26,
+        "by_source": {
+          "blocklistde": 20,
+          "ipsum": 7
+        },
+        "examples": [
+          {
+            "ip": "185.40.122.250",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "BW",
+        "indicators": 25,
+        "by_source": {
+          "blocklistde": 25,
+          "ipsum": 2
+        },
+        "examples": [
+          {
+            "ip": "168.167.228.123",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "168.167.228.85",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "EG",
+        "indicators": 24,
+        "by_source": {
+          "blocklistde": 16,
+          "ipsum": 16
+        },
+        "examples": [
+          {
+            "ip": "41.238.89.151",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "41.153.30.107",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "41.128.181.196",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "RS",
+        "indicators": 24,
+        "by_source": {
+          "blocklistde": 23,
+          "ipsum": 3
+        },
+        "examples": [
+          {
+            "ip": "77.105.37.219",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "24.135.78.18",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "PA",
+        "indicators": 23,
+        "by_source": {
+          "blocklistde": 16,
+          "ipsum": 16,
+          "dshield": 3
+        },
+        "examples": [
+          {
+            "ip": "170.231.237.214",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "179.43.153.18",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "200.46.177.242",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "AT",
+        "indicators": 22,
+        "by_source": {
+          "blocklistde": 9,
+          "ipsum": 17
+        },
+        "examples": [
+          {
+            "ip": "185.230.216.5",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "89.144.218.56",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "89.58.16.22",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "BJ",
+        "indicators": 22,
+        "by_source": {
+          "blocklistde": 22
+        },
+        "examples": []
+      },
+      {
+        "code": "PY",
+        "indicators": 21,
+        "by_source": {
+          "blocklistde": 19,
+          "ipsum": 4
+        },
+        "examples": [
+          {
+            "ip": "190.128.171.14",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "181.122.63.248",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "NP",
+        "indicators": 20,
+        "by_source": {
+          "blocklistde": 17,
+          "ipsum": 7
+        },
+        "examples": [
+          {
+            "ip": "36.253.9.128",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "118.91.173.210",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "157.10.100.12",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "IQ",
+        "indicators": 19,
+        "by_source": {
+          "blocklistde": 18,
+          "ipsum": 4
+        },
+        "examples": [
+          {
+            "ip": "62.201.212.52",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "62.201.228.210",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "62.201.212.54",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "NG",
+        "indicators": 19,
+        "by_source": {
+          "blocklistde": 17,
+          "ipsum": 10
+        },
+        "examples": [
+          {
+            "ip": "102.88.137.213",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "41.219.149.78",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "102.88.137.145",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "NO",
+        "indicators": 18,
+        "by_source": {
+          "blocklistde": 13,
+          "ipsum": 9
+        },
+        "examples": [
+          {
+            "ip": "85.19.195.12",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "185.243.218.231",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "85.165.130.77",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "AZ",
+        "indicators": 17,
+        "by_source": {
+          "blocklistde": 17,
+          "ipsum": 4
+        },
+        "examples": [
+          {
+            "ip": "31.171.125.179",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "216.147.123.106",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "94.20.62.126",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "DK",
+        "indicators": 17,
+        "by_source": {
+          "blocklistde": 5,
+          "ipsum": 12
+        },
+        "examples": []
+      },
+      {
+        "code": "VE",
+        "indicators": 16,
+        "by_source": {
+          "blocklistde": 16,
+          "ipsum": 1
+        },
+        "examples": [
+          {
+            "ip": "201.249.192.30",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "BO",
+        "indicators": 15,
+        "by_source": {
+          "blocklistde": 11,
+          "ipsum": 14
+        },
+        "examples": [
+          {
+            "ip": "190.129.122.185",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "190.129.122.12",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "190.181.44.194",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "DZ",
+        "indicators": 14,
+        "by_source": {
+          "blocklistde": 13,
+          "ipsum": 4
+        },
+        "examples": [
+          {
+            "ip": "105.96.53.240",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "196.20.73.90",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "41.111.227.10",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "SK",
+        "indicators": 14,
+        "by_source": {
+          "blocklistde": 13,
+          "ipsum": 1
+        },
+        "examples": []
+      },
+      {
+        "code": "TZ",
+        "indicators": 14,
+        "by_source": {
+          "blocklistde": 12,
+          "ipsum": 6
+        },
+        "examples": [
+          {
+            "ip": "41.59.82.183",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "41.93.32.116",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "154.73.171.250",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "GE",
+        "indicators": 13,
+        "by_source": {
+          "blocklistde": 12,
+          "ipsum": 3
+        },
+        "examples": [
+          {
+            "ip": "193.9.48.18",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "194.31.8.12",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "MD",
+        "indicators": 13,
+        "by_source": {
+          "blocklistde": 11,
+          "ipsum": 3
+        },
+        "examples": [
+          {
+            "ip": "176.123.4.188",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "MU",
+        "indicators": 13,
+        "by_source": {
+          "blocklistde": 10,
+          "ipsum": 8
+        },
+        "examples": [
+          {
+            "ip": "197.155.225.93",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "105.28.108.165",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "41.72.202.86",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "AL",
+        "indicators": 12,
+        "by_source": {
+          "blocklistde": 11,
+          "dshield": 1
+        },
+        "examples": []
+      },
+      {
+        "code": "KH",
+        "indicators": 12,
+        "by_source": {
+          "blocklistde": 10,
+          "ipsum": 4
+        },
+        "examples": [
+          {
+            "ip": "175.100.107.238",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "202.79.29.108",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "LB",
+        "indicators": 12,
+        "by_source": {
+          "blocklistde": 12,
+          "ipsum": 2
+        },
+        "examples": [
+          {
+            "ip": "109.233.21.109",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "94.187.37.132",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "OM",
+        "indicators": 12,
+        "by_source": {
+          "blocklistde": 12
+        },
+        "examples": []
+      },
+      {
+        "code": "PS",
+        "indicators": 12,
+        "by_source": {
+          "blocklistde": 12
+        },
+        "examples": []
+      },
+      {
+        "code": "SN",
+        "indicators": 12,
+        "by_source": {
+          "blocklistde": 10,
+          "ipsum": 5
+        },
+        "examples": [
+          {
+            "ip": "213.154.80.51",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "41.208.147.131",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "154.125.228.145",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "CI",
+        "indicators": 11,
+        "by_source": {
+          "blocklistde": 9,
+          "ipsum": 3
+        },
+        "examples": [
+          {
+            "ip": "160.154.84.192",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "ZM",
+        "indicators": 11,
+        "by_source": {
+          "blocklistde": 10,
+          "ipsum": 5
+        },
+        "examples": [
+          {
+            "ip": "41.72.116.170",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "41.72.125.78",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "102.23.122.235",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "LV",
+        "indicators": 10,
+        "by_source": {
+          "blocklistde": 7,
+          "ipsum": 5
+        },
+        "examples": [
+          {
+            "ip": "46.8.228.122",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "46.8.236.109",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "CM",
+        "indicators": 9,
+        "by_source": {
+          "blocklistde": 9,
+          "ipsum": 3
+        },
+        "examples": [
+          {
+            "ip": "102.244.78.57",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "154.70.102.114",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "41.205.88.70",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "SY",
+        "indicators": 9,
+        "by_source": {
+          "blocklistde": 9,
+          "ipsum": 4
+        },
+        "examples": [
+          {
+            "ip": "185.225.41.192",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "205.209.65.70",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "178.253.95.34",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "BA",
+        "indicators": 8,
+        "by_source": {
+          "blocklistde": 7,
+          "ipsum": 3
+        },
+        "examples": [
+          {
+            "ip": "80.65.90.155",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "195.222.43.138",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "DO",
+        "indicators": 8,
+        "by_source": {
+          "blocklistde": 7,
+          "ipsum": 4
+        },
+        "examples": [
+          {
+            "ip": "45.172.152.74",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "45.172.153.100",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "152.0.37.48",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "EE",
+        "indicators": 8,
+        "by_source": {
+          "blocklistde": 6,
+          "ipsum": 4,
+          "dshield": 2
+        },
+        "examples": [
+          {
+            "ip": "83.166.50.15",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "37.157.91.62",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "85.29.246.199",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "TT",
+        "indicators": 8,
+        "by_source": {
+          "blocklistde": 8
+        },
+        "examples": []
+      },
+      {
+        "code": "GR",
+        "indicators": 7,
+        "by_source": {
+          "blocklistde": 6,
+          "ipsum": 5
+        },
+        "examples": [
+          {
+            "ip": "149.210.72.115",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "195.214.208.244",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "45.92.33.82",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "AM",
+        "indicators": 6,
+        "by_source": {
+          "blocklistde": 5,
+          "ipsum": 2
+        },
+        "examples": [
+          {
+            "ip": "176.32.193.16",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "BY",
+        "indicators": 6,
+        "by_source": {
+          "blocklistde": 6
+        },
+        "examples": []
+      },
+      {
+        "code": "CV",
+        "indicators": 6,
+        "by_source": {
+          "blocklistde": 5,
+          "ipsum": 1
+        },
+        "examples": []
+      },
+      {
+        "code": "LK",
+        "indicators": 6,
+        "by_source": {
+          "blocklistde": 5,
+          "ipsum": 4
+        },
+        "examples": [
+          {
+            "ip": "112.135.218.58",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "220.247.224.226",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "124.43.10.224",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "MM",
+        "indicators": 6,
+        "by_source": {
+          "blocklistde": 6,
+          "ipsum": 2
+        },
+        "examples": [
+          {
+            "ip": "103.233.206.154",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "136.228.161.66",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "CR",
+        "indicators": 5,
+        "by_source": {
+          "blocklistde": 4,
+          "ipsum": 1
+        },
+        "examples": []
+      },
+      {
+        "code": "GM",
+        "indicators": 5,
+        "by_source": {
+          "blocklistde": 5,
+          "ipsum": 1
+        },
+        "examples": [
+          {
+            "ip": "102.221.64.24",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "HN",
+        "indicators": 5,
+        "by_source": {
+          "blocklistde": 5,
+          "ipsum": 1
+        },
+        "examples": [
+          {
+            "ip": "138.219.120.37",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "JM",
+        "indicators": 5,
+        "by_source": {
+          "blocklistde": 5
+        },
+        "examples": []
+      },
+      {
+        "code": "NZ",
+        "indicators": 5,
+        "by_source": {
+          "blocklistde": 5,
+          "ipsum": 1
+        },
+        "examples": [
+          {
+            "ip": "219.89.206.236",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "QA",
+        "indicators": 5,
+        "by_source": {
+          "blocklistde": 4,
+          "ipsum": 1
+        },
+        "examples": []
+      },
+      {
+        "code": "BB",
+        "indicators": 4,
+        "by_source": {
+          "blocklistde": 4
+        },
+        "examples": []
+      },
+      {
+        "code": "BZ",
+        "indicators": 4,
+        "by_source": {
+          "blocklistde": 1,
+          "ipsum": 2,
+          "dshield": 2
+        },
+        "examples": [
+          {
+            "ip": "190.197.31.229",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "CY",
+        "indicators": 4,
+        "by_source": {
+          "blocklistde": 4
+        },
+        "examples": []
+      },
+      {
+        "code": "KW",
+        "indicators": 4,
+        "by_source": {
+          "blocklistde": 4,
+          "ipsum": 2
+        },
+        "examples": [
+          {
+            "ip": "62.150.237.107",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "78.89.154.59",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "LA",
+        "indicators": 4,
+        "by_source": {
+          "blocklistde": 3,
+          "ipsum": 1
+        },
+        "examples": []
+      },
+      {
+        "code": "SO",
+        "indicators": 4,
+        "by_source": {
+          "blocklistde": 3,
+          "ipsum": 1
+        },
+        "examples": []
+      },
+      {
+        "code": "SV",
+        "indicators": 4,
+        "by_source": {
+          "blocklistde": 3,
+          "ipsum": 1
+        },
+        "examples": []
+      },
+      {
+        "code": "TM",
+        "indicators": 4,
+        "by_source": {
+          "blocklistde": 1,
+          "ipsum": 4
+        },
+        "examples": [
+          {
+            "ip": "95.85.114.218",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "UY",
+        "indicators": 4,
+        "by_source": {
+          "blocklistde": 4
+        },
+        "examples": []
+      },
+      {
+        "code": "ZW",
+        "indicators": 4,
+        "by_source": {
+          "blocklistde": 4,
+          "ipsum": 2
+        },
+        "examples": [
+          {
+            "ip": "197.221.232.44",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "41.220.30.130",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "AO",
+        "indicators": 3,
+        "by_source": {
+          "blocklistde": 2,
+          "ipsum": 2
+        },
+        "examples": [
+          {
+            "ip": "105.174.17.50",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "BN",
+        "indicators": 3,
+        "by_source": {
+          "blocklistde": 3,
+          "ipsum": 2
+        },
+        "examples": [
+          {
+            "ip": "119.160.166.237",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "61.6.206.13",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "CD",
+        "indicators": 3,
+        "by_source": {
+          "blocklistde": 3,
+          "ipsum": 2
+        },
+        "examples": [
+          {
+            "ip": "41.77.220.188",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "102.216.240.51",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "GT",
+        "indicators": 3,
+        "by_source": {
+          "blocklistde": 2,
+          "ipsum": 2
+        },
+        "examples": [
+          {
+            "ip": "181.119.103.103",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "KG",
+        "indicators": 3,
+        "by_source": {
+          "blocklistde": 3,
+          "ipsum": 1
+        },
+        "examples": [
+          {
+            "ip": "217.29.30.135",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "LY",
+        "indicators": 3,
+        "by_source": {
+          "blocklistde": 3,
+          "ipsum": 2
+        },
+        "examples": [
+          {
+            "ip": "102.38.3.104",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "102.211.7.162",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "MK",
+        "indicators": 3,
+        "by_source": {
+          "blocklistde": 3,
+          "ipsum": 1
+        },
+        "examples": [
+          {
+            "ip": "185.193.240.246",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "MN",
+        "indicators": 3,
+        "by_source": {
+          "blocklistde": 2,
+          "ipsum": 1
+        },
+        "examples": []
+      },
+      {
+        "code": "MO",
+        "indicators": 3,
+        "by_source": {
+          "blocklistde": 2,
+          "ipsum": 3
+        },
+        "examples": [
+          {
+            "ip": "182.93.50.90",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "182.93.7.194",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "MZ",
+        "indicators": 3,
+        "by_source": {
+          "blocklistde": 3,
+          "ipsum": 2
+        },
+        "examples": [
+          {
+            "ip": "197.219.228.246",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "197.219.228.250",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "TG",
+        "indicators": 3,
+        "by_source": {
+          "blocklistde": 3
+        },
+        "examples": []
+      },
+      {
+        "code": "BF",
+        "indicators": 2,
+        "by_source": {
+          "blocklistde": 2
+        },
+        "examples": []
+      },
+      {
+        "code": "BH",
+        "indicators": 2,
+        "by_source": {
+          "blocklistde": 2
+        },
+        "examples": []
+      },
+      {
+        "code": "BI",
+        "indicators": 2,
+        "by_source": {
+          "blocklistde": 2
+        },
+        "examples": []
+      },
+      {
+        "code": "CG",
+        "indicators": 2,
+        "by_source": {
+          "blocklistde": 2
+        },
+        "examples": []
+      },
+      {
+        "code": "GY",
+        "indicators": 2,
+        "by_source": {
+          "blocklistde": 2
+        },
+        "examples": []
+      },
+      {
+        "code": "HR",
+        "indicators": 2,
+        "by_source": {
+          "blocklistde": 2
+        },
+        "examples": []
+      },
+      {
+        "code": "JO",
+        "indicators": 2,
+        "by_source": {
+          "blocklistde": 2
+        },
+        "examples": []
+      },
+      {
+        "code": "LC",
+        "indicators": 2,
+        "by_source": {
+          "blocklistde": 2
+        },
+        "examples": []
+      },
+      {
+        "code": "LS",
+        "indicators": 2,
+        "by_source": {
+          "blocklistde": 2
+        },
+        "examples": []
+      },
+      {
+        "code": "LU",
+        "indicators": 2,
+        "by_source": {
+          "blocklistde": 2
+        },
+        "examples": []
+      },
+      {
+        "code": "NI",
+        "indicators": 2,
+        "by_source": {
+          "blocklistde": 2,
+          "ipsum": 1
+        },
+        "examples": [
+          {
+            "ip": "190.124.35.141",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "RW",
+        "indicators": 2,
+        "by_source": {
+          "blocklistde": 2,
+          "ipsum": 1
+        },
+        "examples": [
+          {
+            "ip": "197.243.14.52",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "AD",
+        "indicators": 1,
+        "by_source": {
+          "blocklistde": 1
+        },
+        "examples": []
+      },
+      {
+        "code": "AQ",
+        "indicators": 1,
+        "by_source": {
+          "ipsum": 1
+        },
+        "examples": []
+      },
+      {
+        "code": "BS",
+        "indicators": 1,
+        "by_source": {
+          "blocklistde": 1
+        },
+        "examples": []
+      },
+      {
+        "code": "BT",
+        "indicators": 1,
+        "by_source": {
+          "blocklistde": 1,
+          "ipsum": 1
+        },
+        "examples": [
+          {
+            "ip": "163.227.22.98",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "CW",
+        "indicators": 1,
+        "by_source": {
+          "blocklistde": 1
+        },
+        "examples": []
+      },
+      {
+        "code": "FM",
+        "indicators": 1,
+        "by_source": {
+          "blocklistde": 1
+        },
+        "examples": []
+      },
+      {
+        "code": "GN",
+        "indicators": 1,
+        "by_source": {
+          "blocklistde": 1
+        },
+        "examples": []
+      },
+      {
+        "code": "HT",
+        "indicators": 1,
+        "by_source": {
+          "blocklistde": 1
+        },
+        "examples": []
+      },
+      {
+        "code": "KY",
+        "indicators": 1,
+        "by_source": {
+          "blocklistde": 1
+        },
+        "examples": []
+      },
+      {
+        "code": "MV",
+        "indicators": 1,
+        "by_source": {
+          "blocklistde": 1
+        },
+        "examples": []
+      },
+      {
+        "code": "MW",
+        "indicators": 1,
+        "by_source": {
+          "blocklistde": 1
+        },
+        "examples": []
+      },
+      {
+        "code": "PR",
+        "indicators": 1,
+        "by_source": {
+          "blocklistde": 1
+        },
+        "examples": []
+      },
+      {
+        "code": "RE",
+        "indicators": 1,
+        "by_source": {
+          "blocklistde": 1,
+          "ipsum": 1
+        },
+        "examples": [
+          {
+            "ip": "41.213.141.162",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "ST",
+        "indicators": 1,
+        "by_source": {
+          "blocklistde": 1
+        },
+        "examples": []
+      },
+      {
+        "code": "SZ",
+        "indicators": 1,
+        "by_source": {
+          "blocklistde": 1,
+          "ipsum": 1
+        },
+        "examples": [
+          {
+            "ip": "41.215.146.195",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "VG",
+        "indicators": 1,
+        "by_source": {
+          "dshield": 1
+        },
+        "examples": []
+      }
+    ],
+    "source_health": [
+      {
+        "id": "blocklistde",
+        "name": "blocklist.de",
+        "status": "ok",
+        "records": 25874,
+        "meaning": "IP addresses reported in recent 48-hour attacks against participating systems",
+        "url": "https://lists.blocklist.de/lists/all.txt"
+      },
+      {
+        "id": "ipsum",
+        "name": "IPsum (3+ lists)",
+        "status": "ok",
+        "records": 17226,
+        "meaning": "Addresses appearing on 3+ constituent IPsum source lists; NOT confirmed attackers",
+        "url": "https://raw.githubusercontent.com/stamparm/ipsum/master/levels/3.txt"
+      },
+      {
+        "id": "dshield",
+        "name": "SANS ISC / DShield",
+        "status": "ok",
+        "records": 300,
+        "meaning": "Top sensor-observed source IP addresses; includes benign scanners",
+        "url": "https://isc.sans.edu/api/topips/records/300?json"
+      },
+      {
+        "id": "feodo",
+        "name": "abuse.ch Feodo Tracker",
+        "status": "ok",
+        "records": 1,
+        "meaning": "Active botnet C2 indicators; feed can be empty following takedowns",
+        "url": "https://feodotracker.abuse.ch/downloads/ipblocklist.json"
+      }
+    ],
+    "dshield_sample": [
+      {
+        "ip": "13.94.254.200",
+        "reports": 319739,
+        "targets": 1
+      },
+      {
+        "ip": "194.224.249.214",
+        "reports": 309508,
+        "targets": 1
+      },
+      {
+        "ip": "52.157.207.201",
+        "reports": 194780,
+        "targets": 1
+      },
+      {
+        "ip": "89.248.163.109",
+        "reports": 96279,
+        "targets": 150
+      },
+      {
+        "ip": "143.244.186.35",
+        "reports": 92007,
+        "targets": 8
+      },
+      {
+        "ip": "18.116.198.191",
+        "reports": 59907,
+        "targets": 1
+      },
+      {
+        "ip": "152.89.198.163",
+        "reports": 41378,
+        "targets": 478
+      },
+      {
+        "ip": "152.89.198.103",
+        "reports": 41346,
+        "targets": 479
+      },
+      {
+        "ip": "152.89.198.187",
+        "reports": 41332,
+        "targets": 477
+      },
+      {
+        "ip": "185.122.204.71",
+        "reports": 41221,
+        "targets": 479
+      },
+      {
+        "ip": "176.113.115.104",
+        "reports": 41164,
+        "targets": 486
+      },
+      {
+        "ip": "91.240.118.59",
+        "reports": 41148,
+        "targets": 476
+      },
+      {
+        "ip": "62.204.41.205",
+        "reports": 41094,
+        "targets": 477
+      },
+      {
+        "ip": "152.89.198.61",
+        "reports": 40959,
+        "targets": 484
+      },
+      {
+        "ip": "62.233.50.245",
+        "reports": 40869,
+        "targets": 472
+      },
+      {
+        "ip": "185.81.68.110",
+        "reports": 40860,
+        "targets": 481
+      },
+      {
+        "ip": "152.89.198.153",
+        "reports": 40261,
+        "targets": 481
+      },
+      {
+        "ip": "152.89.196.156",
+        "reports": 39822,
+        "targets": 140
+      },
+      {
+        "ip": "89.248.163.108",
+        "reports": 34020,
+        "targets": 7896
+      },
+      {
+        "ip": "49.88.112.67",
+        "reports": 32881,
+        "targets": 106
+      },
+      {
+        "ip": "176.111.174.123",
+        "reports": 28149,
+        "targets": 141
+      },
+      {
+        "ip": "176.111.174.128",
+        "reports": 27407,
+        "targets": 143
+      },
+      {
+        "ip": "89.248.163.18",
+        "reports": 27006,
+        "targets": 616
+      },
+      {
+        "ip": "45.93.201.57",
+        "reports": 25622,
+        "targets": 140
+      },
+      {
+        "ip": "77.83.36.40",
+        "reports": 25152,
+        "targets": 140
+      },
+      {
+        "ip": "66.240.219.146",
+        "reports": 25108,
+        "targets": 125
+      },
+      {
+        "ip": "185.73.124.50",
+        "reports": 24988,
+        "targets": 238
+      },
+      {
+        "ip": "216.127.175.10",
+        "reports": 23788,
+        "targets": 1
+      },
+      {
+        "ip": "216.127.190.44",
+        "reports": 23787,
+        "targets": 1
+      },
+      {
+        "ip": "170.178.223.145",
+        "reports": 23774,
+        "targets": 1
+      },
+      {
+        "ip": "23.234.215.49",
+        "reports": 23689,
+        "targets": 1
+      },
+      {
+        "ip": "92.255.85.183",
+        "reports": 23585,
+        "targets": 153
+      },
+      {
+        "ip": "185.65.246.97",
+        "reports": 21369,
+        "targets": 54
+      },
+      {
+        "ip": "185.65.246.98",
+        "reports": 21185,
+        "targets": 54
+      },
+      {
+        "ip": "194.26.29.31",
+        "reports": 20898,
+        "targets": 140
+      },
+      {
+        "ip": "192.161.184.151",
+        "reports": 20450,
+        "targets": 54
+      },
+      {
+        "ip": "185.20.186.68",
+        "reports": 19752,
+        "targets": 54
+      },
+      {
+        "ip": "85.145.131.51",
+        "reports": 19672,
+        "targets": 2226
+      },
+      {
+        "ip": "49.88.112.68",
+        "reports": 19477,
+        "targets": 129
+      },
+      {
+        "ip": "79.124.59.154",
+        "reports": 19162,
+        "targets": 83
+      },
+      {
+        "ip": "154.53.57.35",
+        "reports": 18810,
+        "targets": 19
+      },
+      {
+        "ip": "23.94.163.118",
+        "reports": 18295,
+        "targets": 19
+      },
+      {
+        "ip": "154.53.58.77",
+        "reports": 18231,
+        "targets": 19
+      },
+      {
+        "ip": "128.22.166.92",
+        "reports": 18036,
+        "targets": 19
+      },
+      {
+        "ip": "23.94.236.153",
+        "reports": 17887,
+        "targets": 18
+      },
+      {
+        "ip": "192.3.111.147",
+        "reports": 17859,
+        "targets": 19
+      },
+      {
+        "ip": "210.149.87.87",
+        "reports": 17453,
+        "targets": 19
+      },
+      {
+        "ip": "109.106.251.95",
+        "reports": 17096,
+        "targets": 1
+      },
+      {
+        "ip": "210.149.87.84",
+        "reports": 16296,
+        "targets": 17
+      },
+      {
+        "ip": "150.66.45.69",
+        "reports": 15953,
+        "targets": 18
+      },
+      {
+        "ip": "212.70.149.2",
+        "reports": 15790,
+        "targets": 3
+      },
+      {
+        "ip": "23.94.236.154",
+        "reports": 15694,
+        "targets": 19
+      },
+      {
+        "ip": "210.149.87.83",
+        "reports": 15634,
+        "targets": 18
+      },
+      {
+        "ip": "133.36.50.97",
+        "reports": 15409,
+        "targets": 1
+      },
+      {
+        "ip": "128.22.163.45",
+        "reports": 15209,
+        "targets": 18
+      },
+      {
+        "ip": "66.94.120.125",
+        "reports": 15019,
+        "targets": 19
+      },
+      {
+        "ip": "210.149.87.92",
+        "reports": 14695,
+        "targets": 18
+      },
+      {
+        "ip": "154.53.57.220",
+        "reports": 14615,
+        "targets": 19
+      },
+      {
+        "ip": "195.226.194.242",
+        "reports": 14512,
+        "targets": 254
+      },
+      {
+        "ip": "210.149.87.93",
+        "reports": 14502,
+        "targets": 18
+      },
+      {
+        "ip": "192.3.111.146",
+        "reports": 14493,
+        "targets": 19
+      },
+      {
+        "ip": "219.122.253.248",
+        "reports": 14480,
+        "targets": 18
+      },
+      {
+        "ip": "179.60.147.204",
+        "reports": 14241,
+        "targets": 248
+      },
+      {
+        "ip": "89.248.165.184",
+        "reports": 13993,
+        "targets": 2353
+      },
+      {
+        "ip": "89.248.165.186",
+        "reports": 13785,
+        "targets": 2145
+      },
+      {
+        "ip": "20.106.77.45",
+        "reports": 13764,
+        "targets": 1
+      },
+      {
+        "ip": "89.248.165.187",
+        "reports": 13416,
+        "targets": 2111
+      },
+      {
+        "ip": "79.124.62.130",
+        "reports": 13398,
+        "targets": 282
+      },
+      {
+        "ip": "79.124.62.82",
+        "reports": 13305,
+        "targets": 282
+      },
+      {
+        "ip": "79.124.62.78",
+        "reports": 13245,
+        "targets": 270
+      },
+      {
+        "ip": "89.248.165.22",
+        "reports": 12938,
+        "targets": 2085
+      },
+      {
+        "ip": "150.66.51.124",
+        "reports": 12919,
+        "targets": 18
+      },
+      {
+        "ip": "185.246.220.98",
+        "reports": 12887,
+        "targets": 973
+      },
+      {
+        "ip": "79.124.62.86",
+        "reports": 12635,
+        "targets": 248
+      },
+      {
+        "ip": "89.248.165.51",
+        "reports": 12298,
+        "targets": 2182
+      },
+      {
+        "ip": "212.70.149.38",
+        "reports": 12219,
+        "targets": 422
+      },
+      {
+        "ip": "45.93.201.59",
+        "reports": 12183,
+        "targets": 1876
+      },
+      {
+        "ip": "164.92.136.3",
+        "reports": 12071,
+        "targets": 137
+      },
+      {
+        "ip": "92.63.197.94",
+        "reports": 12000,
+        "targets": 2084
+      },
+      {
+        "ip": "89.248.163.202",
+        "reports": 11416,
+        "targets": 1820
+      }
+    ],
+    "geo_method": "DB-IP Lite Country via sapics/ip-location-db, CC BY 4.0, approximate IP allocation; not attacker attribution",
+    "geo_url": "https://db-ip.com/"
+  },
+  "cves": {
+    "status": "ok",
+    "source": "https://raw.githubusercontent.com/cisagov/kev-data/develop/known_exploited_vulnerabilities.json",
+    "total_kev": 1779,
+    "catalog_version": "2026.11.10",
+    "date_released": "2026-11-10T19:03:29.8375Z",
+    "epss_source": "https://www.first.org/epss/",
+    "scored_candidates": 550,
+    "ranking_method": "Heuristic: EPSS probability x100 + 25 if known ransomware use + 10 if added within 30 days; ONLY CISA KEV candidates. Not a CVSS or asset-specific risk score.",
+    "top": [
+      {
+        "id": "CVE-2022-22954",
+        "vendor": "VMware",
+        "product": "Workspace ONE Access and Identity Manager",
+        "name": "VMware Workspace ONE Access and Identity Manager Server-Side Template Injection Vulnerability",
+        "description": "VMware Workspace ONE Access and Identity Manager allow for remote code execution due to server-side template injection.",
+        "date_added": "2022-04-14",
+        "due_date": "2022-05-05",
+        "ransomware_observed": true,
+        "epss": 0.99998,
+        "epss_percentile": 0.9999,
+        "priority": 125.0,
+        "cvss": {
+          "score": 9.8,
+          "severity": "CRITICAL",
+          "version": "3.1"
+        }
+      },
+      {
+        "id": "CVE-2022-26134",
+        "vendor": "Atlassian",
+        "product": "Confluence Server/Data Center",
+        "name": "Atlassian Confluence Server and Data Center Remote Code Execution Vulnerability",
+        "description": "Atlassian Confluence Server and Data Center contain a remote code execution vulnerability that allows for an unauthenticated attacker to perform remote code execution.",
+        "date_added": "2022-06-02",
+        "due_date": "2022-06-06",
+        "ransomware_observed": true,
+        "epss": 0.99999,
+        "epss_percentile": 0.99994,
+        "priority": 125.0,
+        "cvss": {
+          "score": 9.8,
+          "severity": "CRITICAL",
+          "version": "3.1"
+        }
+      },
+      {
+        "id": "CVE-2022-29464",
+        "vendor": "WSO2",
+        "product": "Multiple Products",
+        "name": "WSO2 Multiple Products Unrestrictive Upload of File Vulnerability",
+        "description": "Multiple WSO2 products allow for unrestricted file upload, resulting in remote code execution.",
+        "date_added": "2022-04-25",
+        "due_date": "2022-05-16",
+        "ransomware_observed": true,
+        "epss": 0.99999,
+        "epss_percentile": 0.99992,
+        "priority": 125.0,
+        "cvss": {
+          "score": 9.8,
+          "severity": "CRITICAL",
+          "version": "3.1"
+        }
+      },
+      {
+        "id": "CVE-2023-0669",
+        "vendor": "Fortra",
+        "product": "GoAnywhere MFT",
+        "name": "Fortra GoAnywhere MFT Remote Code Execution Vulnerability",
+        "description": "Fortra (formerly, HelpSystems) GoAnywhere MFT contains a pre-authentication remote code execution vulnerability in the License Response Servlet due to deserializing an attacker-controlled object.",
+        "date_added": "2023-02-10",
+        "due_date": "2023-03-03",
+        "ransomware_observed": true,
+        "epss": 0.99999,
+        "epss_percentile": 0.99996,
+        "priority": 125.0
+      },
+      {
+        "id": "CVE-2023-22518",
+        "vendor": "Atlassian",
+        "product": "Confluence Data Center and Server",
+        "name": "Atlassian Confluence Data Center and Server Improper Authorization Vulnerability",
+        "description": "Atlassian Confluence Data Center and Server contain an improper authorization vulnerability that can result in significant data loss when exploited by an unauthenticated attacker. There is no impact on confidentiality since the attacker cannot exfiltrate any data.",
+        "date_added": "2023-11-07",
+        "due_date": "2023-11-28",
+        "ransomware_observed": true,
+        "epss": 0.99999,
+        "epss_percentile": 0.99996,
+        "priority": 125.0
+      },
+      {
+        "id": "CVE-2023-27350",
+        "vendor": "PaperCut",
+        "product": "MF/NG",
+        "name": "PaperCut MF/NG Improper Access Control Vulnerability",
+        "description": "PaperCut MF/NG contains an improper access control vulnerability within the SetupCompleted class that allows authentication bypass and code execution in the context of system.",
+        "date_added": "2023-04-21",
+        "due_date": "2023-05-12",
+        "ransomware_observed": true,
+        "epss": 0.99999,
+        "epss_percentile": 0.99994,
+        "priority": 125.0
+      },
+      {
+        "id": "CVE-2023-35078",
+        "vendor": "Ivanti",
+        "product": "Endpoint Manager Mobile (EPMM)",
+        "name": "Ivanti Endpoint Manager Mobile Authentication Bypass Vulnerability",
+        "description": "Ivanti Endpoint Manager Mobile (EPMM, previously branded MobileIron Core) contains an authentication bypass vulnerability that allows unauthenticated access to specific API paths. An attacker with access to these API paths can access personally identifiable information (PII) such as names, phone numbers, and other mobile device details for users on a vulnerable system. An attacker can also make other configuration changes including installing software and modifying security profiles on registered devices.",
+        "date_added": "2023-07-25",
+        "due_date": "2023-08-15",
+        "ransomware_observed": true,
+        "epss": 0.99999,
+        "epss_percentile": 0.99998,
+        "priority": 125.0
+      },
+      {
+        "id": "CVE-2023-35082",
+        "vendor": "Ivanti",
+        "product": "Endpoint Manager Mobile (EPMM) and MobileIron Core",
+        "name": "Ivanti Endpoint Manager Mobile (EPMM) and MobileIron Core Authentication Bypass Vulnerability",
+        "description": "Ivanti Endpoint Manager Mobile (EPMM) and MobileIron Core contain an authentication bypass vulnerability that allows unauthorized users to access restricted functionality or resources of the application.",
+        "date_added": "2024-01-18",
+        "due_date": "2024-02-08",
+        "ransomware_observed": true,
+        "epss": 0.99999,
+        "epss_percentile": 0.99996,
+        "priority": 125.0
+      },
+      {
+        "id": "CVE-2023-4966",
+        "vendor": "Citrix",
+        "product": "NetScaler ADC and NetScaler Gateway",
+        "name": "Citrix NetScaler ADC and NetScaler Gateway Buffer Overflow Vulnerability",
+        "description": "Citrix NetScaler ADC and NetScaler Gateway contain a buffer overflow vulnerability that allows for sensitive information disclosure when configured as a Gateway (VPN virtual server, ICA Proxy, CVPN, RDP Proxy) or AAA virtual server.",
+        "date_added": "2023-10-18",
+        "due_date": "2023-11-08",
+        "ransomware_observed": true,
+        "epss": 0.99999,
+        "epss_percentile": 0.99997,
+        "priority": 125.0
+      },
+      {
+        "id": "CVE-2024-21887",
+        "vendor": "Ivanti",
+        "product": "Connect Secure and Policy Secure",
+        "name": "Ivanti Connect Secure and Policy Secure Command Injection Vulnerability",
+        "description": "Ivanti Connect Secure (ICS, formerly known as Pulse Connect Secure) and Ivanti Policy Secure contain a command injection vulnerability in the web components of these products, which can allow an authenticated administrator to send crafted requests to execute code on affected appliances. This vulnerability can be leveraged in conjunction with CVE-2023-46805, an authenticated bypass issue.",
+        "date_added": "2024-01-10",
+        "due_date": "2024-01-22",
+        "ransomware_observed": true,
+        "epss": 0.99999,
+        "epss_percentile": 1.0,
+        "priority": 125.0
+      },
+      {
+        "id": "CVE-2024-21893",
+        "vendor": "Ivanti",
+        "product": "Connect Secure, Policy Secure, and Neurons",
+        "name": "Ivanti Connect Secure, Policy Secure, and Neurons Server-Side Request Forgery (SSRF) Vulnerability",
+        "description": "Ivanti Connect Secure (ICS, formerly known as Pulse Connect Secure), Ivanti Policy Secure, and Ivanti Neurons contain a server-side request forgery (SSRF) vulnerability in the SAML component that allows an attacker to access certain restricted resources without authentication.",
+        "date_added": "2024-01-31",
+        "due_date": "2024-02-02",
+        "ransomware_observed": true,
+        "epss": 0.99999,
+        "epss_percentile": 0.99999,
+        "priority": 125.0
+      },
+      {
+        "id": "CVE-2024-23897",
+        "vendor": "Jenkins",
+        "product": "Jenkins Command Line Interface (CLI)",
+        "name": "Jenkins Command Line Interface (CLI) Path Traversal Vulnerability",
+        "description": "Jenkins Command Line Interface (CLI) contains a path traversal vulnerability that allows attackers limited read access to certain files, which can lead to code execution.",
+        "date_added": "2024-08-19",
+        "due_date": "2024-09-09",
+        "ransomware_observed": true,
+        "epss": 0.99999,
+        "epss_percentile": 0.99995,
+        "priority": 125.0
+      },
+      {
+        "id": "CVE-2024-3400",
+        "vendor": "Palo Alto Networks",
+        "product": "PAN-OS",
+        "name": "Palo Alto Networks PAN-OS Command Injection Vulnerability",
+        "description": "Palo Alto Networks PAN-OS GlobalProtect feature contains a command injection vulnerability that allows an unauthenticated attacker to execute commands with root privileges on the firewall.",
+        "date_added": "2024-04-12",
+        "due_date": "2024-04-19",
+        "ransomware_observed": true,
+        "epss": 0.99999,
+        "epss_percentile": 1.0,
+        "priority": 125.0
+      },
+      {
+        "id": "CVE-2025-49704",
+        "vendor": "Microsoft",
+        "product": "SharePoint",
+        "name": "Microsoft SharePoint Code Injection Vulnerability",
+        "description": "Microsoft SharePoint contains a code injection vulnerability that could allow an authorized attacker to execute code over a network. This vulnerability could be chained with CVE-2025-49706. CVE-2025-53770 is a patch bypass for CVE-2025-49704, and the updates for CVE-2025-53770 include more robust protection than those for CVE-2025-49704.",
+        "date_added": "2025-07-22",
+        "due_date": "2025-07-23",
+        "ransomware_observed": true,
+        "epss": 0.99995,
+        "epss_percentile": 0.99988,
+        "priority": 125.0
+      },
+      {
+        "id": "CVE-2025-53770",
+        "vendor": "Microsoft",
+        "product": "SharePoint",
+        "name": "Microsoft SharePoint Deserialization of Untrusted Data Vulnerability",
+        "description": "Microsoft SharePoint Server on-premises contains a deserialization of untrusted data vulnerability that could allow an unauthorized attacker to execute code over a network. This vulnerability could be chained with CVE-2025-53771. CVE-2025-53770 is a patch bypass for CVE-2025-49704, and the updates for CVE-2025-53770 include more robust protection than those for CVE-2025-49704.",
+        "date_added": "2025-07-20",
+        "due_date": "2025-07-21",
+        "ransomware_observed": true,
+        "epss": 0.99999,
+        "epss_percentile": 0.99991,
+        "priority": 125.0
+      },
+      {
+        "id": "CVE-2017-10271",
+        "vendor": "Oracle",
+        "product": "WebLogic Server",
+        "name": "Oracle Corporation WebLogic Server Remote Code Execution Vulnerability",
+        "description": "Oracle Corporation WebLogic Server contains a vulnerability that allows for remote code execution.",
+        "date_added": "2022-02-10",
+        "due_date": "2022-08-10",
+        "ransomware_observed": true,
+        "epss": 0.99994,
+        "epss_percentile": 0.99988,
+        "priority": 124.99
+      },
+      {
+        "id": "CVE-2023-29300",
+        "vendor": "Adobe",
+        "product": "ColdFusion",
+        "name": "Adobe ColdFusion Deserialization of Untrusted Data Vulnerability",
+        "description": "Adobe ColdFusion contains a deserialization of untrusted data vulnerability that allows for code execution.",
+        "date_added": "2024-01-08",
+        "due_date": "2024-01-29",
+        "ransomware_observed": true,
+        "epss": 0.99991,
+        "epss_percentile": 0.99985,
+        "priority": 124.99
+      },
+      {
+        "id": "CVE-2023-42793",
+        "vendor": "JetBrains",
+        "product": "TeamCity",
+        "name": "JetBrains TeamCity Authentication Bypass Vulnerability",
+        "description": "JetBrains TeamCity contains an authentication bypass vulnerability that allows for remote code execution on TeamCity Server.",
+        "date_added": "2023-10-04",
+        "due_date": "2023-10-25",
+        "ransomware_observed": true,
+        "epss": 0.99987,
+        "epss_percentile": 0.99983,
+        "priority": 124.99
+      },
+      {
+        "id": "CVE-2023-46604",
+        "vendor": "Apache",
+        "product": "ActiveMQ",
+        "name": "Apache ActiveMQ Deserialization of Untrusted Data Vulnerability",
+        "description": "Apache ActiveMQ contains a deserialization of untrusted data vulnerability that may allow a remote attacker with network access to a broker to run shell commands by manipulating serialized class types in the OpenWire protocol to cause the broker to instantiate any class on the classpath.",
+        "date_added": "2023-11-02",
+        "due_date": "2023-11-23",
+        "ransomware_observed": true,
+        "epss": 0.99992,
+        "epss_percentile": 0.99986,
+        "priority": 124.99
+      },
+      {
+        "id": "CVE-2024-27199",
+        "vendor": "JetBrains",
+        "product": "TeamCity",
+        "name": "JetBrains TeamCity Relative Path Traversal Vulnerability",
+        "description": "JetBrains TeamCity contains a relative path traversal vulnerability that could allow limited admin actions to be performed.",
+        "date_added": "2026-04-20",
+        "due_date": "2026-05-04",
+        "ransomware_observed": true,
+        "epss": 0.99991,
+        "epss_percentile": 0.99985,
+        "priority": 124.99
+      },
+      {
+        "id": "CVE-2024-4577",
+        "vendor": "PHP Group",
+        "product": "PHP",
+        "name": "PHP-CGI OS Command Injection Vulnerability",
+        "description": "PHP, specifically Windows-based PHP used in CGI mode, contains an OS command injection vulnerability that allows for arbitrary code execution. This vulnerability is a patch bypass for CVE-2012-1823.",
+        "date_added": "2024-06-12",
+        "due_date": "2024-07-03",
+        "ransomware_observed": true,
+        "epss": 0.99987,
+        "epss_percentile": 0.99984,
+        "priority": 124.99
+      },
+      {
+        "id": "CVE-2025-3248",
+        "vendor": "Langflow",
+        "product": "Langflow",
+        "name": "Langflow Missing Authentication Vulnerability",
+        "description": "Langflow contains a missing authentication vulnerability in the /api/v1/validate/code endpoint that allows a remote, unauthenticated attacker to execute arbitrary code via crafted HTTP requests.",
+        "date_added": "2025-05-05",
+        "due_date": "2025-05-26",
+        "ransomware_observed": true,
+        "epss": 0.99993,
+        "epss_percentile": 0.99987,
+        "priority": 124.99
+      },
+      {
+        "id": "CVE-2019-2725",
+        "vendor": "Oracle",
+        "product": "WebLogic Server",
+        "name": "Oracle WebLogic Server, Injection",
+        "description": "Injection vulnerability in the Oracle WebLogic Server component of Oracle Fusion Middleware (subcomponent: Web Services).",
+        "date_added": "2022-01-10",
+        "due_date": "2022-07-10",
+        "ransomware_observed": true,
+        "epss": 0.99977,
+        "epss_percentile": 0.99979,
+        "priority": 124.98
+      },
+      {
+        "id": "CVE-2021-45046",
+        "vendor": "Apache",
+        "product": "Log4j2",
+        "name": "Apache Log4j2 Deserialization of Untrusted Data Vulnerability",
+        "description": "Apache Log4j2 contains a deserialization of untrusted data vulnerability due to the incomplete fix of CVE-2021-44228, where the Thread Context Lookup Pattern is vulnerable to remote code execution in certain non-default configurations.",
+        "date_added": "2023-05-01",
+        "due_date": "2023-05-22",
+        "ransomware_observed": true,
+        "epss": 0.99977,
+        "epss_percentile": 0.99979,
+        "priority": 124.98
+      },
+      {
+        "id": "CVE-2022-40684",
+        "vendor": "Fortinet",
+        "product": "Multiple Products",
+        "name": "Fortinet Multiple Products Authentication Bypass Vulnerability",
+        "description": "Fortinet FortiOS, FortiProxy, and FortiSwitchManager contain an authentication bypass vulnerability that could allow an unauthenticated attacker to perform operations on the administrative interface via specially crafted HTTP or HTTPS requests.",
+        "date_added": "2022-10-11",
+        "due_date": "2022-11-01",
+        "ransomware_observed": true,
+        "epss": 0.99984,
+        "epss_percentile": 0.99983,
+        "priority": 124.98
+      },
+      {
+        "id": "CVE-2023-22527",
+        "vendor": "Atlassian",
+        "product": "Confluence Data Center and Server",
+        "name": "Atlassian Confluence Data Center and Server Template Injection Vulnerability",
+        "description": "Atlassian Confluence Data Center and Server contain an unauthenticated OGNL template injection vulnerability that can lead to remote code execution.",
+        "date_added": "2024-01-24",
+        "due_date": "2024-02-14",
+        "ransomware_observed": true,
+        "epss": 0.99984,
+        "epss_percentile": 0.99982,
+        "priority": 124.98
+      },
+      {
+        "id": "CVE-2023-29357",
+        "vendor": "Microsoft",
+        "product": "SharePoint Server",
+        "name": "Microsoft SharePoint Server Privilege Escalation Vulnerability",
+        "description": "Microsoft SharePoint Server contains an unspecified vulnerability that allows an unauthenticated attacker, who has gained access to spoofed JWT authentication tokens, to use them for executing a network attack. This attack bypasses authentication, enabling the attacker to gain administrator privileges.",
+        "date_added": "2024-01-10",
+        "due_date": "2024-01-31",
+        "ransomware_observed": true,
+        "epss": 0.99984,
+        "epss_percentile": 0.99983,
+        "priority": 124.98
+      },
+      {
+        "id": "CVE-2023-46805",
+        "vendor": "Ivanti",
+        "product": "Connect Secure and Policy Secure",
+        "name": "Ivanti Connect Secure and Policy Secure Authentication Bypass Vulnerability",
+        "description": "Ivanti Connect Secure (ICS, formerly known as Pulse Connect Secure) and Ivanti Policy Secure gateways contain an authentication bypass vulnerability in the web component that allows an attacker to access restricted resources by bypassing control checks. This vulnerability can be leveraged in conjunction with CVE-2024-21887, a command injection vulnerability.",
+        "date_added": "2024-01-10",
+        "due_date": "2024-01-22",
+        "ransomware_observed": true,
+        "epss": 0.99984,
+        "epss_percentile": 0.99982,
+        "priority": 124.98
+      },
+      {
+        "id": "CVE-2024-1709",
+        "vendor": "ConnectWise",
+        "product": "ScreenConnect",
+        "name": "ConnectWise ScreenConnect Authentication Bypass Vulnerability",
+        "description": "ConnectWise ScreenConnect contains an authentication bypass vulnerability that allows an attacker with network access to the management interface to create a new, administrator-level account on affected devices.",
+        "date_added": "2024-02-22",
+        "due_date": "2024-02-29",
+        "ransomware_observed": true,
+        "epss": 0.9998,
+        "epss_percentile": 0.9998,
+        "priority": 124.98
+      },
+      {
+        "id": "CVE-2024-24919",
+        "vendor": "Check Point",
+        "product": "Quantum Security Gateways",
+        "name": "Check Point Quantum Security Gateways Information Disclosure Vulnerability",
+        "description": "Check Point Quantum Security Gateways contain an unspecified information disclosure vulnerability. The vulnerability potentially allows an attacker to access information on Gateways connected to the internet, with IPSec VPN, Remote Access VPN or Mobile Access enabled. This issue affects several product lines from Check Point, including CloudGuard Network, Quantum Scalable Chassis, Quantum Security Gateways, and Quantum Spark Appliances.",
+        "date_added": "2024-05-30",
+        "due_date": "2024-06-20",
+        "ransomware_observed": true,
+        "epss": 0.99978,
+        "epss_percentile": 0.9998,
+        "priority": 124.98
+      },
+      {
+        "id": "CVE-2025-0282",
+        "vendor": "Ivanti",
+        "product": "Connect Secure, Policy Secure, and ZTA Gateways",
+        "name": "Ivanti Connect Secure, Policy Secure, and ZTA Gateways Stack-Based Buffer Overflow Vulnerability",
+        "description": "Ivanti Connect Secure, Policy Secure, and ZTA Gateways contain a stack-based buffer overflow which can lead to unauthenticated remote code execution.",
+        "date_added": "2025-01-08",
+        "due_date": "2025-01-15",
+        "ransomware_observed": true,
+        "epss": 0.99981,
+        "epss_percentile": 0.99981,
+        "priority": 124.98
+      },
+      {
+        "id": "CVE-2025-22457",
+        "vendor": "Ivanti",
+        "product": "Connect Secure, Policy Secure, and ZTA Gateways",
+        "name": "Ivanti Connect Secure, Policy Secure, and ZTA Gateways Stack-Based Buffer Overflow Vulnerability",
+        "description": "Ivanti Connect Secure, Policy Secure, and ZTA Gateways contains a stack-based buffer overflow vulnerability that allows a remote unauthenticated attacker to achieve remote code execution. ",
+        "date_added": "2025-04-04",
+        "due_date": "2025-04-11",
+        "ransomware_observed": true,
+        "epss": 0.99981,
+        "epss_percentile": 0.99981,
+        "priority": 124.98
+      },
+      {
+        "id": "CVE-2022-41082",
+        "vendor": "Microsoft",
+        "product": "Exchange Server",
+        "name": "Microsoft Exchange Server Remote Code Execution Vulnerability",
+        "description": "Microsoft Exchange Server contains an unspecified vulnerability that allows for authenticated remote code execution. Dubbed \"ProxyNotShell,\" this vulnerability is chainable with CVE-2022-41040 which allows for the remote code execution.",
+        "date_added": "2022-09-30",
+        "due_date": "2022-10-21",
+        "ransomware_observed": true,
+        "epss": 0.9997,
+        "epss_percentile": 0.99977,
+        "priority": 124.97
+      },
+      {
+        "id": "CVE-2022-47986",
+        "vendor": "IBM",
+        "product": "Aspera Faspex",
+        "name": "IBM Aspera Faspex Code Execution Vulnerability",
+        "description": "IBM Aspera Faspex could allow a remote attacker to execute code on the system, caused by a YAML deserialization flaw.",
+        "date_added": "2023-02-21",
+        "due_date": "2023-03-14",
+        "ransomware_observed": true,
+        "epss": 0.99965,
+        "epss_percentile": 0.99976,
+        "priority": 124.97
+      },
+      {
+        "id": "CVE-2025-31161",
+        "vendor": "CrushFTP",
+        "product": "CrushFTP",
+        "name": "CrushFTP Authentication Bypass Vulnerability",
+        "description": "CrushFTP contains an authentication bypass vulnerability in the HTTP authorization header that allows a remote unauthenticated attacker to authenticate to any known or guessable user account (e.g., crushadmin), potentially leading to a full compromise. ",
+        "date_added": "2025-04-07",
+        "due_date": "2025-04-28",
+        "ransomware_observed": true,
+        "epss": 0.99969,
+        "epss_percentile": 0.99977,
+        "priority": 124.97
+      }
+    ]
+  },
+  "sectors": {
+    "source": "ENISA Threat Landscape 2026",
+    "source_url": "https://www.enisa.europa.eu/topics/cyber-threats/threat-landscape",
+    "report_published": "2026-09-22",
+    "period": "2025-01-01 / 2025-12-31",
+    "scope": "EU incidents curated by ENISA",
+    "note": "Sector share of recorded 2025 incidents (rounded by ENISA); not live, not worldwide, not sector exposure prevalence.",
+    "rows": [
+      {
+        "name": "Public administration",
+        "percent": 31.8
+      },
+      {
+        "name": "Business services",
+        "percent": 8.5
+      },
+      {
+        "name": "Transport",
+        "percent": 8.0
+      },
+      {
+        "name": "Manufacturing",
+        "percent": 6.9
+      },
+      {
+        "name": "Finance / banking",
+        "percent": 5.6
+      }
+    ]
+  },
+  "failures": []
+}
