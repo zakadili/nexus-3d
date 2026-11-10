@@ -64,6 +64,52 @@ class GeoTests(unittest.TestCase):
         self.assertEqual(len(p.assemble_history(new, {"history": history})), 2)
 
 
+    def test_one_feed_unavailable_others_retained(self):
+        good=("ipsum", {"8.8.8.8"}, {"id":"ipsum","status":"ok","records":1}, [])
+        bad=("feodo", set(), {"id":"feodo","status":"unavailable","records":None}, [])
+        class Pool:
+            def __init__(self, max_workers): pass
+            def __enter__(self): return self
+            def __exit__(self, *args): pass
+            def map(self, fn, names): return iter([bad,good])
+        geo=p.GeoDB([["8.8.8.0","8.8.8.255","US"]])
+        with patch.object(p,"ThreadPoolExecutor",Pool),patch.object(p,"geo_db",return_value=geo):
+            result=p.collect_indicators()
+        self.assertEqual(result["unique_indicators"],1)
+        self.assertEqual(result["countries"][0]["code"],"US")
+        self.assertEqual([x["status"] for x in result["source_health"]],["unavailable","ok"])
+
+    def test_all_feeds_unavailable_never_overwrites(self):
+        import tempfile
+        from pathlib import Path
+        with tempfile.TemporaryDirectory() as directory:
+            path=Path(directory)/"overview.json"
+            original='{"previous":"preserve me"}\\n'
+            path.write_text(original)
+            with patch.object(p,"OUT",path),patch.object(p,"collect_indicators",side_effect=RuntimeError("All IP feeds failed")),patch.object(p,"collect_cves",return_value={"status":"ok","total_kev":10}):
+                with self.assertRaisesRegex(RuntimeError,"refusing to overwrite"):
+                    p.main()
+            self.assertEqual(path.read_text(),original)
+
+    def test_empty_feodo_is_healthy_not_failed(self):
+        with patch.object(p,"fetch",return_value=b"[]"):
+            key,ips,meta,rows=p.get_feed("feodo")
+        self.assertEqual(key,"feodo")
+        self.assertEqual(ips,set())
+        self.assertEqual(meta["status"],"ok")
+        self.assertEqual(meta["records"],0)
+
+    def test_all_feeds_failed_collection(self):
+        fake=[(key,set(),{"id":key,"status":"unavailable"},[]) for key in p.SOURCE_FEEDS]
+        class Pool:
+            def __init__(self,max_workers): pass
+            def __enter__(self): return self
+            def __exit__(self,*args): pass
+            def map(self,fn,names): return iter(fake)
+        with patch.object(p,"ThreadPoolExecutor",Pool),patch.object(p,"geo_db",side_effect=AssertionError("must not geolocate")):
+            with self.assertRaisesRegex(RuntimeError,"All IP intelligence sources unavailable"):
+                p.collect_indicators()
+
 
 if __name__ == "__main__":
     unittest.main()
