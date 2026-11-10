@@ -397,7 +397,9 @@ function renderSummary(){const d=state.data,box=$('#collection-info');box.replac
  box.append(link('Read complete methodology ↗','./radar-methodology.html'));}
 function render(){const d=state.data;if(!d)return;
  txt('#sources',fmt(d.indicators.unique_indicators));txt('#reports',fmt(d.indicators.resolved_indicators));txt('#countries',fmt(d.indicators.countries.length));txt('#hot-port',fmt(d.cves.total_kev||0));txt('#port-caption','CISA Known Exploited Vulnerabilities');
- const healthy=(d.indicators.source_health||[]).filter(r=>r.status==='ok').length;txt('#mode',healthy+' / '+(d.indicators.source_health||[]).length);
+ const allHealth=[...(d.indicators.source_health||[]),...(state.extra?.source_health||d.extra_health||[])];
+ const healthy=allHealth.filter(r=>r.status==='ok'&&(!['urlhaus','threatfox','iptoasn','ioda'].includes(r.id)||Boolean(state.extra?.feeds?.[r.id]))).length;
+ txt('#mode',healthy+' / '+allHealth.length);
  txt('#freshness','IP feeds · CISA · FIRST · ENISA');updateTimestamp();txt('#observation-window','SOURCE COUNTS / OBSERVATION LISTS');
  const layer=state.layer;const active=countries();if(layer!=='all'){
  txt('#countries',layerAvailable()?fmt(active.length):'—');txt('#sources',layerAvailable()?fmt(active.reduce((n,c)=>n+score(c),0)):'UNAVAILABLE');
@@ -712,7 +714,7 @@ async function load(){setHealth('COLLECTING');$('#refresh').disabled=true;
  let cached=null;try{cached=JSON.parse(localStorage.getItem('nexus.last.good.overview')||'null');}catch(error){}
  if(cached?.schema===2&&Array.isArray(cached.indicators?.countries)){
   state.data=cached;state.extra={schema:1,feeds:{},source_health:cached.extra_health||[]};
-  render();updateTimestamp();
+  render();document.querySelectorAll('.skeleton').forEach(x=>x.classList.remove('skeleton','skeleton-metric','skeleton-panel'));updateTimestamp();
   txt('#notice','Showing cached, potentially stale observations. Latest snapshot failed: '+e.message);
   loadExtra();
  }else{
