@@ -7,6 +7,7 @@ from pathlib import Path
 import json
 import os
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
@@ -58,6 +59,14 @@ def analyze(data, scenario):
             "assumptions": ["A network-reachable edge does not imply code execution.",
                             "Session and permission edges require source validation.",
                             "Synthetic lab evidence is illustrative, not observed production data."]}
+
+@app.get("/")
+def dashboard():
+    return FileResponse(ROOT.parent / "sentinel.html")
+
+@app.get("/sentinel.js")
+def dashboard_script():
+    return FileResponse(ROOT.parent / "sentinel.js", media_type="application/javascript")
 
 @app.get("/api/health")
 def health():
