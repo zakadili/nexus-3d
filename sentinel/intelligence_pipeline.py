@@ -76,6 +76,7 @@ def get_feed(key):
         raw=fetch(url)
         if key=="dshield":
             parsed=dshield_rows(json.loads(raw));ips={r["ip"] for r in parsed}
+            if not ips:raise ValueError("DShield returned no usable IP records")
             return key,ips,{"id":key,"name":label,"status":"ok","records":len(ips),"meaning":meaning,"url":url},parsed[:80]
         if key=="feodo":
             parsed=json.loads(raw)
@@ -90,6 +91,7 @@ def get_feed(key):
                 if not line or line.startswith("#"):continue
                 ip=global_v4(line.split()[0])
                 if ip:ips.add(ip)
+        if not ips and key!="feodo":raise ValueError("Feed returned no usable IP records")
         return key,ips,{"id":key,"name":label,"status":"ok","records":len(ips),"meaning":meaning,"url":url},[]
     except Exception as exc:
         return key,set(),{"id":key,"name":label,"status":"unavailable","records":None,"meaning":meaning,"url":url,"error":str(exc)[:180]},[]
