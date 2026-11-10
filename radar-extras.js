@@ -8,8 +8,8 @@ export function buildExtrasUI(state, helpers) {
 
  function healthNote(id) {
    const status=statusById[id];
-   if(!status||status.status!=='ok')
-     return note('UNAVAILABLE — '+(status?.reason || state.extraError || 'no valid collected data')+'. No zero values inferred.');
+   if(!status||status.status!=='ok'||!feeds[id])
+     return note('UNAVAILABLE — '+(status?.reason || state.extraError || 'supplementary snapshot not loaded')+'. Missing data is not zero activity.');
    return null;
  }
  function simpleRow(label,value,cls='extra-row') {
