@@ -1,4 +1,4 @@
-const api='http://127.0.0.1:8765';const $=s=>document.querySelector(s);let graph=null,highlight=[],blocked='';
+const api=location.port==='8765'?location.origin:'http://127.0.0.1:8765';const $=s=>document.querySelector(s);let graph=null,highlight=[],blocked='';
 async function request(path,opts){const res=await fetch(api+path,opts);if(!res.ok)throw Error('API '+res.status);return res.json();}
 function el(tag,attrs={},text){const n=document.createElementNS('http://www.w3.org/2000/svg',tag);for(const [k,v] of Object.entries(attrs))n.setAttribute(k,v);if(text)n.textContent=text;return n;}
 const coords={internet:[90,255],web:[260,150],api:[435,90],db:[630,90],ws:[435,310],alice:[600,310],admins:[735,310],dc:[820,210]};
