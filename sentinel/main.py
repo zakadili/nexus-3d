@@ -8,6 +8,7 @@ import json
 import os
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
+from sentinel.radar_feed import snapshot
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
@@ -62,11 +63,30 @@ def analyze(data, scenario):
 
 @app.get("/")
 def dashboard():
-    return FileResponse(ROOT.parent / "sentinel.html")
+    return FileResponse(ROOT.parent / "index.html")
 
 @app.get("/sentinel.js")
 def dashboard_script():
     return FileResponse(ROOT.parent / "sentinel.js", media_type="application/javascript")
+
+@app.get("/sentinel.html")
+def sentinel_dashboard():
+    return FileResponse(ROOT.parent / "sentinel.html")
+
+@app.get("/{asset_name}")
+def public_asset(asset_name: str):
+    allowed = {"radar.js", "radar.css", "intel.html", "app.js", "styles.css",
+               "radar-methodology.html", "index.html"}
+    if asset_name not in allowed:
+        raise HTTPException(status_code=404, detail="Asset not found")
+    return FileResponse(ROOT.parent / asset_name)
+
+@app.get("/api/radar")
+def radar():
+    try:
+        return snapshot()
+    except RuntimeError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
 
 @app.get("/api/health")
 def health():
