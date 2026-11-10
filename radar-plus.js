@@ -15,8 +15,8 @@ function countries(){return allCountries().filter(c=>score(c)>0).sort((a,b)=>sco
 function name(code){if(state.iso?.byCode?.has(code))return state.iso.byCode.get(code).name;
  try{return new Intl.DisplayNames(['en'],{type:'region'}).of(code)||code;}catch(e){return code;}}
 function getISO(f){const n=String(f.id||'').padStart(3,'0');return state.iso?.byNumeric?.get(n)||null;}
-function showTip(event,code){const row=allCountries().find(v=>v.code===code);if(!row)return;const tip=$('#map-tooltip'),bounds=$('#globe-container').getBoundingClientRect();
- tip.replaceChildren();tip.append(create('strong','',name(code)),create('div','',code+' / '+fmt(score(row))+' listed IPs'),create('small','',fmt(row.indicators)+' across all available feeds'));
+function showTip(event,code){const row=allCountries().find(v=>v.code===code);const tip=$('#map-tooltip'),bounds=$('#globe-container').getBoundingClientRect();
+ tip.replaceChildren();tip.append(create('strong','',name(code)),create('div','',row?code+' / '+fmt(score(row))+' listed IPs':code+' / NO LISTED INDICATORS'),create('small','',row?fmt(row.indicators)+' across all available feeds':'No coverage in this current feed sample.'));
  tip.hidden=false;let x=event.clientX-bounds.left+14,y=event.clientY-bounds.top+16;
  tip.style.left=Math.max(8,Math.min(bounds.width-250,x))+'px';tip.style.top=Math.max(8,Math.min(bounds.height-105,y))+'px';
 }
@@ -31,8 +31,8 @@ function draw(){if(!state.d3||!state.world)return;const d3=state.d3,p=state.proj
   .attr('fill',f=>{const code=getISO(f),val=rows.get(code)?score(rows.get(code)):0;if(val===0)return '#1b1d29';if(code===state.selected)return '#ff6079';return d3.interpolateRgb('#491c2e','#f54a63')(Math.max(.08,Math.log1p(val)/Math.log1p(max)));})
   .attr('stroke',f=>getISO(f)===state.selected?'#ffb1bf':rows.has(getISO(f))?'#e35770':'#572d3b')
   .attr('stroke-width',f=>getISO(f)===state.selected?1.7:rows.has(getISO(f))?.8:.45)
-  .on('click',(event,f)=>{const code=getISO(f);if(code&&rows.has(code))select(code);})
-  .on('mousemove',(event,f)=>{const code=getISO(f);if(code&&rows.has(code))showTip(event,code);else hideTip();})
+  .on('click',(event,f)=>{const code=getISO(f);if(code)select(code);})
+  .on('mousemove',(event,f)=>{const code=getISO(f);if(code)showTip(event,code);else hideTip();})
   .on('mouseleave',hideTip)
   .append('title').text(f=>{const code=getISO(f);return code?name(code)+' / '+fmt(rows.get(code)?score(rows.get(code)):0)+' listed IPs':'Unmapped territory'});
  const center=p.rotate().map(v=>-v);
@@ -60,12 +60,23 @@ function flag(code){return /^[A-Z]{2}$/.test(code)?String.fromCodePoint(...[...c
 function kpi(value,label){const e=create('div','dossier-kpi');e.append(create('strong','',value),create('small','',label));return e;}
 function note(text){return create('p','dossier-note',text);}
 function select(code,{zoom=true,updateUrl=true}={}){
- const row=allCountries().find(r=>r.code===code);if(!row)return;
- state.selected=code;state.tab='sources';hideTip();rankings();renderDossier();
+ const row=allCountries().find(r=>r.code===code);
+ state.selected=code;state.tab='sources';hideTip();rankings();
+ if(row)renderDossier();else renderUnavailableCountry(code);
  txt('#map-mode','◉ COUNTRY INVESTIGATION / '+code);txt('#focused-title',name(code).toUpperCase());
  $('#map-focus-controls').hidden=false;setFocusSummary();
  if(zoom)flyToCountry(code);
  if(updateUrl)syncAddress();
+}
+function renderUnavailableCountry(code){
+ const panel=$('#country-detail');panel.className='dossier';panel.replaceChildren();
+ const header=create('div','dossier-heading');header.append(create('div','dossier-eyebrow','◎ COUNTRY VIEW / NO OBSERVED COVERAGE'),create('div','dossier-country',flag(code)+' '+name(code)));
+ panel.append(header);
+ const body=create('div','dossier-section');
+ body.append(create('h3','','NO LISTED IPs IN THE CURRENT SNAPSHOT'));
+ body.append(note('NEXUS has no geolocated IP indicators assigned to this country in the available feeds. This does not mean the country is free from cyber activity, attacks, compromised systems, or vulnerabilities.'));
+ body.append(note('Data depends on provider coverage, IP allocation and list inclusion. Country-level vulnerability exposure is not measured by this module.'));
+ panel.append(body);txt('#dossier-mode','COVERAGE NOT OBSERVED / '+code);
 }
 function renderDossier(){
  const row=allCountries().find(r=>r.code===state.selected),panel=$('#country-detail');if(!row)return;
@@ -181,7 +192,7 @@ function render(){const d=state.data;if(!d)return;
  const healthy=(d.indicators.source_health||[]).filter(r=>r.status==='ok').length;txt('#mode',healthy+' / '+(d.indicators.source_health||[]).length);
  txt('#freshness','IP feeds · CISA · FIRST · ENISA');txt('#updated','Snapshot '+new Date(d.generated_at).toLocaleString());txt('#observation-window','SOURCE COUNTS / OBSERVATION LISTS');
  const layer=state.layer;const active=countries();if(layer!=='all'){txt('#countries',fmt(active.length));txt('#sources',fmt(active.reduce((n,c)=>n+score(c),0)));txt('#reports','—');txt('#freshness','FILTERED LAYER / IP count only');}else txt('#freshness','Deduplicated by IP / all sources');
- renderCVEs();renderSectors();renderSources();renderTable();renderSummary();rankings();draw();if(state.selected){renderDossier();setFocusSummary();}txt('#map-total',fmt(d.indicators.countries.length)+' COUNTRIES · '+fmt(d.indicators.unique_indicators)+' INDICATORS');
+ renderCVEs();renderSectors();renderSources();renderTable();renderSummary();rankings();draw();if(state.selected){if(allCountries().some(r=>r.code===state.selected))renderDossier();else renderUnavailableCountry(state.selected);setFocusSummary();}txt('#map-total',fmt(d.indicators.countries.length)+' COUNTRIES · '+fmt(d.indicators.unique_indicators)+' INDICATORS');
  $('#map-loading').style.display=state.world?'none':'block';txt('#notice','IP-list entries are not confirmed attacks. Country is IP-location only. Sources have different measurement windows; never add their counts as incidents.');
 }
 function countryTrend(code){
@@ -229,11 +240,12 @@ async function inspectIp(ip){
 }
 function setFocusSummary(){
  const row=allCountries().find(r=>r.code===state.selected),el=$('#map-floating-summary');
- if(!row){el.hidden=true;return;}el.hidden=false;el.replaceChildren();
- el.append(create('small','','◎ COUNTRY FOCUS / '+row.code),
-   create('strong','',name(row.code)),create('span','',fmt(score(row))+' listed IPs in selected layer'),
-   create('span','',fmt(row.indicators)+' distinct listed IPv4 addresses across all feeds'),
-   create('small','','IP INFRASTRUCTURE GEOLOCATION · NOT THREAT-ACTOR ATTRIBUTION'));
+ if(!state.selected){el.hidden=true;return;}el.hidden=false;el.replaceChildren();
+ el.append(create('small','','◎ COUNTRY FOCUS / '+state.selected),
+   create('strong','',name(state.selected)),
+   create('span','',row?fmt(score(row))+' listed IPs in selected layer':'No listed indicators in current source coverage'),
+   create('span','',row?fmt(row.indicators)+' unique IP indicators across all feeds':'No observed coverage does not imply absence of risk'),
+   create('small','','IP INFRASTRUCTURE GEOLOCATION · NOT ACTOR ATTRIBUTION'));
 }
 function updateSpin(on){state.spin=on;$('#spin').setAttribute('aria-pressed',String(on));txt('#spin',on?'◉ AUTO ROTATE':'○ ROTATION PAUSED');}
 function ease(t){return 1-Math.pow(1-t,3);}
