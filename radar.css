@@ -149,3 +149,5 @@ body.immersive .globe-container .map-label{bottom:22px}
 #exit-immersive[hidden]{display:none}
 .map-focus-controls:has(#exit-immersive:not([hidden])){padding-right:4px}
 @media(max-width:600px){.map-floating-summary{left:10px;bottom:48px;width:min(285px,80%);padding:12px 14px;gap:5px}.map-floating-summary small{font-size:8px}.map-floating-summary strong{font-size:26px}.map-floating-summary span{font-size:9px}.map-focus-controls{left:10px;right:10px;top:45px;flex-wrap:wrap}}
+
+.map-focus-controls[hidden]{display:none!important}
