@@ -1,0 +1,50 @@
+name: Refresh global intelligence snapshot
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 */6 * * *"
+  push:
+    paths:
+      - "sentinel/intelligence_pipeline.py"
+      - ".github/workflows/intelligence.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nexus-intelligence-refresh
+  cancel-in-progress: false
+
+jobs:
+  intelligence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Collect licensed public threat intelligence
+        run: python3 sentinel/intelligence_pipeline.py
+      - name: Validate snapshot
+        run: |
+          python3 - <<'PY'
+          import json
+          d=json.load(open("data/overview.json"))
+          assert d["schema"] == 2
+          assert d["cves"].get("status") == "ok" or d["indicators"].get("unique_indicators")
+          print("Country rows:",len(d["indicators"].get("countries",[])))
+          print("Indicator rows:",d["indicators"].get("unique_indicators"))
+          PY
+      - name: Commit generated data only if changed
+        run: |
+          git config user.name "nexus-intelligence-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/overview.json
+          if ! git diff --cached --quiet; then
+            git commit -m "data: refresh attributed multi-source cyber intelligence snapshot"
+            git push
+          else
+            echo "No data update"
+          fi
