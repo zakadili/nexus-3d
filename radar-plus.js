@@ -184,6 +184,140 @@ function render(){const d=state.data;if(!d)return;
  renderCVEs();renderSectors();renderSources();renderTable();renderSummary();rankings();draw();
  $('#map-loading').style.display='none';txt('#notice','IP-list entries are not confirmed attacks. Country is IP-location only. Sources have different measurement windows; never add their counts as incidents.');
 }
+function setFocusSummary(){
+ const row=allCountries().find(r=>r.code===state.selected),el=$('#map-floating-summary');
+ if(!row){el.hidden=true;return;}el.hidden=false;el.replaceChildren();
+ el.append(create('small','','◎ COUNTRY FOCUS / '+row.code),
+   create('strong','',name(row.code)),create('span','',fmt(score(row))+' listed IPs in selected layer'),
+   create('span','',fmt(row.indicators)+' distinct listed IPv4 addresses across all feeds'),
+   create('small','','IP INFRASTRUCTURE GEOLOCATION · NOT THREAT-ACTOR ATTRIBUTION'));
+}
+function updateSpin(on){state.spin=on;$('#spin').setAttribute('aria-pressed',String(on));txt('#spin',on?'◉ AUTO ROTATE':'○ ROTATION PAUSED');}
+function ease(t){return 1-Math.pow(1-t,3);}
+function flyTo(rotation,scale,duration=1050,done=()=>{}){
+ if(!state.projection)return;
+ cancelAnimationFrame(state.focusFrame);state.draggedAt=Date.now();
+ const start=state.projection.rotate(),startScale=state.projection.scale();
+ const normalized=rotation.map((v,i)=>i===0?start[0]+(((v-start[0]+540)%360)-180):v);
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ if(reduced){state.projection.rotate(normalized).scale(scale);draw();done();return;}
+ let t0=0,lastDraw=0;
+ const frame=time=>{
+  if(!t0)t0=time;const progress=Math.min(1,(time-t0)/duration),v=ease(progress);
+  if(time-lastDraw>=30||progress>=1){lastDraw=time;
+   state.projection.rotate(start.map((x,i)=>x+(normalized[i]-x)*v)).scale(startScale+(scale-startScale)*v);draw();}
+  if(progress<1)state.focusFrame=requestAnimationFrame(frame);else done();
+ };state.focusFrame=requestAnimationFrame(frame);
+}
+function flyToCountry(code){const feature=state.byCode.get(code);if(!feature||!state.d3)return;
+ const center=state.d3.geoCentroid(feature);const area=state.d3.geoArea(feature);
+ const angle=2*Math.sqrt(Math.max(area,.000005)/Math.PI);
+ const zoom=Math.min(650,Math.max(295,195/Math.max(.29,Math.sin(angle))));
+ updateSpin(false);flyTo([-center[0],-center[1],0],zoom);
+}
+function backToWorld({exitImmersive=false}={}){
+ state.selected=null;state.pinned=null;state.tab='sources';$('#country-detail').className='empty-state';
+ txt('#country-detail','Select any mapped country or search all source countries to begin an investigation.');
+ txt('#dossier-mode','SELECT COUNTRY');txt('#map-mode','◎ GLOBAL OBSERVATION MODE');$('#map-floating-summary').hidden=true;
+ $('#map-focus-controls').hidden=true;$('#compare-panel').hidden=true;hideTip();
+ if(exitImmersive)toggleImmersive(false);
+ syncAddress();rankings();
+ updateSpin(false);
+ flyTo([-10,-12,0],235,900,()=>{if(!state.selected)updateSpin(true);});
+}
+function syncAddress(){
+ try{const url=new URL(location.href);
+  if(state.selected)url.searchParams.set('country',state.selected);else url.searchParams.delete('country');
+  if(state.layer!=='all')url.searchParams.set('layer',state.layer);else url.searchParams.delete('layer');
+  history.replaceState(null,'',url.pathname+url.search+url.hash);
+ }catch(e){}
+}
+let toastTimer=0;
+function showToast(message){const el=$('#toast');txt('#toast',message);el.hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>{el.hidden=true;},3800);}
+function countryBrief(row){
+ const rank=allCountries().findIndex(r=>r.code===row.code)+1;
+ const lines=[
+ 'NEXUS SENTINEL // COUNTRY INTELLIGENCE BRIEF',
+ 'Country: '+name(row.code)+' ('+row.code+')',
+ 'Snapshot collected: '+state.data.generated_at,
+ 'Rank in available geolocated IP indicator sample: #'+rank+' of '+allCountries().length,
+ 'Current layer: '+state.layer,
+ 'Listed IPv4 indicators in selected layer: '+fmt(score(row)),
+ 'Unique IPv4 indicators across all sources: '+fmt(row.indicators),
+ 'Cross-listed in 2+ feeds: '+(Number.isInteger(row.multi_source_count)?fmt(row.multi_source_count):'Not available'),
+ '',
+ 'PROVIDER COUNTS (overlapping; DO NOT add):'
+ ];
+ for(const [key,label] of Object.entries(SOURCES))lines.push('  '+label+': '+fmt(row.by_source?.[key]));
+ lines.push('','EVIDENCE SAMPLE (not exhaustive):');
+ for(const [provider,samples] of Object.entries(row.samples_by_source||{})){
+  for(const entry of samples)lines.push('  '+entry.ip+' / '+provider+' / '+(entry.sources||[]).join(','));
+ }
+ lines.push('','LIMITATIONS: Country reflects public IP allocation, NOT individual attacker attribution. Listings vary in reliability and may contain benign scanners or false positives. No country-specific CVE exposure has been established.','Data sources: blocklist.de, IPsum, SANS/DShield, abuse.ch Feodo, DB-IP Lite.','NEXUS: '+location.origin+location.pathname);
+ return lines.join('\n');
+}
+async function copyString(value){if(navigator.clipboard?.writeText)await navigator.clipboard.writeText(value);else{const e=create('textarea');e.value=value;e.style.position='fixed';e.style.opacity='0';document.body.append(e);e.select();if(!document.execCommand('copy'))throw Error('Copy unsupported');e.remove();}}
+async function shareCountry(){try{syncAddress();await copyString(location.href);showToast('Country investigation link copied.');}catch(e){showToast('Could not copy automatically — copy the current page URL.');}}
+function downloadBrief(){const row=allCountries().find(r=>r.code===state.selected);if(!row)return;
+ const blob=new Blob([countryBrief(row)],{type:'text/plain;charset=utf-8'}),url=URL.createObjectURL(blob),a=create('a');
+ a.href=url;a.download='NEXUS-'+row.code+'-country-brief.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ showToast('Evidence-labeled country brief exported.');
+}
+async function captureMap(){
+ if(!state.world||!state.data){showToast('Globe or data is not loaded yet.');return;}
+ try{
+  const svg=$('#globe').cloneNode(true);svg.setAttribute('xmlns','http://www.w3.org/2000/svg');
+  const xml=new XMLSerializer().serializeToString(svg);
+  const sourceUrl=URL.createObjectURL(new Blob([xml],{type:'image/svg+xml;charset=utf-8'}));
+  const image=new Image();
+  image.onload=()=>{
+   const canvas=create('canvas');canvas.width=1800;canvas.height=1170;const ctx=canvas.getContext('2d');
+   ctx.fillStyle='#070910';ctx.fillRect(0,0,canvas.width,canvas.height);
+   ctx.drawImage(image,0,40,1800,1060);
+   ctx.fillStyle='#f3546e';ctx.font='bold 32px monospace';ctx.fillText('◈ NEXUS SENTINEL / GLOBAL INTELLIGENCE',65,54);
+   ctx.fillStyle='#c7c3d1';ctx.font='18px monospace';
+   const title=state.selected?name(state.selected)+' / '+fmt(score(allCountries().find(r=>r.code===state.selected)))+' listed source IPs':'COUNTRY-LEVEL CYBER INTELLIGENCE';
+   ctx.fillText(title,65,1124);ctx.fillText('SNAPSHOT: '+state.data.generated_at.slice(0,19)+' UTC',65,1153);
+   ctx.fillText('IP allocation ≠ attacker attribution',1170,1153);
+   canvas.toBlob(blob=>{if(!blob){showToast('PNG export failed.');return;}
+    const url=URL.createObjectURL(blob),a=create('a');a.href=url;a.download='NEXUS-'+(state.selected||'GLOBAL')+'-RADAR.png';a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);showToast('Map snapshot saved — ready to share.');},'image/png');
+   URL.revokeObjectURL(sourceUrl);
+  };
+  image.onerror=()=>{URL.revokeObjectURL(sourceUrl);showToast('Could not capture globe image.');};
+  image.src=sourceUrl;
+ }catch(e){showToast('Screenshot error: '+e.message);}
+}
+function toggleImmersive(force){const enabled=force===undefined?!document.body.classList.contains('immersive'):force;
+ document.body.classList.toggle('immersive',enabled);$('#focus-mode').setAttribute('aria-pressed',String(enabled));
+ txt('#focus-mode',enabled?'⛶ EXIT FOCUS':'⛶ IMMERSIVE');$('#exit-immersive').hidden=!enabled;
+ $('#map-focus-controls').hidden=!(enabled||state.selected);
+ if(!state.selected)txt('#focused-title',enabled?'IMMERSIVE GLOBAL RADAR':'');
+ if(!state.selected)txt('#back-world',enabled?'← WORLD OVERVIEW':'← BACK TO PLANET');
+}
+let searchItems=[],searchCursor=0;
+function openSearch(){if(!state.data){showToast('Load the intelligence snapshot first.');return;}
+ $('#search-overlay').hidden=false;$('#country-search').value='';refreshSearch();$('#country-search').focus();}
+function closeSearch(){$('#search-overlay').hidden=true;$('#open-search').focus();}
+function refreshSearch(){
+ const query=$('#country-search').value.trim().toLowerCase();
+ searchItems=allCountries().filter(r=>name(r.code).toLowerCase().includes(query)||r.code.toLowerCase().includes(query)).sort((a,b)=>b.indicators-a.indicators).slice(0,30);
+ searchCursor=Math.min(searchCursor,Math.max(0,searchItems.length-1));const box=$('#search-results');box.replaceChildren();
+ if(!searchItems.length){box.append(create('div','empty-state','No country matching this search exists in the current dataset.'));return;}
+ searchItems.forEach((row,i)=>{const e=create('button','search-result'+(i===searchCursor?' active':''));e.append(create('span','',flag(row.code)+' '+name(row.code)+'  /  '+row.code),create('small','',fmt(row.indicators)+' listed IPs'));e.addEventListener('click',()=>{closeSearch();select(row.code);});box.append(e);});
+}
+function keyboard(event){
+ if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==='k'){event.preventDefault();$('#search-overlay').hidden?openSearch():closeSearch();return;}
+ if(event.key==='Escape'){
+  if(!$('#search-overlay').hidden){closeSearch();return;}
+  if(document.body.classList.contains('immersive')){toggleImmersive(false);return;}
+  if(state.selected){backToWorld();return;}
+ }
+ if($('#search-overlay').hidden)return;
+ if(event.key==='ArrowDown'||event.key==='ArrowUp'){event.preventDefault();searchCursor=Math.max(0,Math.min(searchItems.length-1,searchCursor+(event.key==='ArrowDown'?1:-1)));refreshSearchHighlights();}
+ if(event.key==='Enter'&&searchItems[searchCursor]){event.preventDefault();const code=searchItems[searchCursor].code;closeSearch();select(code);}
+}
+function refreshSearchHighlights(){$('#search-results').querySelectorAll('.search-result').forEach((el,i)=>el.classList.toggle('active',i===searchCursor));const el=$('#search-results').querySelector('.active');if(el)el.scrollIntoView({block:'nearest'});}
+
 async function prepareMap(){
  try{const [d3,topo]=await Promise.all([import('https://cdn.jsdelivr.net/npm/d3@7/+esm'),import('https://cdn.jsdelivr.net/npm/topojson-client@3/+esm')]);
   const [world,iso]=await Promise.all([fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json').then(r=>r.json()),
