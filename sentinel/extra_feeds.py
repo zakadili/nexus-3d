@@ -17,7 +17,12 @@ from urllib.error import HTTPError
 from urllib.parse import urlsplit
 from urllib.request import Request, urlopen
 
-from sentinel import intelligence_pipeline as base
+try:
+    from sentinel import intelligence_pipeline as base
+except ModuleNotFoundError as exc:
+    if exc.name != "sentinel":
+        raise
+    import intelligence_pipeline as base
 
 ASN_URL = "https://iptoasn.com/data/ip2asn-v4.tsv.gz"
 URLHAUS_TEMPLATE = "https://urlhaus-api.abuse.ch/v2/files/exports/{key}/recent.csv"
