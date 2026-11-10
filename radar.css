@@ -137,3 +137,15 @@ body.immersive .globe-container .map-label{bottom:22px}
 @media(max-width:780px){.globe-container{min-height:370px;height:470px}.map-tools select{max-width:100px}.dossier-country{font-size:36px}.map-live-hud{font-size:8px}.map-focus-controls span{font-size:16px}body.immersive #globe-container{inset:62px 6px 8px}.intro .launch-actions button{font-size:9px;padding:10px}}
 @media(max-width:530px){.globe-container{height:360px;min-height:360px}.dossier-summary{grid-template-columns:1fr 1fr}.map-live-hud span:last-child{display:none}.map-focus-controls button{font-size:9px;padding:8px}.map-tooltip{display:none!important}.outline-action kbd{display:none}}
 @media(prefers-reduced-motion:reduce){.loading-bar{animation:none}}
+
+
+/* Focused-country cinematic HUD; stays readable above the globe. */
+.map-floating-summary{position:absolute;z-index:11;left:24px;bottom:72px;width:min(340px,47%);display:flex;flex-direction:column;gap:9px;padding:20px 22px;border:1px solid #a63b51;border-left:3px solid #f5516c;background:linear-gradient(135deg,#1d111fcf,#090d17f5);box-shadow:0 20px 55px #000b;backdrop-filter:blur(18px);pointer-events:none}
+.map-floating-summary[hidden]{display:none}
+.map-floating-summary small{color:#eb617c;font-size:10px;letter-spacing:.1em;line-height:1.5}
+.map-floating-summary strong{font:900 clamp(24px,3vw,42px)/1 'Barlow Condensed',sans-serif;color:#f7f5f8;letter-spacing:.025em;text-transform:uppercase}
+.map-floating-summary span{color:#bdc6d1;font-size:11px;line-height:1.5}
+.map-floating-summary span:nth-of-type(1){color:#fa7c92;font-size:13px}
+#exit-immersive[hidden]{display:none}
+.map-focus-controls:has(#exit-immersive:not([hidden])){padding-right:4px}
+@media(max-width:600px){.map-floating-summary{left:10px;bottom:48px;width:min(285px,80%);padding:12px 14px;gap:5px}.map-floating-summary small{font-size:8px}.map-floating-summary strong{font-size:26px}.map-floating-summary span{font-size:9px}.map-focus-controls{left:10px;right:10px;top:45px;flex-wrap:wrap}}
