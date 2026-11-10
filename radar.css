@@ -50,3 +50,90 @@
 #cve-detail a{color:#ff778b}
 @media(max-width:1130px){.intelligence-columns{grid-template-columns:1fr}}
 @media(max-width:700px){.cve-row{grid-template-columns:100px 1fr 65px;gap:8px}.cve-row .ransom{display:none}.intelligence-columns{grid-template-columns:1fr}.map-tools select{max-width:130px}}
+
+
+/* SENTINEL 0.3 — immersive geographic investigation */
+:root{--glass:rgba(9,12,20,.92)}
+.topbar{box-shadow:0 12px 50px #0005}
+.intro h1{filter:drop-shadow(0 9px 34px #bf264122)}
+.intro h1 em{text-shadow:0 0 60px #e7335522}
+.globe-panel{box-shadow:0 0 0 1px #55172a33,0 16px 70px #0008}
+.globe-container{height:min(60vw,610px);min-height:450px;background:radial-gradient(circle at 50% 44%,#2a1228 0%,#12121b 37%,#07090f 79%);border-bottom:1px solid #3b2330}
+.side .subpanel:first-child{min-height:245px;box-shadow:0 6px 32px #0005}
+.side{gap:12px}
+.map-tools{align-items:center;flex-wrap:wrap}
+.map-tools .micro{font-size:9px}
+.launch-actions{display:flex;flex-wrap:wrap;gap:7px;justify-content:flex-end}
+.outline-action{background:#111722;border:1px solid #693143;color:#cbd0d9;padding:13px 14px;white-space:nowrap}
+.outline-action:hover{color:#fff}
+kbd{font:9px 'DM Mono',monospace;border:1px solid #5c3d49;border-radius:4px;color:#a5adba;padding:3px 6px;margin-left:4px}
+.map-live-hud{position:absolute;top:22px;left:23px;right:23px;display:flex;justify-content:space-between;gap:15px;pointer-events:none;font-size:10px;color:#e65e75;text-transform:uppercase;letter-spacing:.12em;text-shadow:0 2px 10px #000}
+.map-live-hud span:last-child{color:#778396}
+.map-focus-controls{position:absolute;top:57px;left:22px;right:22px;z-index:12;display:flex;align-items:center;justify-content:space-between;gap:10px;pointer-events:none}
+.map-focus-controls:not([hidden]){display:flex}
+.map-focus-controls>*{pointer-events:auto}
+.map-focus-controls button{border:1px solid #ba3952;background:#24111edc;color:#ff8ba0;padding:11px 15px;backdrop-filter:blur(14px)}
+.map-focus-controls span{color:#fff;font:800 23px 'Barlow Condensed',sans-serif;letter-spacing:.065em;text-shadow:0 2px 10px #000}
+.map-tooltip{position:absolute;z-index:15;pointer-events:none;background:#0d111bee;border:1px solid #b64058;box-shadow:0 10px 30px #000b;padding:13px 16px;min-width:190px;max-width:250px;font-size:11px;line-height:1.7}
+.map-tooltip strong{color:#fff;font-size:14px}.map-tooltip small{color:#f36b84}
+#globe:focus-visible{outline:2px solid #f2576b}
+.dossier-heading{padding:16px 16px 11px;background:linear-gradient(130deg,#341523,#12121c 75%);border-bottom:1px solid #602a3d}
+.dossier-eyebrow{color:#f66c84;font-size:9px;letter-spacing:.15em}
+.dossier-country{font:900 43px/.95 'Barlow Condensed',sans-serif;letter-spacing:.03em;margin:9px 0 7px;display:flex;gap:12px;align-items:center}
+.dossier-country .flag{font-size:30px;line-height:1}
+.dossier-sub{color:#8895a5;font-size:10px}
+.dossier-summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:13px}
+.dossier-kpi{border:1px solid #513040;background:#14131d;padding:12px;min-width:0}
+.dossier-kpi strong{display:block;font:800 30px 'Barlow Condensed',sans-serif;color:#f5f6f8}
+.dossier-kpi small{font-size:9px;color:#8a94a0;line-height:1.5}
+.dossier-tabs{display:flex;gap:0;border-top:1px solid #392733;border-bottom:1px solid #392733}
+.dossier-tabs button{flex:1;background:transparent;border:0;border-bottom:2px solid transparent;color:#7d8996;font-size:10px;padding:11px 4px}
+.dossier-tabs button.active{color:#ff7b91;border-bottom-color:#f34f67}
+.dossier-section{padding:13px 15px;max-height:270px;overflow-y:auto}
+.dossier-section h3{font-size:10px;color:#ec627a;letter-spacing:.06em;font-weight:500;margin:10px 0}
+.dossier-note{font-size:10px;color:#8e98a7;line-height:1.7}
+.dossier-source{padding:10px 0;border-bottom:1px solid #382833}
+.dossier-source-top{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:10px;color:#cdd2da}
+.dossier-source-top strong{color:#ff7087}
+.dossier-meter{margin-top:9px;background:#301f2d;height:5px}
+.dossier-meter span{height:100%;display:block;background:linear-gradient(90deg,#a82a45,#f65370)}
+.dossier-evidence{padding:8px 9px;background:#151923;border:1px solid #41303d;margin-bottom:6px;display:flex;align-items:center;justify-content:space-between;gap:7px}
+.dossier-evidence code{color:#f1c6cf;font:11px 'DM Mono',monospace}
+.dossier-evidence small{color:#7d8a99;font-size:9px}
+.dossier-evidence a{font-size:10px;color:#ee7a8f}
+.dossier-actions{display:flex;gap:6px;flex-wrap:wrap;padding:12px 14px;border-top:1px solid #392531}
+.dossier-actions button{flex:1;min-width:100px;padding:10px 6px;font-size:9px;color:#f3cad0;border:1px solid #743248;background:#271721}
+.dossier-actions button.primary{background:#ba2b47;color:#fff;border-color:#ef526c}
+.comparison[hidden],.search-overlay[hidden],.toast[hidden],.map-tooltip[hidden]{display:none!important}
+.compare-content{padding:10px 14px}
+.compare-title{font-size:10px;color:#a0adbc;margin:9px 0 11px}
+.compare-grid{display:grid;grid-template-columns:1fr 65px 1fr;gap:7px;align-items:center;font-size:11px}
+.compare-grid b{color:#f0778e;font-size:17px}
+.compare-grid span:nth-child(2){text-align:center;color:#7a8999}
+.compare-grid span:last-child{text-align:right}
+.compare-mini{height:6px;background:#291d2c;margin:7px 0 13px;display:flex;gap:2px}
+.compare-mini div{background:#f14b65;height:100%}
+.compare-mini .right{background:#879bb3}
+.compare-close{cursor:pointer}
+.search-overlay{position:fixed;inset:0;z-index:100;background:#03050bbb;backdrop-filter:blur(13px);display:flex;align-items:flex-start;justify-content:center;padding:12vh 20px 20px}
+.search-dialog{width:min(620px,100%);border:1px solid #a64159;background:#0c1019;box-shadow:0 30px 100px #000b}
+.search-title{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #492838;padding:18px 20px;font-size:11px;color:#f16d84;letter-spacing:.1em}
+.search-title button{background:#171925;border:1px solid #543444;color:#aebac6;padding:8px}
+#country-search{display:block;width:calc(100% - 34px);margin:17px;border:1px solid #a03a50;background:#070910;color:#fff;outline:0;padding:18px;font:16px 'DM Mono',monospace}
+.search-results{padding:0 16px;max-height:330px;overflow:auto}
+.search-result{width:100%;display:flex;justify-content:space-between;gap:12px;align-items:center;text-align:left;background:transparent;border:0;border-bottom:1px solid #29222d;color:#d9dde5;padding:13px 8px}
+.search-result.active,.search-result:hover{background:#33202c}
+.search-result small{color:#ec7086}
+.search-help{padding:13px 20px;border-top:1px solid #442735;color:#7c8796;font-size:9px;line-height:1.8}
+.toast{position:fixed;bottom:23px;right:24px;max-width:420px;z-index:120;border:1px solid #aa425c;padding:15px 19px;background:#241421;color:#f0ccd3;box-shadow:0 10px 45px #000b;font-size:12px;line-height:1.6}
+body.immersive{overflow:hidden}
+body.immersive #globe-container{position:fixed;z-index:61;inset:70px 2vw 22px;height:auto;min-height:0;border:1px solid #b33c54;box-shadow:0 0 0 100vmax #020309ed,0 0 100px #ed304a33}
+body.immersive #map-focus-controls{top:70px}
+body.immersive .globe-container #map-loading{top:50%}
+body.immersive .globe-container .map-live-hud{top:25px}
+body.immersive .globe-container .map-label{bottom:22px}
+@media(min-width:1320px){.layout{grid-template-columns:minmax(620px,1fr) 390px}.side .ranking{min-height:290px}.rankings{max-height:350px}}
+@media(max-width:1050px){.launch-actions{justify-content:flex-start}.intro{display:block}.top-actions{align-items:flex-start;margin-top:16px}.globe-container{height:520px}}
+@media(max-width:780px){.globe-container{min-height:370px;height:470px}.map-tools select{max-width:100px}.dossier-country{font-size:36px}.map-live-hud{font-size:8px}.map-focus-controls span{font-size:16px}body.immersive #globe-container{inset:62px 6px 8px}.intro .launch-actions button{font-size:9px;padding:10px}}
+@media(max-width:530px){.globe-container{height:360px;min-height:360px}.dossier-summary{grid-template-columns:1fr 1fr}.map-live-hud span:last-child{display:none}.map-focus-controls button{font-size:9px;padding:8px}.map-tooltip{display:none!important}.outline-action kbd{display:none}}
+@media(prefers-reduced-motion:reduce){.loading-bar{animation:none}}
