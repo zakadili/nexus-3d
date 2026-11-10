@@ -1,22 +1,22 @@
 {
   "schema": 2,
-  "generated_at": "2026-11-10T22:44:59.138913+00:00",
+  "generated_at": "2026-11-10T23:06:09.925081+00:00",
   "data_lag": "Feeds update on different schedules; this is a collection snapshot, not live packet streaming.",
   "indicators": {
-    "unique_indicators": 38096,
-    "resolved_indicators": 38094,
+    "unique_indicators": 38169,
+    "resolved_indicators": 38167,
     "unresolved_indicators": 2,
     "countries": [
       {
         "code": "US",
-        "indicators": 13784,
+        "indicators": 13783,
         "by_source": {
-          "blocklistde": 7429,
+          "blocklistde": 7427,
           "ipsum": 7655,
           "dshield": 61,
           "feodo": 1
         },
-        "multi_source_count": 1358,
+        "multi_source_count": 1357,
         "samples_by_source": {
           "blocklistde": [
             {
@@ -151,9 +151,9 @@
       },
       {
         "code": "RU",
-        "indicators": 3025,
+        "indicators": 3027,
         "by_source": {
-          "blocklistde": 2876,
+          "blocklistde": 2878,
           "ipsum": 222,
           "dshield": 55
         },
@@ -284,9 +284,9 @@
       },
       {
         "code": "FR",
-        "indicators": 2401,
+        "indicators": 2416,
         "by_source": {
-          "blocklistde": 2180,
+          "blocklistde": 2195,
           "ipsum": 346,
           "dshield": 4
         },
@@ -413,13 +413,13 @@
       },
       {
         "code": "CN",
-        "indicators": 2183,
+        "indicators": 2184,
         "by_source": {
           "ipsum": 1515,
           "blocklistde": 1716,
           "dshield": 14
         },
-        "multi_source_count": 1062,
+        "multi_source_count": 1061,
         "samples_by_source": {
           "ipsum": [
             {
@@ -544,10 +544,10 @@
       },
       {
         "code": "CA",
-        "indicators": 1867,
+        "indicators": 1913,
         "by_source": {
           "ipsum": 75,
-          "blocklistde": 1819,
+          "blocklistde": 1865,
           "dshield": 3
         },
         "multi_source_count": 30,
@@ -667,10 +667,10 @@
       },
       {
         "code": "GB",
-        "indicators": 1335,
+        "indicators": 1334,
         "by_source": {
           "ipsum": 1198,
-          "blocklistde": 254,
+          "blocklistde": 253,
           "dshield": 8
         },
         "multi_source_count": 125,
@@ -799,13 +799,13 @@
       },
       {
         "code": "DE",
-        "indicators": 1321,
+        "indicators": 1320,
         "by_source": {
-          "blocklistde": 766,
+          "blocklistde": 764,
           "ipsum": 671,
           "dshield": 10
         },
-        "multi_source_count": 126,
+        "multi_source_count": 125,
         "samples_by_source": {
           "blocklistde": [
             {
@@ -938,10 +938,10 @@
         "code": "BR",
         "indicators": 870,
         "by_source": {
-          "blocklistde": 778,
+          "blocklistde": 777,
           "ipsum": 255
         },
-        "multi_source_count": 163,
+        "multi_source_count": 162,
         "samples_by_source": {
           "blocklistde": [
             {
@@ -1037,9 +1037,9 @@
       },
       {
         "code": "IN",
-        "indicators": 722,
+        "indicators": 724,
         "by_source": {
-          "blocklistde": 642,
+          "blocklistde": 644,
           "dshield": 3,
           "ipsum": 282
         },
@@ -1161,12 +1161,12 @@
       },
       {
         "code": "ID",
-        "indicators": 707,
+        "indicators": 706,
         "by_source": {
           "blocklistde": 666,
           "ipsum": 103
         },
-        "multi_source_count": 62,
+        "multi_source_count": 63,
         "samples_by_source": {
           "blocklistde": [
             {
@@ -1398,9 +1398,9 @@
       },
       {
         "code": "HK",
-        "indicators": 673,
+        "indicators": 674,
         "by_source": {
-          "blocklistde": 256,
+          "blocklistde": 257,
           "ipsum": 606,
           "dshield": 9
         },
@@ -1646,9 +1646,9 @@
       },
       {
         "code": "UA",
-        "indicators": 595,
+        "indicators": 597,
         "by_source": {
-          "blocklistde": 581,
+          "blocklistde": 583,
           "ipsum": 16,
           "dshield": 7
         },
@@ -1780,9 +1780,9 @@
       },
       {
         "code": "KR",
-        "indicators": 517,
+        "indicators": 518,
         "by_source": {
-          "blocklistde": 455,
+          "blocklistde": 456,
           "ipsum": 341,
           "dshield": 1
         },
@@ -1895,9 +1895,9 @@
       },
       {
         "code": "AE",
-        "indicators": 416,
+        "indicators": 421,
         "by_source": {
-          "blocklistde": 111,
+          "blocklistde": 116,
           "ipsum": 327
         },
         "multi_source_count": 22,
@@ -2092,9 +2092,9 @@
       },
       {
         "code": "BD",
-        "indicators": 384,
+        "indicators": 369,
         "by_source": {
-          "blocklistde": 369,
+          "blocklistde": 354,
           "ipsum": 36
         },
         "multi_source_count": 21,
@@ -2296,9 +2296,9 @@
       },
       {
         "code": "IT",
-        "indicators": 314,
+        "indicators": 317,
         "by_source": {
-          "blocklistde": 301,
+          "blocklistde": 304,
           "ipsum": 37
         },
         "multi_source_count": 24,
@@ -2400,13 +2400,13 @@
       },
       {
         "code": "BG",
-        "indicators": 313,
+        "indicators": 314,
         "by_source": {
           "blocklistde": 206,
           "ipsum": 229,
           "dshield": 19
         },
-        "multi_source_count": 141,
+        "multi_source_count": 140,
         "samples_by_source": {
           "blocklistde": [
             {
@@ -2428,13 +2428,13 @@
               ]
             },
             {
-              "ip": "46.233.24.211",
+              "ip": "45.84.184.138",
               "sources": [
                 "blocklistde"
               ]
             },
             {
-              "ip": "77.71.65.219",
+              "ip": "46.233.24.211",
               "sources": [
                 "blocklistde"
               ]
@@ -2640,13 +2640,13 @@
       },
       {
         "code": "VN",
-        "indicators": 286,
+        "indicators": 287,
         "by_source": {
           "ipsum": 196,
-          "blocklistde": 212,
+          "blocklistde": 211,
           "dshield": 2
         },
-        "multi_source_count": 124,
+        "multi_source_count": 122,
         "samples_by_source": {
           "ipsum": [
             {
@@ -2710,7 +2710,7 @@
               ]
             },
             {
-              "ip": "14.191.224.10",
+              "ip": "14.186.72.240",
               "sources": [
                 "blocklistde"
               ]
@@ -2757,9 +2757,9 @@
       },
       {
         "code": "AR",
-        "indicators": 278,
+        "indicators": 280,
         "by_source": {
-          "blocklistde": 271,
+          "blocklistde": 273,
           "ipsum": 36
         },
         "multi_source_count": 29,
@@ -2963,9 +2963,9 @@
       },
       {
         "code": "MY",
-        "indicators": 209,
+        "indicators": 210,
         "by_source": {
-          "blocklistde": 183,
+          "blocklistde": 184,
           "ipsum": 66
         },
         "multi_source_count": 40,
@@ -2991,13 +2991,14 @@
               ]
             },
             {
-              "ip": "42.153.207.211",
+              "ip": "42.153.207.150",
               "sources": [
-                "blocklistde"
+                "blocklistde",
+                "ipsum"
               ]
             },
             {
-              "ip": "42.188.176.78",
+              "ip": "42.153.207.211",
               "sources": [
                 "blocklistde"
               ]
@@ -3020,6 +3021,7 @@
             {
               "ip": "42.153.207.150",
               "sources": [
+                "blocklistde",
                 "ipsum"
               ]
             },
@@ -3046,14 +3048,14 @@
             ]
           },
           {
-            "ip": "49.124.148.193",
+            "ip": "42.153.207.150",
             "sources": [
               "blocklistde",
               "ipsum"
             ]
           },
           {
-            "ip": "49.124.148.204",
+            "ip": "49.124.148.193",
             "sources": [
               "blocklistde",
               "ipsum"
@@ -3063,9 +3065,9 @@
       },
       {
         "code": "ZA",
-        "indicators": 200,
+        "indicators": 201,
         "by_source": {
-          "blocklistde": 198,
+          "blocklistde": 199,
           "ipsum": 10
         },
         "multi_source_count": 8,
@@ -3165,9 +3167,9 @@
       },
       {
         "code": "PK",
-        "indicators": 174,
+        "indicators": 175,
         "by_source": {
-          "blocklistde": 127,
+          "blocklistde": 128,
           "ipsum": 69
         },
         "multi_source_count": 22,
@@ -3273,10 +3275,10 @@
         "code": "TW",
         "indicators": 150,
         "by_source": {
-          "blocklistde": 135,
+          "blocklistde": 134,
           "ipsum": 75
         },
-        "multi_source_count": 60,
+        "multi_source_count": 59,
         "samples_by_source": {
           "blocklistde": [
             {
@@ -3474,20 +3476,14 @@
       },
       {
         "code": "SE",
-        "indicators": 134,
+        "indicators": 133,
         "by_source": {
-          "blocklistde": 115,
+          "blocklistde": 114,
           "ipsum": 97
         },
         "multi_source_count": 78,
         "samples_by_source": {
           "blocklistde": [
-            {
-              "ip": "13.48.178.183",
-              "sources": [
-                "blocklistde"
-              ]
-            },
             {
               "ip": "13.49.141.132",
               "sources": [
@@ -3508,6 +3504,12 @@
             },
             {
               "ip": "13.62.52.4",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "16.192.215.129",
               "sources": [
                 "blocklistde"
               ]
@@ -3577,9 +3579,9 @@
       },
       {
         "code": "ES",
-        "indicators": 118,
+        "indicators": 119,
         "by_source": {
-          "blocklistde": 105,
+          "blocklistde": 106,
           "ipsum": 38,
           "dshield": 1
         },
@@ -3691,10 +3693,10 @@
         "code": "RO",
         "indicators": 115,
         "by_source": {
-          "blocklistde": 64,
+          "blocklistde": 65,
           "ipsum": 99
         },
-        "multi_source_count": 48,
+        "multi_source_count": 49,
         "samples_by_source": {
           "blocklistde": [
             {
@@ -4033,9 +4035,9 @@
       },
       {
         "code": "IE",
-        "indicators": 98,
+        "indicators": 101,
         "by_source": {
-          "blocklistde": 97,
+          "blocklistde": 100,
           "dshield": 1,
           "ipsum": 3
         },
@@ -4131,9 +4133,9 @@
       },
       {
         "code": "TR",
-        "indicators": 97,
+        "indicators": 96,
         "by_source": {
-          "blocklistde": 87,
+          "blocklistde": 86,
           "ipsum": 34
         },
         "multi_source_count": 24,
@@ -4335,12 +4337,12 @@
       },
       {
         "code": "AU",
-        "indicators": 87,
+        "indicators": 86,
         "by_source": {
-          "blocklistde": 73,
+          "blocklistde": 71,
           "ipsum": 43
         },
-        "multi_source_count": 29,
+        "multi_source_count": 28,
         "samples_by_source": {
           "blocklistde": [
             {
@@ -4439,9 +4441,9 @@
       },
       {
         "code": "IR",
-        "indicators": 67,
+        "indicators": 66,
         "by_source": {
-          "blocklistde": 55,
+          "blocklistde": 54,
           "ipsum": 43,
           "dshield": 1
         },
@@ -4553,9 +4555,9 @@
       },
       {
         "code": "GH",
-        "indicators": 60,
+        "indicators": 61,
         "by_source": {
-          "blocklistde": 59,
+          "blocklistde": 60,
           "ipsum": 5
         },
         "multi_source_count": 4,
@@ -4646,6 +4648,117 @@
           },
           {
             "ip": "41.242.115.84",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "CL",
+        "indicators": 59,
+        "by_source": {
+          "blocklistde": 52,
+          "ipsum": 12,
+          "dshield": 1
+        },
+        "multi_source_count": 6,
+        "samples_by_source": {
+          "blocklistde": [
+            {
+              "ip": "34.176.14.69",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "34.176.14.134",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "34.176.153.39",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "34.176.239.239",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "38.7.201.139",
+              "sources": [
+                "blocklistde"
+              ]
+            }
+          ],
+          "ipsum": [
+            {
+              "ip": "136.248.242.166",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "159.112.138.47",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "179.57.170.71",
+              "sources": [
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "186.10.86.130",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "190.82.98.85",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            }
+          ],
+          "dshield": [
+            {
+              "ip": "200.10.10.127",
+              "sources": [
+                "dshield"
+              ]
+            }
+          ]
+        },
+        "examples": [
+          {
+            "ip": "136.248.242.166",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "159.112.138.47",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "186.10.86.130",
             "sources": [
               "blocklistde",
               "ipsum"
@@ -4750,117 +4863,6 @@
           },
           {
             "ip": "160.119.76.168",
-            "sources": [
-              "blocklistde",
-              "ipsum"
-            ]
-          }
-        ]
-      },
-      {
-        "code": "CL",
-        "indicators": 58,
-        "by_source": {
-          "blocklistde": 51,
-          "ipsum": 12,
-          "dshield": 1
-        },
-        "multi_source_count": 6,
-        "samples_by_source": {
-          "blocklistde": [
-            {
-              "ip": "34.176.14.69",
-              "sources": [
-                "blocklistde"
-              ]
-            },
-            {
-              "ip": "34.176.14.134",
-              "sources": [
-                "blocklistde"
-              ]
-            },
-            {
-              "ip": "34.176.153.39",
-              "sources": [
-                "blocklistde"
-              ]
-            },
-            {
-              "ip": "34.176.239.239",
-              "sources": [
-                "blocklistde"
-              ]
-            },
-            {
-              "ip": "38.7.201.139",
-              "sources": [
-                "blocklistde"
-              ]
-            }
-          ],
-          "ipsum": [
-            {
-              "ip": "136.248.242.166",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "159.112.138.47",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "179.57.170.71",
-              "sources": [
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "186.10.86.130",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "190.82.98.85",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            }
-          ],
-          "dshield": [
-            {
-              "ip": "200.10.10.127",
-              "sources": [
-                "dshield"
-              ]
-            }
-          ]
-        },
-        "examples": [
-          {
-            "ip": "136.248.242.166",
-            "sources": [
-              "blocklistde",
-              "ipsum"
-            ]
-          },
-          {
-            "ip": "159.112.138.47",
-            "sources": [
-              "blocklistde",
-              "ipsum"
-            ]
-          },
-          {
-            "ip": "186.10.86.130",
             "sources": [
               "blocklistde",
               "ipsum"
@@ -5076,9 +5078,9 @@
       },
       {
         "code": "IL",
-        "indicators": 43,
+        "indicators": 44,
         "by_source": {
-          "blocklistde": 40,
+          "blocklistde": 41,
           "ipsum": 20
         },
         "multi_source_count": 17,
@@ -5694,9 +5696,9 @@
       },
       {
         "code": "UG",
-        "indicators": 35,
+        "indicators": 36,
         "by_source": {
-          "blocklistde": 35,
+          "blocklistde": 36,
           "ipsum": 4
         },
         "multi_source_count": 4,
@@ -6979,89 +6981,6 @@
         ]
       },
       {
-        "code": "RS",
-        "indicators": 24,
-        "by_source": {
-          "blocklistde": 23,
-          "ipsum": 3
-        },
-        "multi_source_count": 2,
-        "samples_by_source": {
-          "blocklistde": [
-            {
-              "ip": "24.135.78.18",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "37.19.110.220",
-              "sources": [
-                "blocklistde"
-              ]
-            },
-            {
-              "ip": "77.105.37.219",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "85.202.121.160",
-              "sources": [
-                "blocklistde"
-              ]
-            },
-            {
-              "ip": "89.216.77.169",
-              "sources": [
-                "blocklistde"
-              ]
-            }
-          ],
-          "ipsum": [
-            {
-              "ip": "24.135.78.18",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "77.105.37.219",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "150.40.126.164",
-              "sources": [
-                "ipsum"
-              ]
-            }
-          ]
-        },
-        "examples": [
-          {
-            "ip": "24.135.78.18",
-            "sources": [
-              "blocklistde",
-              "ipsum"
-            ]
-          },
-          {
-            "ip": "77.105.37.219",
-            "sources": [
-              "blocklistde",
-              "ipsum"
-            ]
-          }
-        ]
-      },
-      {
         "code": "PA",
         "indicators": 23,
         "by_source": {
@@ -7269,6 +7188,89 @@
           },
           {
             "ip": "190.128.171.14",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
+        "code": "RS",
+        "indicators": 23,
+        "by_source": {
+          "blocklistde": 22,
+          "ipsum": 3
+        },
+        "multi_source_count": 2,
+        "samples_by_source": {
+          "blocklistde": [
+            {
+              "ip": "24.135.78.18",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "37.19.110.220",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "77.105.37.219",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "85.202.121.160",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "89.216.77.169",
+              "sources": [
+                "blocklistde"
+              ]
+            }
+          ],
+          "ipsum": [
+            {
+              "ip": "24.135.78.18",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "77.105.37.219",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "150.40.126.164",
+              "sources": [
+                "ipsum"
+              ]
+            }
+          ]
+        },
+        "examples": [
+          {
+            "ip": "24.135.78.18",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "77.105.37.219",
             "sources": [
               "blocklistde",
               "ipsum"
@@ -8069,10 +8071,10 @@
       },
       {
         "code": "BO",
-        "indicators": 15,
+        "indicators": 16,
         "by_source": {
           "ipsum": 14,
-          "blocklistde": 10
+          "blocklistde": 11
         },
         "multi_source_count": 9,
         "samples_by_source": {
@@ -8269,6 +8271,87 @@
         ]
       },
       {
+        "code": "GE",
+        "indicators": 14,
+        "by_source": {
+          "blocklistde": 13,
+          "ipsum": 3
+        },
+        "multi_source_count": 2,
+        "samples_by_source": {
+          "blocklistde": [
+            {
+              "ip": "31.146.121.180",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "78.40.104.210",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "80.92.186.101",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "188.92.209.156",
+              "sources": [
+                "blocklistde"
+              ]
+            },
+            {
+              "ip": "188.92.209.191",
+              "sources": [
+                "blocklistde"
+              ]
+            }
+          ],
+          "ipsum": [
+            {
+              "ip": "188.129.180.21",
+              "sources": [
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "193.9.48.18",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            },
+            {
+              "ip": "194.31.8.12",
+              "sources": [
+                "blocklistde",
+                "ipsum"
+              ]
+            }
+          ]
+        },
+        "examples": [
+          {
+            "ip": "193.9.48.18",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          },
+          {
+            "ip": "194.31.8.12",
+            "sources": [
+              "blocklistde",
+              "ipsum"
+            ]
+          }
+        ]
+      },
+      {
         "code": "TZ",
         "indicators": 14,
         "by_source": {
@@ -8363,87 +8446,6 @@
           },
           {
             "ip": "41.93.32.116",
-            "sources": [
-              "blocklistde",
-              "ipsum"
-            ]
-          }
-        ]
-      },
-      {
-        "code": "GE",
-        "indicators": 13,
-        "by_source": {
-          "blocklistde": 12,
-          "ipsum": 3
-        },
-        "multi_source_count": 2,
-        "samples_by_source": {
-          "blocklistde": [
-            {
-              "ip": "31.146.121.180",
-              "sources": [
-                "blocklistde"
-              ]
-            },
-            {
-              "ip": "78.40.104.210",
-              "sources": [
-                "blocklistde"
-              ]
-            },
-            {
-              "ip": "80.92.186.101",
-              "sources": [
-                "blocklistde"
-              ]
-            },
-            {
-              "ip": "188.92.209.156",
-              "sources": [
-                "blocklistde"
-              ]
-            },
-            {
-              "ip": "188.92.209.191",
-              "sources": [
-                "blocklistde"
-              ]
-            }
-          ],
-          "ipsum": [
-            {
-              "ip": "188.129.180.21",
-              "sources": [
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "193.9.48.18",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            },
-            {
-              "ip": "194.31.8.12",
-              "sources": [
-                "blocklistde",
-                "ipsum"
-              ]
-            }
-          ]
-        },
-        "examples": [
-          {
-            "ip": "193.9.48.18",
-            "sources": [
-              "blocklistde",
-              "ipsum"
-            ]
-          },
-          {
-            "ip": "194.31.8.12",
             "sources": [
               "blocklistde",
               "ipsum"
@@ -12260,6 +12262,25 @@
         "examples": []
       },
       {
+        "code": "GP",
+        "indicators": 1,
+        "by_source": {
+          "blocklistde": 1
+        },
+        "multi_source_count": 0,
+        "samples_by_source": {
+          "blocklistde": [
+            {
+              "ip": "199.91.162.55",
+              "sources": [
+                "blocklistde"
+              ]
+            }
+          ]
+        },
+        "examples": []
+      },
+      {
         "code": "HT",
         "indicators": 1,
         "by_source": {
@@ -12289,6 +12310,25 @@
           "blocklistde": [
             {
               "ip": "23.188.0.234",
+              "sources": [
+                "blocklistde"
+              ]
+            }
+          ]
+        },
+        "examples": []
+      },
+      {
+        "code": "LR",
+        "indicators": 1,
+        "by_source": {
+          "blocklistde": 1
+        },
+        "multi_source_count": 0,
+        "samples_by_source": {
+          "blocklistde": [
+            {
+              "ip": "102.214.136.53",
               "sources": [
                 "blocklistde"
               ]
@@ -12455,7 +12495,7 @@
         "id": "blocklistde",
         "name": "blocklist.de",
         "status": "ok",
-        "records": 25976,
+        "records": 26042,
         "meaning": "IP addresses reported in recent 48-hour attacks against participating systems",
         "url": "https://lists.blocklist.de/lists/all.txt"
       },
@@ -13744,6 +13784,4362 @@
         "SZ": 1,
         "VG": 1
       }
+    },
+    {
+      "generated_at": "2026-11-10T23:06:09.925081+00:00",
+      "unique_indicators": 38169,
+      "available_sources": [
+        "blocklistde",
+        "dshield",
+        "feodo",
+        "ipsum"
+      ],
+      "country_counts": {
+        "US": 13783,
+        "RU": 3027,
+        "FR": 2416,
+        "CN": 2184,
+        "CA": 1913,
+        "GB": 1334,
+        "DE": 1320,
+        "BR": 870,
+        "IN": 724,
+        "ID": 706,
+        "NL": 703,
+        "HK": 674,
+        "SG": 632,
+        "UA": 597,
+        "KR": 518,
+        "AE": 421,
+        "BE": 408,
+        "BD": 369,
+        "PT": 337,
+        "IT": 317,
+        "BG": 314,
+        "LT": 299,
+        "VN": 287,
+        "AR": 280,
+        "PL": 231,
+        "MY": 210,
+        "ZA": 201,
+        "PK": 175,
+        "TW": 150,
+        "MX": 147,
+        "SE": 133,
+        "ES": 119,
+        "RO": 115,
+        "JP": 114,
+        "CO": 105,
+        "IE": 101,
+        "TR": 96,
+        "TH": 93,
+        "AU": 86,
+        "IR": 66,
+        "GH": 61,
+        "CL": 59,
+        "SC": 59,
+        "PH": 56,
+        "SI": 45,
+        "IL": 44,
+        "TN": 43,
+        "EC": 40,
+        "UZ": 40,
+        "ET": 38,
+        "AF": 37,
+        "UG": 36,
+        "FI": 34,
+        "KE": 34,
+        "KZ": 34,
+        "CH": 32,
+        "SA": 31,
+        "HU": 30,
+        "PE": 30,
+        "MA": 29,
+        "CZ": 26,
+        "IS": 26,
+        "BW": 25,
+        "EG": 24,
+        "PA": 23,
+        "PY": 23,
+        "RS": 23,
+        "AT": 22,
+        "BJ": 22,
+        "NP": 20,
+        "IQ": 19,
+        "NG": 19,
+        "NO": 18,
+        "AZ": 17,
+        "DK": 17,
+        "VE": 17,
+        "BO": 16,
+        "DZ": 14,
+        "GE": 14,
+        "TZ": 14,
+        "MD": 13,
+        "OM": 13,
+        "SK": 13,
+        "AL": 12,
+        "KH": 12,
+        "LB": 12,
+        "MU": 12,
+        "PS": 12,
+        "SN": 12,
+        "CI": 11,
+        "TT": 10,
+        "ZM": 10,
+        "CM": 9,
+        "LV": 9,
+        "SY": 9,
+        "BA": 8,
+        "DO": 8,
+        "EE": 8,
+        "MM": 8,
+        "GR": 7,
+        "AM": 6,
+        "BY": 6,
+        "CV": 6,
+        "LK": 6,
+        "CR": 5,
+        "GM": 5,
+        "HN": 5,
+        "JM": 5,
+        "NZ": 5,
+        "QA": 5,
+        "UY": 5,
+        "ZW": 5,
+        "AO": 4,
+        "BB": 4,
+        "BZ": 4,
+        "CY": 4,
+        "KW": 4,
+        "LA": 4,
+        "SO": 4,
+        "SV": 4,
+        "TM": 4,
+        "BN": 3,
+        "CD": 3,
+        "GT": 3,
+        "KG": 3,
+        "LY": 3,
+        "MK": 3,
+        "MN": 3,
+        "MO": 3,
+        "MZ": 3,
+        "TG": 3,
+        "BF": 2,
+        "BH": 2,
+        "BI": 2,
+        "CG": 2,
+        "GY": 2,
+        "HR": 2,
+        "JO": 2,
+        "LC": 2,
+        "LS": 2,
+        "LU": 2,
+        "NI": 2,
+        "PR": 2,
+        "RW": 2,
+        "AD": 1,
+        "AQ": 1,
+        "BS": 1,
+        "BT": 1,
+        "CW": 1,
+        "FM": 1,
+        "GN": 1,
+        "GP": 1,
+        "HT": 1,
+        "KY": 1,
+        "LR": 1,
+        "MV": 1,
+        "MW": 1,
+        "RE": 1,
+        "ST": 1,
+        "SZ": 1,
+        "VG": 1
+      }
     }
-  ]
+  ],
+  "country_cve_signals": {
+    "status": "ok",
+    "source": "Shodan InternetDB",
+    "source_url": "https://book.shodan.io/developer-apis/internetdb/",
+    "collected_at": "2026-11-10T23:06:44.905357+00:00",
+    "requested_ips": 436,
+    "responded_ips": 230,
+    "meaning": "Weekly-updated passive metadata for <=3 nonrandom, provider-list sample IPs per country; vulns include unverified entries. NOT country CVE prevalence or confirmed exploitation.",
+    "countries": {
+      "US": {
+        "requested": 3,
+        "responded": 0,
+        "unindexed": 3,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "RU": {
+        "requested": 3,
+        "responded": 0,
+        "unindexed": 3,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "FR": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 2
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "CN": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 111,
+            "sample_ips": 1
+          },
+          {
+            "port": 123,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 500,
+            "sample_ips": 1
+          },
+          {
+            "port": 1701,
+            "sample_ips": 1
+          },
+          {
+            "port": 3306,
+            "sample_ips": 1
+          },
+          {
+            "port": 4500,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "CA": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "GB": {
+        "requested": 3,
+        "responded": 0,
+        "unindexed": 3,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "DE": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 2
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 8444,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "BR": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 80,
+            "sample_ips": 2
+          },
+          {
+            "port": 443,
+            "sample_ips": 2
+          },
+          {
+            "port": 8443,
+            "sample_ips": 2
+          },
+          {
+            "port": 21,
+            "sample_ips": 1
+          },
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 25,
+            "sample_ips": 1
+          },
+          {
+            "port": 53,
+            "sample_ips": 1
+          },
+          {
+            "port": 82,
+            "sample_ips": 1
+          },
+          {
+            "port": 88,
+            "sample_ips": 1
+          },
+          {
+            "port": 110,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "IN": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 8089,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "ID": {
+        "requested": 3,
+        "responded": 0,
+        "unindexed": 3,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "NL": {
+        "requested": 3,
+        "responded": 3,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 3
+          },
+          {
+            "port": 80,
+            "sample_ips": 2
+          },
+          {
+            "port": 9001,
+            "sample_ips": 2
+          },
+          {
+            "port": 81,
+            "sample_ips": 1
+          },
+          {
+            "port": 82,
+            "sample_ips": 1
+          },
+          {
+            "port": 84,
+            "sample_ips": 1
+          },
+          {
+            "port": 85,
+            "sample_ips": 1
+          },
+          {
+            "port": 3001,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "HK": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 23,
+            "sample_ips": 1
+          },
+          {
+            "port": 123,
+            "sample_ips": 1
+          },
+          {
+            "port": 179,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "SG": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "UA": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 443,
+            "sample_ips": 2
+          },
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 45010,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "KR": {
+        "requested": 3,
+        "responded": 0,
+        "unindexed": 3,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "AE": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 3389,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "BE": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 443,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "BD": {
+        "requested": 3,
+        "responded": 3,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 80,
+            "sample_ips": 2
+          },
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 1080,
+            "sample_ips": 1
+          },
+          {
+            "port": 2000,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "PT": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 5000,
+            "sample_ips": 1
+          },
+          {
+            "port": 37777,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "IT": {
+        "requested": 3,
+        "responded": 3,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 2
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 161,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 1701,
+            "sample_ips": 1
+          },
+          {
+            "port": 2000,
+            "sample_ips": 1
+          },
+          {
+            "port": 8291,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "BG": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 3389,
+            "sample_ips": 1
+          },
+          {
+            "port": 9001,
+            "sample_ips": 1
+          },
+          {
+            "port": 9033,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "LT": {
+        "requested": 3,
+        "responded": 3,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 2
+          },
+          {
+            "port": 8000,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "VN": {
+        "requested": 3,
+        "responded": 0,
+        "unindexed": 3,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "AR": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 161,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "PL": {
+        "requested": 3,
+        "responded": 3,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 80,
+            "sample_ips": 2
+          },
+          {
+            "port": 443,
+            "sample_ips": 2
+          },
+          {
+            "port": 89,
+            "sample_ips": 1
+          },
+          {
+            "port": 90,
+            "sample_ips": 1
+          },
+          {
+            "port": 555,
+            "sample_ips": 1
+          },
+          {
+            "port": 1022,
+            "sample_ips": 1
+          },
+          {
+            "port": 8080,
+            "sample_ips": 1
+          },
+          {
+            "port": 8444,
+            "sample_ips": 1
+          },
+          {
+            "port": 10001,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "MY": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 2222,
+            "sample_ips": 1
+          },
+          {
+            "port": 8080,
+            "sample_ips": 1
+          },
+          {
+            "port": 8083,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "ZA": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 25,
+            "sample_ips": 1
+          },
+          {
+            "port": 4500,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "PK": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 2
+          },
+          {
+            "port": 443,
+            "sample_ips": 2
+          },
+          {
+            "port": 1080,
+            "sample_ips": 2
+          },
+          {
+            "port": 2022,
+            "sample_ips": 2
+          },
+          {
+            "port": 3128,
+            "sample_ips": 2
+          },
+          {
+            "port": 3540,
+            "sample_ips": 2
+          },
+          {
+            "port": 7272,
+            "sample_ips": 2
+          },
+          {
+            "port": 8181,
+            "sample_ips": 2
+          },
+          {
+            "port": 8418,
+            "sample_ips": 2
+          },
+          {
+            "port": 808,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "TW": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 21,
+            "sample_ips": 1
+          },
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "MX": {
+        "requested": 3,
+        "responded": 0,
+        "unindexed": 3,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "SE": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 80,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "ES": {
+        "requested": 3,
+        "responded": 3,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 111,
+            "sample_ips": 1
+          },
+          {
+            "port": 179,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 8888,
+            "sample_ips": 1
+          },
+          {
+            "port": 10123,
+            "sample_ips": 1
+          },
+          {
+            "port": 18103,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "RO": {
+        "requested": 3,
+        "responded": 3,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 3
+          }
+        ]
+      },
+      "JP": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 5985,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "CO": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 161,
+            "sample_ips": 2
+          },
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 23,
+            "sample_ips": 1
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 2222,
+            "sample_ips": 1
+          },
+          {
+            "port": 9080,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "IE": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 111,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "TR": {
+        "requested": 3,
+        "responded": 3,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 443,
+            "sample_ips": 2
+          },
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 23,
+            "sample_ips": 1
+          },
+          {
+            "port": 8090,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "TH": {
+        "requested": 3,
+        "responded": 3,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 80,
+            "sample_ips": 2
+          },
+          {
+            "port": 443,
+            "sample_ips": 2
+          },
+          {
+            "port": 2000,
+            "sample_ips": 2
+          },
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 500,
+            "sample_ips": 1
+          },
+          {
+            "port": 1701,
+            "sample_ips": 1
+          },
+          {
+            "port": 1723,
+            "sample_ips": 1
+          },
+          {
+            "port": 4500,
+            "sample_ips": 1
+          },
+          {
+            "port": 8291,
+            "sample_ips": 1
+          },
+          {
+            "port": 10000,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "AU": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 3128,
+            "sample_ips": 1
+          },
+          {
+            "port": 7547,
+            "sample_ips": 1
+          },
+          {
+            "port": 8080,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "IR": {
+        "requested": 3,
+        "responded": 3,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 80,
+            "sample_ips": 2
+          },
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 88,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 800,
+            "sample_ips": 1
+          },
+          {
+            "port": 2000,
+            "sample_ips": 1
+          },
+          {
+            "port": 2052,
+            "sample_ips": 1
+          },
+          {
+            "port": 8000,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "GH": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 443,
+            "sample_ips": 2
+          },
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 23,
+            "sample_ips": 1
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 8080,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "CL": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "SC": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 53,
+            "sample_ips": 1
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 110,
+            "sample_ips": 1
+          },
+          {
+            "port": 143,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 465,
+            "sample_ips": 1
+          },
+          {
+            "port": 587,
+            "sample_ips": 1
+          },
+          {
+            "port": 993,
+            "sample_ips": 1
+          },
+          {
+            "port": 995,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "PH": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 21,
+            "sample_ips": 1
+          },
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 123,
+            "sample_ips": 1
+          },
+          {
+            "port": 2000,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "SI": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 902,
+            "sample_ips": 1
+          },
+          {
+            "port": 953,
+            "sample_ips": 1
+          },
+          {
+            "port": 1080,
+            "sample_ips": 1
+          },
+          {
+            "port": 1103,
+            "sample_ips": 1
+          },
+          {
+            "port": 1111,
+            "sample_ips": 1
+          },
+          {
+            "port": 1290,
+            "sample_ips": 1
+          },
+          {
+            "port": 1337,
+            "sample_ips": 1
+          },
+          {
+            "port": 1365,
+            "sample_ips": 1
+          },
+          {
+            "port": 1450,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "IL": {
+        "requested": 3,
+        "responded": 3,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 443,
+            "sample_ips": 3
+          },
+          {
+            "port": 80,
+            "sample_ips": 2
+          },
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 90,
+            "sample_ips": 1
+          },
+          {
+            "port": 161,
+            "sample_ips": 1
+          },
+          {
+            "port": 554,
+            "sample_ips": 1
+          },
+          {
+            "port": 10000,
+            "sample_ips": 1
+          },
+          {
+            "port": 10001,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "TN": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 2
+          },
+          {
+            "port": 21,
+            "sample_ips": 1
+          },
+          {
+            "port": 23,
+            "sample_ips": 1
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 2000,
+            "sample_ips": 1
+          },
+          {
+            "port": 5060,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "EC": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 1723,
+            "sample_ips": 2
+          },
+          {
+            "port": 21,
+            "sample_ips": 1
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 500,
+            "sample_ips": 1
+          },
+          {
+            "port": 1701,
+            "sample_ips": 1
+          },
+          {
+            "port": 2000,
+            "sample_ips": 1
+          },
+          {
+            "port": 2444,
+            "sample_ips": 1
+          },
+          {
+            "port": 4500,
+            "sample_ips": 1
+          },
+          {
+            "port": 8291,
+            "sample_ips": 1
+          },
+          {
+            "port": 8728,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "UZ": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 500,
+            "sample_ips": 1
+          },
+          {
+            "port": 2222,
+            "sample_ips": 1
+          },
+          {
+            "port": 4500,
+            "sample_ips": 1
+          },
+          {
+            "port": 8081,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "ET": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 3000,
+            "sample_ips": 1
+          },
+          {
+            "port": 5006,
+            "sample_ips": 1
+          },
+          {
+            "port": 6379,
+            "sample_ips": 1
+          },
+          {
+            "port": 8081,
+            "sample_ips": 1
+          },
+          {
+            "port": 8123,
+            "sample_ips": 1
+          },
+          {
+            "port": 9000,
+            "sample_ips": 1
+          },
+          {
+            "port": 9125,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "AF": {
+        "requested": 3,
+        "responded": 3,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 80,
+            "sample_ips": 3
+          },
+          {
+            "port": 21,
+            "sample_ips": 1
+          },
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 500,
+            "sample_ips": 1
+          },
+          {
+            "port": 1701,
+            "sample_ips": 1
+          },
+          {
+            "port": 2000,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "UG": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 23,
+            "sample_ips": 1
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 161,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "FI": {
+        "requested": 3,
+        "responded": 3,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 443,
+            "sample_ips": 3
+          },
+          {
+            "port": 80,
+            "sample_ips": 2
+          },
+          {
+            "port": 21,
+            "sample_ips": 1
+          },
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 25,
+            "sample_ips": 1
+          },
+          {
+            "port": 110,
+            "sample_ips": 1
+          },
+          {
+            "port": 143,
+            "sample_ips": 1
+          },
+          {
+            "port": 465,
+            "sample_ips": 1
+          },
+          {
+            "port": 587,
+            "sample_ips": 1
+          },
+          {
+            "port": 993,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "KE": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 443,
+            "sample_ips": 2
+          },
+          {
+            "port": 53,
+            "sample_ips": 1
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 161,
+            "sample_ips": 1
+          },
+          {
+            "port": 444,
+            "sample_ips": 1
+          },
+          {
+            "port": 554,
+            "sample_ips": 1
+          },
+          {
+            "port": 3389,
+            "sample_ips": 1
+          },
+          {
+            "port": 4000,
+            "sample_ips": 1
+          },
+          {
+            "port": 4500,
+            "sample_ips": 1
+          },
+          {
+            "port": 5260,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "KZ": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 25,
+            "sample_ips": 1
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 9100,
+            "sample_ips": 1
+          },
+          {
+            "port": 9306,
+            "sample_ips": 1
+          },
+          {
+            "port": 33060,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "CH": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "SA": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 7547,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "HU": {
+        "requested": 3,
+        "responded": 3,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 80,
+            "sample_ips": 3
+          },
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 1701,
+            "sample_ips": 1
+          },
+          {
+            "port": 4443,
+            "sample_ips": 1
+          },
+          {
+            "port": 6443,
+            "sample_ips": 1
+          },
+          {
+            "port": 8000,
+            "sample_ips": 1
+          },
+          {
+            "port": 9001,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "PE": {
+        "requested": 3,
+        "responded": 0,
+        "unindexed": 3,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "MA": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 2
+          },
+          {
+            "port": 80,
+            "sample_ips": 2
+          }
+        ]
+      },
+      "CZ": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "IS": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 443,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "BW": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 7443,
+            "sample_ips": 2
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 10123,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "EG": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 2
+          },
+          {
+            "port": 21,
+            "sample_ips": 1
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 111,
+            "sample_ips": 1
+          },
+          {
+            "port": 137,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 445,
+            "sample_ips": 1
+          },
+          {
+            "port": 3306,
+            "sample_ips": 1
+          },
+          {
+            "port": 5938,
+            "sample_ips": 1
+          },
+          {
+            "port": 7070,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "PA": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 3389,
+            "sample_ips": 1
+          },
+          {
+            "port": 5357,
+            "sample_ips": 1
+          },
+          {
+            "port": 5985,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "PY": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 554,
+            "sample_ips": 1
+          },
+          {
+            "port": 3388,
+            "sample_ips": 1
+          },
+          {
+            "port": 7547,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "RS": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 80,
+            "sample_ips": 2
+          },
+          {
+            "port": 443,
+            "sample_ips": 2
+          },
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 161,
+            "sample_ips": 1
+          },
+          {
+            "port": 8022,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "AT": {
+        "requested": 3,
+        "responded": 3,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 443,
+            "sample_ips": 3
+          },
+          {
+            "port": 80,
+            "sample_ips": 2
+          },
+          {
+            "port": 8081,
+            "sample_ips": 2
+          },
+          {
+            "port": 21,
+            "sample_ips": 1
+          },
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 500,
+            "sample_ips": 1
+          },
+          {
+            "port": 1337,
+            "sample_ips": 1
+          },
+          {
+            "port": 4500,
+            "sample_ips": 1
+          },
+          {
+            "port": 6443,
+            "sample_ips": 1
+          },
+          {
+            "port": 8080,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "BJ": {
+        "requested": 3,
+        "responded": 3,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 443,
+            "sample_ips": 3
+          },
+          {
+            "port": 22,
+            "sample_ips": 2
+          },
+          {
+            "port": 80,
+            "sample_ips": 2
+          }
+        ]
+      },
+      "NP": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 2
+          },
+          {
+            "port": 80,
+            "sample_ips": 2
+          },
+          {
+            "port": 443,
+            "sample_ips": 2
+          },
+          {
+            "port": 123,
+            "sample_ips": 1
+          },
+          {
+            "port": 8443,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "IQ": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 5999,
+            "sample_ips": 1
+          },
+          {
+            "port": 8181,
+            "sample_ips": 1
+          },
+          {
+            "port": 8888,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "NG": {
+        "requested": 3,
+        "responded": 3,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 80,
+            "sample_ips": 3
+          },
+          {
+            "port": 443,
+            "sample_ips": 2
+          },
+          {
+            "port": 21,
+            "sample_ips": 1
+          },
+          {
+            "port": 500,
+            "sample_ips": 1
+          },
+          {
+            "port": 1701,
+            "sample_ips": 1
+          },
+          {
+            "port": 2000,
+            "sample_ips": 1
+          },
+          {
+            "port": 4500,
+            "sample_ips": 1
+          },
+          {
+            "port": 8728,
+            "sample_ips": 1
+          },
+          {
+            "port": 10123,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "NO": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 2
+          },
+          {
+            "port": 21,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "AZ": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "DK": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "VE": {
+        "requested": 3,
+        "responded": 0,
+        "unindexed": 3,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "BO": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 25,
+            "sample_ips": 1
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 143,
+            "sample_ips": 1
+          },
+          {
+            "port": 221,
+            "sample_ips": 1
+          },
+          {
+            "port": 465,
+            "sample_ips": 1
+          },
+          {
+            "port": 587,
+            "sample_ips": 1
+          },
+          {
+            "port": 993,
+            "sample_ips": 1
+          },
+          {
+            "port": 1200,
+            "sample_ips": 1
+          },
+          {
+            "port": 4040,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "DZ": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 8888,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "GE": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "TZ": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 2000,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "MD": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 2
+          },
+          {
+            "port": 21,
+            "sample_ips": 1
+          },
+          {
+            "port": 23,
+            "sample_ips": 1
+          },
+          {
+            "port": 25,
+            "sample_ips": 1
+          },
+          {
+            "port": 53,
+            "sample_ips": 1
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 110,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 465,
+            "sample_ips": 1
+          },
+          {
+            "port": 500,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "OM": {
+        "requested": 3,
+        "responded": 0,
+        "unindexed": 3,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "SK": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 80,
+            "sample_ips": 2
+          },
+          {
+            "port": 443,
+            "sample_ips": 2
+          },
+          {
+            "port": 21,
+            "sample_ips": 1
+          },
+          {
+            "port": 22,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "AL": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 53,
+            "sample_ips": 1
+          },
+          {
+            "port": 1701,
+            "sample_ips": 1
+          },
+          {
+            "port": 3001,
+            "sample_ips": 1
+          },
+          {
+            "port": 3005,
+            "sample_ips": 1
+          },
+          {
+            "port": 7000,
+            "sample_ips": 1
+          },
+          {
+            "port": 7001,
+            "sample_ips": 1
+          },
+          {
+            "port": 7002,
+            "sample_ips": 1
+          },
+          {
+            "port": 8002,
+            "sample_ips": 1
+          },
+          {
+            "port": 8006,
+            "sample_ips": 1
+          },
+          {
+            "port": 8089,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "KH": {
+        "requested": 3,
+        "responded": 3,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 21,
+            "sample_ips": 1
+          },
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 554,
+            "sample_ips": 1
+          },
+          {
+            "port": 2000,
+            "sample_ips": 1
+          },
+          {
+            "port": 7547,
+            "sample_ips": 1
+          },
+          {
+            "port": 8069,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "LB": {
+        "requested": 3,
+        "responded": 3,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 443,
+            "sample_ips": 2
+          },
+          {
+            "port": 21,
+            "sample_ips": 1
+          },
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 161,
+            "sample_ips": 1
+          },
+          {
+            "port": 445,
+            "sample_ips": 1
+          },
+          {
+            "port": 2000,
+            "sample_ips": 1
+          },
+          {
+            "port": 4500,
+            "sample_ips": 1
+          },
+          {
+            "port": 5999,
+            "sample_ips": 1
+          },
+          {
+            "port": 8181,
+            "sample_ips": 1
+          },
+          {
+            "port": 8444,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "MU": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 53,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 500,
+            "sample_ips": 1
+          },
+          {
+            "port": 1080,
+            "sample_ips": 1
+          },
+          {
+            "port": 2000,
+            "sample_ips": 1
+          },
+          {
+            "port": 4500,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "PS": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "SN": {
+        "requested": 3,
+        "responded": 3,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 50805,
+            "sample_ips": 2
+          },
+          {
+            "port": 500,
+            "sample_ips": 1
+          },
+          {
+            "port": 4500,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "CI": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 25,
+            "sample_ips": 1
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 123,
+            "sample_ips": 1
+          },
+          {
+            "port": 161,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 465,
+            "sample_ips": 1
+          },
+          {
+            "port": 2000,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "TT": {
+        "requested": 3,
+        "responded": 0,
+        "unindexed": 3,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "ZM": {
+        "requested": 3,
+        "responded": 3,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 53,
+            "sample_ips": 3
+          },
+          {
+            "port": 161,
+            "sample_ips": 2
+          },
+          {
+            "port": 443,
+            "sample_ips": 2
+          },
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "CM": {
+        "requested": 3,
+        "responded": 3,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 8010,
+            "sample_ips": 2
+          },
+          {
+            "port": 25,
+            "sample_ips": 1
+          },
+          {
+            "port": 53,
+            "sample_ips": 1
+          },
+          {
+            "port": 110,
+            "sample_ips": 1
+          },
+          {
+            "port": 143,
+            "sample_ips": 1
+          },
+          {
+            "port": 179,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 465,
+            "sample_ips": 1
+          },
+          {
+            "port": 587,
+            "sample_ips": 1
+          },
+          {
+            "port": 7071,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "LV": {
+        "requested": 3,
+        "responded": 3,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 80,
+            "sample_ips": 3
+          },
+          {
+            "port": 443,
+            "sample_ips": 2
+          }
+        ]
+      },
+      "SY": {
+        "requested": 3,
+        "responded": 0,
+        "unindexed": 3,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "BA": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 21,
+            "sample_ips": 1
+          },
+          {
+            "port": 137,
+            "sample_ips": 1
+          },
+          {
+            "port": 445,
+            "sample_ips": 1
+          },
+          {
+            "port": 5999,
+            "sample_ips": 1
+          },
+          {
+            "port": 7547,
+            "sample_ips": 1
+          },
+          {
+            "port": 8181,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "DO": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 80,
+            "sample_ips": 2
+          },
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 53,
+            "sample_ips": 1
+          },
+          {
+            "port": 137,
+            "sample_ips": 1
+          },
+          {
+            "port": 445,
+            "sample_ips": 1
+          },
+          {
+            "port": 7070,
+            "sample_ips": 1
+          },
+          {
+            "port": 8900,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "EE": {
+        "requested": 3,
+        "responded": 3,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 443,
+            "sample_ips": 2
+          },
+          {
+            "port": 21,
+            "sample_ips": 1
+          },
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 25,
+            "sample_ips": 1
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 110,
+            "sample_ips": 1
+          },
+          {
+            "port": 143,
+            "sample_ips": 1
+          },
+          {
+            "port": 465,
+            "sample_ips": 1
+          },
+          {
+            "port": 587,
+            "sample_ips": 1
+          },
+          {
+            "port": 993,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "MM": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 21,
+            "sample_ips": 1
+          },
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 161,
+            "sample_ips": 1
+          },
+          {
+            "port": 500,
+            "sample_ips": 1
+          },
+          {
+            "port": 1701,
+            "sample_ips": 1
+          },
+          {
+            "port": 2000,
+            "sample_ips": 1
+          },
+          {
+            "port": 4500,
+            "sample_ips": 1
+          },
+          {
+            "port": 8086,
+            "sample_ips": 1
+          },
+          {
+            "port": 31943,
+            "sample_ips": 1
+          },
+          {
+            "port": 32800,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "GR": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 1701,
+            "sample_ips": 1
+          },
+          {
+            "port": 1723,
+            "sample_ips": 1
+          },
+          {
+            "port": 2200,
+            "sample_ips": 1
+          },
+          {
+            "port": 4433,
+            "sample_ips": 1
+          },
+          {
+            "port": 4443,
+            "sample_ips": 1
+          },
+          {
+            "port": 4500,
+            "sample_ips": 1
+          },
+          {
+            "port": 6443,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "AM": {
+        "requested": 3,
+        "responded": 0,
+        "unindexed": 3,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "BY": {
+        "requested": 3,
+        "responded": 0,
+        "unindexed": 3,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "CV": {
+        "requested": 3,
+        "responded": 3,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 23,
+            "sample_ips": 3
+          },
+          {
+            "port": 80,
+            "sample_ips": 3
+          },
+          {
+            "port": 443,
+            "sample_ips": 3
+          },
+          {
+            "port": 161,
+            "sample_ips": 2
+          },
+          {
+            "port": 7547,
+            "sample_ips": 1
+          },
+          {
+            "port": 8080,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "LK": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 137,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "CR": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 443,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "GM": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 21185,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "HN": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 9020,
+            "sample_ips": 1
+          },
+          {
+            "port": 9081,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "JM": {
+        "requested": 3,
+        "responded": 0,
+        "unindexed": 3,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "NZ": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 1723,
+            "sample_ips": 1
+          },
+          {
+            "port": 2000,
+            "sample_ips": 1
+          },
+          {
+            "port": 2222,
+            "sample_ips": 1
+          },
+          {
+            "port": 8291,
+            "sample_ips": 1
+          },
+          {
+            "port": 8728,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "QA": {
+        "requested": 3,
+        "responded": 0,
+        "unindexed": 3,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "UY": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 554,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "ZW": {
+        "requested": 3,
+        "responded": 3,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 80,
+            "sample_ips": 2
+          },
+          {
+            "port": 443,
+            "sample_ips": 2
+          },
+          {
+            "port": 500,
+            "sample_ips": 2
+          },
+          {
+            "port": 4500,
+            "sample_ips": 2
+          },
+          {
+            "port": 84,
+            "sample_ips": 1
+          },
+          {
+            "port": 2000,
+            "sample_ips": 1
+          },
+          {
+            "port": 60010,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "AO": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 8889,
+            "sample_ips": 1
+          },
+          {
+            "port": 10443,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "BB": {
+        "requested": 3,
+        "responded": 0,
+        "unindexed": 3,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "BZ": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 7547,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "CY": {
+        "requested": 3,
+        "responded": 0,
+        "unindexed": 3,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "KW": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 80,
+            "sample_ips": 2
+          },
+          {
+            "port": 443,
+            "sample_ips": 2
+          },
+          {
+            "port": 3306,
+            "sample_ips": 1
+          },
+          {
+            "port": 4433,
+            "sample_ips": 1
+          },
+          {
+            "port": 5432,
+            "sample_ips": 1
+          },
+          {
+            "port": 7548,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "LA": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 2
+          },
+          {
+            "port": 80,
+            "sample_ips": 2
+          },
+          {
+            "port": 23,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "SO": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 80,
+            "sample_ips": 2
+          },
+          {
+            "port": 443,
+            "sample_ips": 2
+          },
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 53,
+            "sample_ips": 1
+          },
+          {
+            "port": 8020,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "SV": {
+        "requested": 3,
+        "responded": 3,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 2000,
+            "sample_ips": 2
+          },
+          {
+            "port": 4500,
+            "sample_ips": 2
+          },
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 500,
+            "sample_ips": 1
+          },
+          {
+            "port": 541,
+            "sample_ips": 1
+          },
+          {
+            "port": 1701,
+            "sample_ips": 1
+          },
+          {
+            "port": 2222,
+            "sample_ips": 1
+          },
+          {
+            "port": 8090,
+            "sample_ips": 1
+          },
+          {
+            "port": 8110,
+            "sample_ips": 1
+          },
+          {
+            "port": 9060,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "TM": {
+        "requested": 3,
+        "responded": 3,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 500,
+            "sample_ips": 2
+          },
+          {
+            "port": 4500,
+            "sample_ips": 2
+          },
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 53,
+            "sample_ips": 1
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 123,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 1723,
+            "sample_ips": 1
+          },
+          {
+            "port": 1883,
+            "sample_ips": 1
+          },
+          {
+            "port": 2000,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "BN": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 2
+          },
+          {
+            "port": 3306,
+            "sample_ips": 1
+          },
+          {
+            "port": 4369,
+            "sample_ips": 1
+          },
+          {
+            "port": 5672,
+            "sample_ips": 1
+          },
+          {
+            "port": 8888,
+            "sample_ips": 1
+          },
+          {
+            "port": 15672,
+            "sample_ips": 1
+          },
+          {
+            "port": 33060,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "CD": {
+        "requested": 3,
+        "responded": 3,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 179,
+            "sample_ips": 1
+          },
+          {
+            "port": 2000,
+            "sample_ips": 1
+          },
+          {
+            "port": 2222,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "GT": {
+        "requested": 3,
+        "responded": 3,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 500,
+            "sample_ips": 2
+          },
+          {
+            "port": 4500,
+            "sample_ips": 2
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 161,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 1701,
+            "sample_ips": 1
+          },
+          {
+            "port": 3301,
+            "sample_ips": 1
+          },
+          {
+            "port": 8080,
+            "sample_ips": 1
+          },
+          {
+            "port": 8291,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "KG": {
+        "requested": 3,
+        "responded": 2,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 53,
+            "sample_ips": 1
+          },
+          {
+            "port": 2000,
+            "sample_ips": 1
+          },
+          {
+            "port": 8291,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "LY": {
+        "requested": 3,
+        "responded": 3,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 80,
+            "sample_ips": 3
+          },
+          {
+            "port": 443,
+            "sample_ips": 3
+          },
+          {
+            "port": 22,
+            "sample_ips": 2
+          },
+          {
+            "port": 21,
+            "sample_ips": 1
+          },
+          {
+            "port": 137,
+            "sample_ips": 1
+          },
+          {
+            "port": 445,
+            "sample_ips": 1
+          },
+          {
+            "port": 5999,
+            "sample_ips": 1
+          },
+          {
+            "port": 6002,
+            "sample_ips": 1
+          },
+          {
+            "port": 8181,
+            "sample_ips": 1
+          },
+          {
+            "port": 8444,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "MK": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 21,
+            "sample_ips": 1
+          },
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 500,
+            "sample_ips": 1
+          },
+          {
+            "port": 1234,
+            "sample_ips": 1
+          },
+          {
+            "port": 1701,
+            "sample_ips": 1
+          },
+          {
+            "port": 2000,
+            "sample_ips": 1
+          },
+          {
+            "port": 4500,
+            "sample_ips": 1
+          },
+          {
+            "port": 8000,
+            "sample_ips": 1
+          },
+          {
+            "port": 8291,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "MN": {
+        "requested": 3,
+        "responded": 0,
+        "unindexed": 3,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "MO": {
+        "requested": 3,
+        "responded": 3,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 80,
+            "sample_ips": 2
+          },
+          {
+            "port": 1723,
+            "sample_ips": 2
+          },
+          {
+            "port": 3306,
+            "sample_ips": 2
+          },
+          {
+            "port": 21,
+            "sample_ips": 1
+          },
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 500,
+            "sample_ips": 1
+          },
+          {
+            "port": 3000,
+            "sample_ips": 1
+          },
+          {
+            "port": 4500,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "MZ": {
+        "requested": 3,
+        "responded": 3,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 2
+          },
+          {
+            "port": 80,
+            "sample_ips": 2
+          },
+          {
+            "port": 23,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "TG": {
+        "requested": 3,
+        "responded": 1,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "BF": {
+        "requested": 2,
+        "responded": 0,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "BH": {
+        "requested": 2,
+        "responded": 0,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "BI": {
+        "requested": 2,
+        "responded": 0,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "CG": {
+        "requested": 2,
+        "responded": 0,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "GY": {
+        "requested": 2,
+        "responded": 0,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "HR": {
+        "requested": 2,
+        "responded": 2,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 8443,
+            "sample_ips": 2
+          },
+          {
+            "port": 81,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 2083,
+            "sample_ips": 1
+          },
+          {
+            "port": 5222,
+            "sample_ips": 1
+          },
+          {
+            "port": 8080,
+            "sample_ips": 1
+          },
+          {
+            "port": 8291,
+            "sample_ips": 1
+          },
+          {
+            "port": 8442,
+            "sample_ips": 1
+          },
+          {
+            "port": 9000,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "JO": {
+        "requested": 2,
+        "responded": 0,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "LC": {
+        "requested": 2,
+        "responded": 0,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "LS": {
+        "requested": 2,
+        "responded": 0,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "LU": {
+        "requested": 2,
+        "responded": 1,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 13218,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "NI": {
+        "requested": 2,
+        "responded": 1,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 161,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "PR": {
+        "requested": 2,
+        "responded": 1,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 179,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "RW": {
+        "requested": 2,
+        "responded": 0,
+        "unindexed": 2,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "AD": {
+        "requested": 1,
+        "responded": 1,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 7547,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "AQ": {
+        "requested": 1,
+        "responded": 1,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 9001,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "BS": {
+        "requested": 1,
+        "responded": 0,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "BT": {
+        "requested": 1,
+        "responded": 1,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "CW": {
+        "requested": 1,
+        "responded": 0,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "FM": {
+        "requested": 1,
+        "responded": 0,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "GN": {
+        "requested": 1,
+        "responded": 0,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "GP": {
+        "requested": 1,
+        "responded": 1,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 1723,
+            "sample_ips": 1
+          },
+          {
+            "port": 4321,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "HT": {
+        "requested": 1,
+        "responded": 0,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "KY": {
+        "requested": 1,
+        "responded": 0,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "LR": {
+        "requested": 1,
+        "responded": 0,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "MV": {
+        "requested": 1,
+        "responded": 0,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "MW": {
+        "requested": 1,
+        "responded": 1,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 25,
+            "sample_ips": 1
+          },
+          {
+            "port": 110,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 465,
+            "sample_ips": 1
+          },
+          {
+            "port": 522,
+            "sample_ips": 1
+          },
+          {
+            "port": 587,
+            "sample_ips": 1
+          },
+          {
+            "port": 993,
+            "sample_ips": 1
+          },
+          {
+            "port": 995,
+            "sample_ips": 1
+          },
+          {
+            "port": 1701,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "RE": {
+        "requested": 1,
+        "responded": 1,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 123,
+            "sample_ips": 1
+          },
+          {
+            "port": 3306,
+            "sample_ips": 1
+          },
+          {
+            "port": 8090,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "ST": {
+        "requested": 1,
+        "responded": 0,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      },
+      "SZ": {
+        "requested": 1,
+        "responded": 1,
+        "unindexed": 0,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": [
+          {
+            "port": 22,
+            "sample_ips": 1
+          },
+          {
+            "port": 80,
+            "sample_ips": 1
+          },
+          {
+            "port": 81,
+            "sample_ips": 1
+          },
+          {
+            "port": 443,
+            "sample_ips": 1
+          },
+          {
+            "port": 8443,
+            "sample_ips": 1
+          }
+        ]
+      },
+      "VG": {
+        "requested": 1,
+        "responded": 0,
+        "unindexed": 1,
+        "failed": 0,
+        "with_cves": 0,
+        "cves": [],
+        "ports": []
+      }
+    }
+  }
 }
