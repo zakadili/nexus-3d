@@ -217,6 +217,33 @@ def collect_cves():
             "ranking_method":"Heuristic: EPSS probability x100 + 25 if known ransomware use + 10 if added within 30 days; ONLY CISA KEV candidates. Not a CVSS or asset-specific risk score.",
             "top":ranked[:35]}
 
+def compact_snapshot(snapshot):
+    """Country-level indicators only; preserves trends without republishing IP lists."""
+    indicators=snapshot.get("indicators") or {}
+    countries=indicators.get("countries") or []
+    if not countries or indicators.get("unique_indicators") is None:
+        return None
+    health=indicators.get("source_health") or []
+    return {
+        "generated_at": snapshot.get("generated_at"),
+        "unique_indicators": indicators.get("unique_indicators"),
+        "available_sources": sorted(row["id"] for row in health if row.get("status")=="ok"),
+        "country_counts": {r["code"]:r["indicators"] for r in countries}
+    }
+
+
+def assemble_history(new_snapshot, previous=None, limit=28):
+    """Retain at most 28 real samples (about one week at six-hour cadence)."""
+    entries=list((previous or {}).get("history") or [])
+    if previous and not entries:
+        old=compact_snapshot(previous)
+        if old:entries.append(old)
+    latest=compact_snapshot(new_snapshot)
+    if latest and (not entries or entries[-1].get("generated_at")!=latest["generated_at"]):
+        entries.append(latest)
+    return entries[-limit:]
+
+
 def main():
     generated=datetime.now(timezone.utc).isoformat()
     failures=[]
@@ -233,6 +260,13 @@ def main():
     output={"schema":2,"generated_at":generated,"data_lag":"Feeds update on different schedules; this is a collection snapshot, not live packet streaming.",
             "indicators":indicators,"cves":cves,"sectors":sectors,"failures":failures}
     if failures==["indicators","cves"]:raise RuntimeError("No live indicators and no live CVE feed; refusing empty snapshot")
+    previous=None
+    try:
+        if OUT.exists():
+            previous=json.loads(OUT.read_text(encoding="utf-8"))
+    except (OSError,ValueError):
+        previous=None
+    output["history"]=assemble_history(output,previous)
     OUT.parent.mkdir(exist_ok=True,parents=True)
     OUT.write_text(json.dumps(output,indent=2)+"\n",encoding="utf-8")
     print("Published:",OUT,"countries:",len(indicators["countries"]),"KEV:",cves.get("total_kev"),"failures:",failures)
