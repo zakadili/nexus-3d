@@ -112,6 +112,16 @@ function renderDossier(){
    const meter=create('div','dossier-meter'),bar=create('span');bar.style.width=(100*n/max)+'%';meter.append(bar);r.append(meter);body.append(r);
   }
   body.append(note('Counts from individual feeds overlap. All-feeds totals are deduplicated across providers.'));
+  const summary=create('div','dossier-signal-summary');
+  summary.append(create('h3','','HIGH-VALUE SECURITY SIGNALS'));
+  summary.append(vendorRow('C2 INDICATORS / FEODO',fmt(row.by_source?.feodo||0)));
+  summary.append(vendorRow('SENSOR-OBSERVED IPs / DSHIELD',fmt(row.by_source?.dshield||0)));
+  summary.append(vendorRow('MULTI-FEED IP OVERLAP',Number.isInteger(row.multi_source_count)?fmt(row.multi_source_count):'Not collected'));
+  summary.append(note('These are different signal categories, not verified attack totals. A zero count only means no address was listed in that input dataset.'));
+  const cveJump=create('button','primary research-action','◈ INVESTIGATE COUNTRY CVE SIGNALS');
+  cveJump.addEventListener('click',()=>{state.tab='cves';renderDossier();});
+  summary.append(cveJump);body.append(summary);
+  body.append(countryTrend(row.code));
  }else if(state.tab==='cves'){
   body.append(renderCVESignals(row));
  }else if(state.tab==='evidence'){
