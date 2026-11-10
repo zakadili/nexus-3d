@@ -4,6 +4,20 @@ A working multi-source cyber-intelligence command center: an interactive country
 
 **Live project:** https://zakadili.github.io/nexus-3d/
 
+## Investigation experience (v0.3)
+
+The homepage is built for an actual on-screen investigation, not merely browsing threat lists:
+
+- **Click a country:** smooth orthographic camera fly-to and country-focused HUD. Even unrepresented countries can be selected, with an honest "no observed coverage" message.
+- **Country dossier:** total unique listed IPs, exact per-provider counts, rank, cross-feed overlap, sampled attributed IP evidence, and explanatory context. Evidence records can be investigated further using an on-demand **ipwho.is ASN/ISP/city lookup** and a SANS IPinfo link. Sample addresses are not a full inventory.
+- **COUNTRY SEARCH:** press **Ctrl/⌘ + K** to jump to a country, or browse the complete ranked list. Mouse-wheel zoom and drag orbit are supported.
+- **COMPARE:** pin one country, select another, then pin it to compare source-by-source listing volumes. Counts reflect feed coverage and should not be treated as comparative attack risk.
+- **HISTORY:** the scheduled collector retains up to 28 recent country-count snapshots. A dossier sparkline appears when at least two comparable samples exist using the same set of successful feeds. Changes mean listing membership changes, not new compromises.
+- **SHARE & EXPORT:** share deep links like `?country=MA&layer=ipsum`, export an evidence-labeled country brief, or **CAPTURE MAP** as a high-resolution PNG for X and presentations.
+- **CINEMATIC TOUR:** a six-country, evidence-backed global camera tour for demonstrations, including stop and immersive-mode controls. The tour only visits countries present in the real data.
+
+**Note:** country geolocation is approximate network allocation. It cannot identify where a specific attacker lives, prove that a device is vulnerable, or supply all malicious traffic observed in a country.
+
 ## Intelligence platform
 
 ### Multi-source country radar
