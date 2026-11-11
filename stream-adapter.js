@@ -1,5 +1,5 @@
 /* NEXUS live adapter. No demo events. Absence of a backend is explicitly reported. */
-import { STREAM_API } from './stream-config.js';
+import { STREAM_API } from './stream-config.js?v=20261111-deploy';
 const root=document.createElement('section');
 root.className='nexus-stream';
 root.id='live-intelligence';
