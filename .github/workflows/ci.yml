@@ -31,5 +31,7 @@ jobs:
           node --check radar.js
           node --check radar-plus.js
           node --check radar-extras.js
+          node --check collection-clock.mjs
+          node --test tests/collection-clock.test.mjs
           node --check app.js
           node --check sentinel.js
