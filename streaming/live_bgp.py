@@ -255,7 +255,7 @@ class WindowAggregator:
         data = outer.get("data")
         if not isinstance(data, dict) or data.get("type") != "UPDATE":
             return None
-        if data.get("host") != self.config.collector:
+        if data.get("host") not in (self.config.collector, self.config.collector + ".ripe.net"):
             raise ValueError("collector_mismatch")
         stamp = data.get("timestamp")
         if type(stamp) not in (int, float) or not math.isfinite(stamp) or stamp < received - 120 or stamp > received + 30:
