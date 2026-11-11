@@ -484,6 +484,15 @@ class BGPCollector:
                                 raise ValueError("subscription_ack_timeout")
                             continue
                         last_message = time.time()
+                        # recv() can cross a window boundary after the loop's flush.
+                        # Close that window before accepting the newly received frame.
+                        for event, evidence in agg.flush(last_message):
+                            if emitted >= 50 or not publish(event, evidence):
+                                agg.dropped += 1
+                                agg.gap()
+                                status("degraded", "Public emission capacity exceeded; baseline reset")
+                            else:
+                                emitted += 1
                         result = agg.feed(frame, last_message)
                         fields = {"last_message": utc(last_message)}
                         if agg.last_event is not None:
