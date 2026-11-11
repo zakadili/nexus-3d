@@ -269,10 +269,6 @@ body.immersive .globe-container .map-label{bottom:22px}
 @media(max-width:900px){.collection-clock{align-items:flex-start}.collection-clock #updated,.clock-schedule,#collection-utc{text-align:left;align-items:flex-start}}
 
 /* Real elapsed snapshot age; not an estimate of network events. */
-.clock-schedule.since-update{border-color:#864254;background:linear-gradient(120deg,#291624,#141521)}
-.since-update #elapsed-update{font:800 clamp(25px,2.8vw,41px)/1 'Barlow Condensed',sans-serif;letter-spacing:.09em;color:#ff829b;font-variant-numeric:tabular-nums}
-.since-update #elapsed-state{font-size:9px;color:#a2a9b8;line-height:1.45;text-align:right}
-@media(max-width:900px){.since-update #elapsed-state{text-align:left}}
 
 /* Two-column independent flow: globe and analysis sections stack without blank sidebar-height reserve. */
 .layout{align-items:start}
