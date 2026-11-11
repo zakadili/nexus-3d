@@ -56,7 +56,13 @@ jobs:
           git add data/overview.json data/extra.json data/kev.json data/index/
           if ! git diff --cached --quiet; then
             git commit -m "data: refresh attributed multi-source cyber intelligence snapshot"
-            git push
+            # Preserve source changes that landed while collection was running.
+            for attempt in 1 2 3; do
+              git pull --rebase origin main
+              if git push; then break; fi
+              if [ "$attempt" -eq 3 ]; then exit 1; fi
+              sleep 2
+            done
           else
             echo "No data update"
           fi
