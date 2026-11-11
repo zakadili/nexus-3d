@@ -6,7 +6,7 @@ from live_bgp import ASNMap, BGPConfig, WindowAggregator, strict_json
 
 def frame(origin=64500, uid='fixture-1', stamp=1001, withdrawals=None):
     return json.dumps({'type': 'ris_message', 'data': {
-        'type': 'UPDATE', 'host': 'rrc21', 'id': uid, 'timestamp': stamp,
+        'type': 'UPDATE', 'host': 'rrc21.ripe.net', 'id': uid, 'timestamp': stamp,
         'peer': '192.0.2.1', 'path': [64496, origin],
         'announcements': [] if withdrawals else [{'prefixes': ['203.0.113.0/24']}],
         'withdrawals': withdrawals or []}})
