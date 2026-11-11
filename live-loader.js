@@ -10,3 +10,7 @@ details.addEventListener('toggle',start);legacy.addEventListener('toggle',start)
 function followHash(){if(location.hash==='#live-intelligence'){details.open=true;start()}}
 window.addEventListener('hashchange',followHash);followHash();
 
+const mapLive=document.getElementById('open-live-signals');
+mapLive.addEventListener('click',()=>{details.open=!details.open;start()});
+details.addEventListener('toggle',()=>{mapLive.setAttribute('aria-expanded',String(details.open));mapLive.textContent=details.open?'LIVE PANEL OPEN':'LIVE SIGNALS'});
+
