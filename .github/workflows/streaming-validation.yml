@@ -49,4 +49,6 @@ jobs:
       - name: Stop test services
         if: always()
         working-directory: streaming
+        env:
+          POSTGRES_PASSWORD: ci_not_real
         run: docker compose down

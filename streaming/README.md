@@ -55,7 +55,7 @@ The homepage then opens `wss://stream.yourdomain.example/ws/live`. If the backen
 - **Single instance only:** `uvicorn --workers 1`. The collector runs in-process; multiple workers would duplicate upstream connections. For multiple replicas, split ingestion into its own service and use a durable broker (Redis Streams or PostgreSQL LISTEN/NOTIFY + replay).
 - **Durability:** events + upstream `_idx` commit transactionally. Upstream `_idx` and local browser `seq` are different cursors.
 - **Resume:** after reconnection, replay starts at last committed `_idx + 1` when the provider still retains it. Expired provider history is logged in `coverage_gaps`. Gap-free replay cannot be guaranteed after long outages.
-- **IODA:** 180-second alert lookback polling is near-real-time, not attack observation. A result hitting 1,000 items is flagged incomplete. Add full pagination before claiming exhaustive coverage.
+- **IODA:** 180-second alert lookback polling is near-real-time, not attack observation. A result hitting 1,000 items is flagged incomplete. Pagination is bounded to five pages; reaching the cap is reported as incomplete coverage.
 - **CISA KEV:** daily reference catalog, never treated as live attacker activity.
 - **GeoIP/ASN:** not performed by this initial backend. Accordingly, no new geographic points are drawn. Real map-layer changes require a vetted enrichment dataset, provenance timestamps, a public licensing review, and a handler in the SVG globe renderer. A feed-listed IP is not necessarily an attacking IP.
 - **Latency:** streaming feed records may arrive within seconds once an upstream event is published; IODA is minutes; KEV is daily. Show upstream age and last-success separately.
@@ -72,4 +72,4 @@ docker compose exec db psql -U nexus -d nexus -c   "SELECT feed_source,count(*) 
 
 ## Validation
 
-The GitHub Actions workflow runs Python and JavaScript syntax validation and verifies that the homepage includes the stream panel. Live connectivity, provider contracts, replay behavior, IODA pagination, DB schema migrations, load, licensing, and full frontend integration require further testing before a production launch.
+The GitHub Actions workflow runs Python and JavaScript syntax validation and verifies that the homepage includes the stream panel. The workflow also runs isolated PostgreSQL and WebSocket integration checks. Provider contracts, authorized live upstream replay, high load and external alerting remain outside those tests.
