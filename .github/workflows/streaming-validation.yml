@@ -4,6 +4,7 @@ on:
     paths:
       - 'streaming/**'
       - 'stream-adapter.js'
+      - 'live-loader.js'
       - 'stream-adapter.css'
       - 'stream-config.js'
       - '.github/workflows/streaming-validation.yml'
@@ -11,6 +12,7 @@ on:
     paths:
       - 'streaming/**'
       - 'stream-adapter.js'
+      - 'live-loader.js'
       - '.github/workflows/streaming-validation.yml'
 jobs:
   syntax:
@@ -31,7 +33,8 @@ jobs:
           node --check stream-config.js
       - name: Check homepage integration
         run: |
-          grep -q 'stream-adapter.js' index.html
+          grep -q 'live-loader.js' index.html
+          grep -q 'stream-adapter.js' live-loader.js
           grep -q 'stream-adapter.css' index.html
       - name: Check Compose configuration
         env:
