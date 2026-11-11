@@ -1,0 +1,41 @@
+name: Streaming backend validation
+on:
+  push:
+    paths:
+      - 'streaming/**'
+      - 'stream-adapter.js'
+      - 'stream-adapter.css'
+      - 'stream-config.js'
+      - '.github/workflows/streaming-validation.yml'
+  pull_request:
+    paths:
+      - 'streaming/**'
+      - 'stream-adapter.js'
+      - '.github/workflows/streaming-validation.yml'
+jobs:
+  syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Compile Python
+        run: python -m py_compile streaming/app.py
+      - name: Check Javascript syntax
+        run: |
+          node --check stream-adapter.js
+          node --check stream-config.js
+      - name: Check homepage integration
+        run: |
+          grep -q 'stream-adapter.js' index.html
+          grep -q 'stream-adapter.css' index.html
+      - name: Check Compose configuration
+        env:
+          POSTGRES_PASSWORD: ci_not_real
+        run: |
+          cp streaming/.env.example streaming/.env
+          docker compose -f streaming/docker-compose.yml --project-directory streaming config --quiet
