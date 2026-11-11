@@ -14,6 +14,15 @@ A working multi-source cyber-intelligence command center: an interactive country
 
 **Live project:** https://zakadili.github.io/nexus-3d/
 
+
+## NEXUS LIVE (review-stage implementation)
+
+The live layer adds filtered **RIPE RIS routing observations**, bounded evidence and an on-demand SSE connection to the existing SVG globe. It never turns routing changes into claimed attacks. Collection is off by default: the maintainer must record the permitted scope, accept the provider conditions and pass a capacity trial before activation. This branch's code does not mean the public deployment has been updated.
+
+IODA and Certificate Transparency are excluded from active collection pending the [source gates](./radar-methodology.html#live-signals-methods). Cloudflare Radar and GRIP are also off. A source that fails or goes quiet is reported explicitly; no synthetic traffic fills the gap. Existing six-hour snapshots remain separate.
+
+See [operation and release checks](./docs/LIVE-OPERATIONS.md), [security reporting](./SECURITY.md) and [responsible use](./docs/RESPONSIBLE-USE.md). Deployed AI agents remain inactive with a $0 spending authorization. Changes require human review and merge; deployment is a separate release step.
+
 ## Geographic integrity & country-level vulnerability intelligence
 
 ### Morocco geographical display and the southern territory
@@ -173,3 +182,4 @@ Threat-intelligence data is provided for informational purposes. IP and country 
 ## Public website publication
 
 Pages uses the `Publish NEXUS website` workflow. It validates and packages public files on code pushes and after a successful intelligence collection, so bot-published data reaches the live site. Keep GitHub Pages Source set to **GitHub Actions**. See [maintenance and verification](./AUDIT-FIXES.md).
+

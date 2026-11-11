@@ -622,3 +622,6 @@ INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
 OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
 TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF
 THIS SOFTWARE.
+
+RIPE NCC logo: assets/ripe-ncc-logo.svg, obtained 2026-11-12 from https://www.ripe.net/static/images/ripe-ncc-logo-2025.svg for required RIS attribution. RIPE NCC retains its trademark rights; no endorsement implied. RIS conditions: https://www.ripe.net/analyse/internet-measurements/routing-information-service-ris/commercial-use/
+
