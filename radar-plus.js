@@ -1,5 +1,5 @@
 import {buildExtrasUI} from './radar-extras.js';
-import {remainingToCollection} from './collection-clock.mjs';
+import {remainingToCollection,timeSinceSnapshot} from './collection-clock.mjs';
 // NEXUS V2: country-level IP indicator observatory + CISA KEV priority + ENISA sectors.
 // Data comes only from the scheduled snapshot; no demonstration data is invented.
 const $=s=>document.querySelector(s);
@@ -697,6 +697,20 @@ async function loadExtra(){
  if(state.data)render();
 }
 setInterval(updateTimestamp,60000);
+function updateElapsedCounter(){
+ const display=document.querySelector('#elapsed-update');
+ const description=document.querySelector('#elapsed-state');
+ if(!display||!description)return;
+ const elapsed=timeSinceSnapshot(state.data?.generated_at||'');
+ if(!elapsed){
+  display.textContent='--:--:--';
+  description.textContent='Snapshot timestamp unavailable';
+  return;
+ }
+ display.textContent=elapsed.label;
+ description.textContent=(state.snapshotFailed?'STALE LAST-GOOD SNAPSHOT · ':'PUBLISHED SNAPSHOT · ')+
+   (elapsed.hours>0?elapsed.hours+'h ':'')+elapsed.minutes+'m '+elapsed.seconds+'s ago · UTC';
+}
 function updateCollectionCountdown(){
  const countdown=remainingToCollection(Date.now());
  const timer=document.querySelector('#next-collection');
@@ -706,6 +720,8 @@ function updateCollectionCountdown(){
 }
 updateCollectionCountdown();
 setInterval(updateCollectionCountdown,1000);
+updateElapsedCounter();
+setInterval(updateElapsedCounter,1000);
 const isMac=/Mac|iPhone|iPad/.test(navigator.platform||'');
 const shortcut=document.querySelector('#shortcut-label');
 if(shortcut)shortcut.textContent=isMac?'⌘K':'Ctrl K';
@@ -713,14 +729,14 @@ async function load(){setHealth('COLLECTING');$('#refresh').disabled=true;
  try{const url=location.port==='8765'?'/api/overview':'./data/overview.json';
  const response=await fetch(url+'?v='+Date.now(),{cache:'no-store'});if(!response.ok)throw Error('Snapshot HTTP '+response.status);
  const d=await response.json();if(d.schema!==2 || !Array.isArray(d.indicators?.countries))throw Error('Unknown snapshot format');
- state.snapshotFailed=false;state.data=d;state.extra={schema:1,feeds:{},source_health:d.extra_health||[]};state.extraError=null;
+ state.snapshotFailed=false;state.data=d;updateElapsedCounter();state.extra={schema:1,feeds:{},source_health:d.extra_health||[]};state.extraError=null;
  try{localStorage.setItem('nexus.last.good.overview',JSON.stringify(d));}catch(e){}
  render();setHealth('MULTI-SOURCE ONLINE',true);loadExtra();
  document.querySelectorAll('.skeleton').forEach(x=>x.classList.remove('skeleton','skeleton-metric','skeleton-panel'));
  if(state.pending){const code=state.pending;state.pending=null;const row=allCountries().find(r=>r.code===code);if(row)select(code,{zoom:!!state.projection,updateUrl:false});}
  else if(state.selected && state.projection)draw();
  }catch(e){
- state.snapshotFailed=true;setHealth('SNAPSHOT UNAVAILABLE',false);
+ state.snapshotFailed=true;setHealth('SNAPSHOT UNAVAILABLE',false);updateElapsedCounter();
  let cached=null;try{cached=JSON.parse(localStorage.getItem('nexus.last.good.overview')||'null');}catch(error){}
  if(cached?.schema===2&&Array.isArray(cached.indicators?.countries)){
   state.data=cached;state.extra={schema:1,feeds:{},source_health:cached.extra_health||[]};
