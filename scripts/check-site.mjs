@@ -6,6 +6,7 @@ for(const file of await readdir(root)){
  if(/\.(?:js|mjs)$/.test(file)){const r=spawnSync(process.execPath,['--check',file],{encoding:'utf8'});if(r.status)failures.push(r.stderr)}
  if(!file.endsWith('.html'))continue;
  const html=await readFile(file,'utf8');
+ if(/type=["']file["']/i.test(html))failures.push(file+': public file imports are not allowed');
  const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(x=>x[1]);
  if(new Set(ids).size!==ids.length)failures.push(file+': duplicate element IDs');
  for(const match of html.matchAll(/(?:href|src)="(\.\/[^"?#]+)(?:[^\"]*)"/g)){

@@ -1,7 +1,7 @@
 import {probability,rankCatalog} from './evidence-utils.mjs?v=c23f84ed905a';
 const $=s=>document.querySelector(s);
 const KEV_URLS=['https://raw.githubusercontent.com/cisagov/kev-data/develop/known_exploited_vulnerabilities.json','https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json'];
-let catalog=[],filtered=[],page=0,selected='',assets=[];const perPage=18;
+let catalog=[],filtered=[],page=0,selected='';const perPage=18;
 const safeText=v=>String(v??'');
 function text(el,value){el.textContent=safeText(value);}
 function node(tag,cls,content){const e=document.createElement(tag);if(cls)e.className=cls;if(content!==undefined)e.textContent=safeText(content);return e;}
@@ -27,43 +27,5 @@ window.addEventListener('popstate',()=>activateView(location.hash.slice(1),false
 activateView(location.hash.slice(1),false);
 $('#refresh').addEventListener('click',load);$('#apply').addEventListener('click',apply);$('#search').addEventListener('keydown',e=>{if(e.key==='Enter')apply()});$('#prev').addEventListener('click',()=>{page--;render()});$('#next').addEventListener('click',()=>{page++;render()});
 $('#export-intel').addEventListener('click',()=>{if(!filtered.length)return;const fields=['cveID','vendorProject','product','vulnerabilityName','dateAdded','dueDate','knownRansomwareCampaignUse','shortDescription','requiredAction'];download('nexus-kev-filtered.csv',[fields.join(','),...filtered.map(v=>fields.map(f=>csvCell(v[f])).join(','))].join('\n'),'text/csv');});
-function xmlElements(parent,tag){return [...parent.getElementsByTagName(tag)];}
-function parseNmap(source){if(source.length>12_000_000)throw Error('XML file exceeds 12 MB limit');if(/<!DOCTYPE|<!ENTITY/i.test(source))throw Error('DTD and entity declarations are not supported');const xml=new DOMParser().parseFromString(source,'application/xml');if(xml.querySelector('parsererror'))throw Error('Invalid XML');if(xml.documentElement.tagName!=='nmaprun')throw Error('Expected Nmap XML root <nmaprun>');return [...xml.documentElement.children].filter(e=>e.tagName==='host').slice(0,2000).map(host=>{const addr=[...host.children].find(e=>e.tagName==='address'&&e.getAttribute('addrtype')==='ipv4')||host.querySelector('address');const ports=[...host.getElementsByTagName('port')].filter(p=>p.querySelector('state')?.getAttribute('state')==='open').slice(0,1000).map(p=>{const svc=p.querySelector('service');return {port:p.getAttribute('portid'),protocol:p.getAttribute('protocol'),name:svc?.getAttribute('name')||'unknown',product:svc?.getAttribute('product')||'',version:svc?.getAttribute('version')||''};});return {address:addr?.getAttribute('addr')||'unknown',ports};});}
-$('#nmap-file').addEventListener('change',async e=>{const file=e.target.files?.[0];if(!file)return;try{assets=parseNmap(await file.text());text($('#import-status'),'Imported '+assets.length+' hosts locally. No data uploaded.');renderAssets();}catch(err){assets=[];renderAssets();text($('#import-status'),'Import error: '+err.message);}});
-function renderAssets(){text($('#asset-hosts'),assets.length);text($('#asset-ports'),assets.reduce((n,h)=>n+h.ports.length,0));const box=$('#assets');box.replaceChildren();if(!assets.length){box.append(node('div','placeholder','No scan imported.'));return;}for(const host of assets){const wrap=node('div','asset');wrap.append(node('strong','',host.address),node('p','',host.ports.length+' open ports'));for(const service of host.ports){const b=node('button','service',service.port+'/'+service.protocol+' — '+service.name+' '+service.product+' '+service.version);b.addEventListener('click',()=>{const research=$('#research');research.replaceChildren();research.append(node('h3','',host.address+' / '+service.port+'/'+service.protocol),node('p','small','Observed service: '+service.name+' '+service.product+' '+service.version));const p=node('p','small','This is service fingerprint evidence, not vulnerability verification. Research vendor advisories and affected version ranges before drawing conclusions.');research.append(p);const search='https://nvd.nist.gov/vuln/search/results?query='+encodeURIComponent([service.product,service.version].filter(Boolean).join(' ')||service.name)+'&search_type=all';externalLink(research,'Research matching NVD advisories ↗',search);});wrap.append(b);}box.append(wrap);}}
-$('#export-assets').addEventListener('click',()=>{if(assets.length)download('nexus-assets.json',JSON.stringify({source:'local Nmap XML import',exportedAt:new Date().toISOString(),assets},null,2),'application/json');});
-load();
 
-let activeReport=null;
-function normalizeActiveReport(raw){
- if(!raw||raw.tool!=='NEXUS scoped active audit'||!Array.isArray(raw.targets)||raw.targets.length>32)throw Error('Not a supported NEXUS scan report');
- for(const t of raw.targets){if(typeof t.ip!=='string'||!Array.isArray(t.ports)||!Array.isArray(t.checks))throw Error('Malformed scan record');}
- return raw;
-}
-function renderActiveReport(report){
- const box=$('#scan-findings');box.replaceChildren();
- for(const target of report.targets){
-  const section=node('div','asset');section.append(node('strong','',target.ip));
-  for(const p of target.ports.filter(x=>x.state==='open'))section.append(node('p','small','OPEN TCP '+p.port));
-  for(const check of target.checks){
-   if(check.check==='http_headers'){
-    section.append(node('p','small','HTTP '+check.port+': '+(check.status_code||check.error||'unknown')));
-    for(const finding of check.findings||[])section.append(node('p','small',finding.check+': '+finding.status+' (observed configuration, not verified CVE)'));
-   }else if(check.check==='tls_negotiation'){
-    section.append(node('p','small','TLS '+check.port+': '+check.status+' '+(check.evidence?.version||'')));
-   }else if(check.check==='cve_probe'){
-    section.append(node('p','small',check.cve+': '+check.status+' — '+(check.reason||'')));
-   }
-  }
-  box.append(section);
- }
-}
-$('#scan-file').addEventListener('change',async event=>{
- const file=event.target.files?.[0];if(!file)return;
- try{
-  if(file.size>3_000_000)throw Error('Report exceeds 3 MB');
-  const report=normalizeActiveReport(JSON.parse(await file.text()));
-  activeReport=report;renderActiveReport(report);
-  text($('#scan-status'),'Loaded '+report.targets.length+' targets from active scan report. Evidence is displayed locally; no upload.');
- }catch(error){activeReport=null;$('#scan-findings').replaceChildren();text($('#scan-status'),'Report import error: '+error.message);}
-});
+load();

@@ -19,13 +19,15 @@ The public website keeps the NEXUS identity and existing research functions, wit
 - Published missing licensed IOC lookup shards and full cleaned KEV records. The collector workflow now commits these generated files.
 - Explicit Pages publication follows both code pushes and successful scheduled collections. This avoids the GitHub restriction whereby GITHUB_TOKEN commits do not trigger a branch Pages build. Public deployment packages exclude test fixtures, build dependencies and backend code.
 
+- File-import controls and their browser parsing code were removed from the public site at the owner’s request. Exposure Lens now uses typed package identifiers. The assessment page provides guidance without accepting reports.
+
 ## Verification
 
 - 43 existing Python regression tests passed locally.
 - 10 JavaScript regression tests passed (including supplemental loading, probability formatting, exact CVE ordering, graph controls and lookup/export boundaries).
 - JavaScript syntax, local links, metadata, CSP and data-index consistency checked.
 - npm dependency audit reported zero known vulnerabilities at verification time.
-- Browser checks cover desktop and 390-pixel phone layouts, country search/focus, catalog filtering, CVE research, graph controls, local lookup and generated Nmap/SBOM import fixtures.
+- Browser checks cover desktop and 390-pixel phone layouts, country search/focus, catalog filtering, CVE research, graph controls, local lookup and typed package-version research.
 - Automated axe checks were used to identify and fix accessibility defects. Automated checks do not constitute full screen-reader or WCAG certification.
 
 ## Operating boundaries
