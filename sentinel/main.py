@@ -82,7 +82,7 @@ def sentinel_dashboard():
 
 @app.get("/{asset_name}")
 def public_asset(asset_name: str):
-    allowed = {"radar.js", "radar-plus.js", "radar-extras.js", "radar.css", "intel.html", "app.js", "styles.css",
+    allowed = {"radar.js", "radar-plus.js", "radar-extras.js", "collection-clock.mjs", "radar.css", "intel.html", "app.js", "styles.css",
                "radar-methodology.html", "index.html"}
     if asset_name not in allowed:
         raise HTTPException(status_code=404, detail="Asset not found")
