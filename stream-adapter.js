@@ -9,7 +9,7 @@ const target=document.getElementById('live-content');target.replaceChildren(root
 const $=id=>root.querySelector('#'+id);
 const api=String(STREAM_API||'').replace(/\/+$/,'');
 let ws=null,retry=1000,timer=null,replaying=false,pending=[],coverageGap=false;
-const active=()=>!document.hidden&&document.getElementById('live-intelligence').open;
+const active=()=>!document.hidden&&document.getElementById('live-intelligence').open&&document.getElementById('legacy-live-updates').open;
 const cursorKey='nexus-stream-seq:'+api;
 let last=Number(sessionStorage.getItem(cursorKey)||0);
 if(!Number.isSafeInteger(last)||last<0)last=0;
@@ -133,3 +133,6 @@ if(/^https:\/\//.test(api) && !api.includes('stream.example.com')){
 function visibility(){clearTimeout(timer);if(active()){connect();windows();snapshots()}else{ws?.close();report('PAUSED — reopen Live updates to reconnect')}}
 document.addEventListener('visibilitychange',visibility);
 document.getElementById('live-intelligence').addEventListener('toggle',visibility);
+
+document.getElementById('legacy-live-updates').addEventListener('toggle',visibility);
+

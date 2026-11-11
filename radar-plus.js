@@ -74,6 +74,7 @@ function draw(){if(!state.d3||!state.world)return;const d3=state.d3,p=state.proj
   marker.on('click',event=>{event.stopPropagation();select(row.code)})
         .on('mousemove',event=>showTip(event,row.code)).on('mouseleave',hideTip);
  }
+ positionLiveRings();
 }
 function rankings(){if(!$('#country-list').open)return;const pane=$('#rankings');pane.replaceChildren();const all=countries();
  if(!all.length){pane.append(create('div','empty-state',layerAvailable()?'No country entries appeared in this source layer.':'SOURCE UNAVAILABLE — no data available for this layer.'));return;}
@@ -777,3 +778,34 @@ matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',()=>{if
 
 $('#choose-country').addEventListener('click',openSearch);
 for(const id of ['country-list','research-context','coverage'])$('#'+id).addEventListener('toggle',()=>{if($('#'+id).open&&state.data)render()});
+
+// Each ring comes from the validated live adapter; never from timers or snapshots.
+const liveRings=new Map(),liveNS='http://www.w3.org/2000/svg';
+let liveLayer=null;
+function positionLiveRings(){
+ if(!state.projection||!state.d3)return;
+ const center=state.projection.rotate().map(v=>-v);
+ for(const {node,point} of liveRings.values()){
+  const xy=state.projection(point),visible=state.d3.geoDistance(point,center)<Math.PI/2-.02;
+  node.style.display=visible?'':'none';
+  if(xy){node.setAttribute('cx',xy[0]);node.setAttribute('cy',xy[1]);}
+ }
+}
+function removeLiveRing(id){const ring=liveRings.get(id);if(!ring)return;clearTimeout(ring.timer);ring.node.remove();liveRings.delete(id)}
+document.addEventListener('nexus:live-clear',e=>{for(const [id,ring] of liveRings)if(!e.detail?.source||ring.source===e.detail.source)removeLiveRing(id)});
+document.addEventListener('nexus:live-observation',e=>{
+ const item=e.detail;
+ if(document.hidden||!document.getElementById('live-intelligence').open||!item?.country||!state.d3||!state.byCode.has(item.country))return;
+ if(liveRings.has(item.id))return;
+ if(liveRings.size>=30){document.dispatchEvent(new CustomEvent('nexus:live-omitted'));return;}
+ if(!liveLayer){liveLayer=document.createElementNS(liveNS,'g');liveLayer.id='live-signals-layer';liveLayer.setAttribute('aria-label','Live signals, separate from snapshot indicators');DOM.svg.append(liveLayer)}
+ const node=document.createElementNS(liveNS,'circle'),title=document.createElementNS(liveNS,'title');
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ node.setAttribute('class','live-signal-ring'+(reduced?' ls-static':''));node.setAttribute('r','15');node.setAttribute('tabindex','0');node.setAttribute('role','button');node.dataset.source=item.source;
+ node.setAttribute('aria-label',item.label+' · '+item.country+' · open source evidence');title.textContent=item.label+' · '+item.country;node.append(title);
+ const choose=event=>{event.stopPropagation();document.dispatchEvent(new CustomEvent('nexus:live-select',{detail:{id:item.id}}))};node.addEventListener('click',choose);node.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();choose(event)}});
+ liveLayer.append(node);liveRings.set(item.id,{node,source:item.source,point:state.d3.geoCentroid(state.byCode.get(item.country)),timer:setTimeout(()=>removeLiveRing(item.id),8000)});positionLiveRings();
+});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)for(const id of liveRings.keys())removeLiveRing(id)});
+matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',()=>{for(const id of liveRings.keys())removeLiveRing(id)});
+
