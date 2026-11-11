@@ -1,6 +1,14 @@
 services:
   db:
     image: postgres:16-alpine
+    restart: unless-stopped
+    mem_limit: 256m
+    cpus: 0.50
+    shm_size: 64m
+    command: ["postgres", "-c", "shared_buffers=48MB", "-c", "work_mem=2MB", "-c", "maintenance_work_mem=24MB", "-c", "max_connections=20", "-c", "max_wal_size=128MB", "-c", "min_wal_size=32MB", "-c", "log_min_duration_statement=1000"]
+    logging:
+      driver: json-file
+      options: {max-size: "5m", max-file: "2"}
     environment:
       POSTGRES_DB: nexus
       POSTGRES_USER: nexus
@@ -14,6 +22,16 @@ services:
       retries: 12
   api:
     build: .
+    mem_limit: 256m
+    cpus: 0.65
+    pids_limit: 80
+    read_only: true
+    tmpfs: ["/tmp:size=16m"]
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: ["ALL"]
+    logging:
+      driver: json-file
+      options: {max-size: "5m", max-file: "2"}
     env_file: .env
     environment:
       DATABASE_URL: postgresql://nexus:${POSTGRES_PASSWORD}@db:5432/nexus
@@ -23,5 +41,10 @@ services:
       db:
         condition: service_healthy
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/ready',timeout=5)"]
+      interval: 30s
+      timeout: 6s
+      retries: 3
 volumes:
   pgdata:

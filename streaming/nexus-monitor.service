@@ -1,0 +1,6 @@
+[Unit]
+Description=NEXUS local resource and readiness probe
+After=nexus.service
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c 'curl --fail --max-time 10 --silent http://127.0.0.1:8000/api/ready; free -m; df -h /; /usr/bin/docker stats --no-stream --format "{{.Name}} {{.MemUsage}} {{.CPUPerc}}"'

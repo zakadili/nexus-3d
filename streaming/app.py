@@ -4,6 +4,7 @@ from contextlib import asynccontextmanager, suppress
 from datetime import datetime, timezone
 from urllib.parse import urlsplit
 import asyncpg, httpx
+import operations
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from websockets.asyncio.client import connect
@@ -22,6 +23,9 @@ pool=None
 listeners=set()
 tasks=[]
 broadcast=asyncio.Queue(maxsize=10000)
+token_cache=None
+token_lock=asyncio.Lock()
+ingest_lock=asyncio.Lock()
 
 def timestamp(value):
     if isinstance(value,(float,int)):
@@ -59,14 +63,23 @@ async def gap(feed,first,last,reason):
             await db.execute("INSERT INTO feed_state(feed_source,state,gap_count,degraded_reason) VALUES($1,'degraded',1,$2) ON CONFLICT(feed_source) DO UPDATE SET state='degraded',gap_count=feed_state.gap_count+1,degraded_reason=$2",feed,reason)
 
 async def ingest(feed,uid,idx,source_ts,action,threat,indicator,raw):
+    # Preserve committed sequence order across independent source tasks.
+    async with ingest_lock:
+        return await _ingest(feed,uid,idx,source_ts,action,threat,indicator,raw)
+
+async def _ingest(feed,uid,idx,source_ts,action,threat,indicator,raw):
     """Observation and source cursor are committed in one DB transaction."""
     indicator=str(indicator)[:2048] if indicator is not None else None
     ip=ip_literal(indicator)
+    encoded=json.dumps(raw)
+    if len(encoded.encode())>8192:
+        encoded=json.dumps({'payload_omitted':True,'reason':'8 KiB storage limit',
+            'sha256':hashlib.sha256(encoded.encode()).hexdigest()})
     async with pool.acquire() as db:
         async with db.transaction():
             row=await db.fetchrow("""INSERT INTO observations(event_id,feed_source,upstream_idx,source_ts,action,threat_type,indicator,indicator_ip,raw_payload)
               VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9::jsonb) ON CONFLICT DO NOTHING
-              RETURNING seq,received_at""",uid,feed,idx,source_ts,action,threat,indicator,ip,json.dumps(raw))
+              RETURNING seq,received_at""",uid,feed,idx,source_ts,action[:128],threat[:128],indicator,ip,encoded)
             await db.execute("""INSERT INTO feed_state(feed_source,state,last_idx,last_event_at,last_received_at,last_success_at)
               VALUES($1,'connected',$2,$3,now(),now())
               ON CONFLICT(feed_source) DO UPDATE SET
@@ -84,23 +97,32 @@ async def ingest(feed,uid,idx,source_ts,action,threat,indicator,raw):
         except asyncio.QueueFull: log.error("Broadcast queue full: replay remains durable")
 
 async def auth_token():
+    global token_cache
     if os.getenv("SPAMHAUS_TOKEN"): return os.environ["SPAMHAUS_TOKEN"]
     user,pw=os.getenv("SPAMHAUS_USER"),os.getenv("SPAMHAUS_PASSWORD")
     if not user or not pw: raise RuntimeError("Spamhaus credentials missing")
-    async with httpx.AsyncClient(timeout=20) as c:
-        r=await c.post("https://api.spamhaus.org/api/v1/login",json={"username":user,"password":pw,"realm":"abusert"})
-        r.raise_for_status()
-        return r.json()["token"]
+    async with token_lock:
+        if token_cache and token_cache[1]>time.time()+300: return token_cache[0]
+        async with httpx.AsyncClient(timeout=20) as c:
+            r=await c.post("https://api.spamhaus.org/api/v1/login",json={"username":user,"password":pw,"realm":"abusert"})
+            r.raise_for_status()
+            data=r.json()
+            token_cache=(data['token'],float(data.get('expires',time.time()+3600)))
+            return token_cache[0]
 
 async def upstream(feed):
     backoff=1
     while True:
+        if not (os.getenv('SPAMHAUS_TOKEN') or (os.getenv('SPAMHAUS_USER') and os.getenv('SPAMHAUS_PASSWORD'))):
+            await health(feed,'credentials_required',degraded='Authorized Spamhaus Real-Time Feed credentials not configured')
+            await asyncio.sleep(300)
+            continue
         try:
             token=await auth_token()
             await health(feed,"connecting")
             async with connect("wss://rt.spamhaus.net/streams/v1/abuse.ch/"+feed,
                     additional_headers={"Authorization":"Bearer "+token},
-                    ping_interval=20,ping_timeout=20,open_timeout=20) as ws:
+                    ping_interval=20,ping_timeout=20,open_timeout=20,max_size=65536,max_queue=16) as ws:
                 await ws.send("status")
                 status=await asyncio.wait_for(ws.recv(),timeout=15)
                 m=re.fullmatch(r"status\s+(\d+)\s+(\d+)",str(status).strip())
@@ -111,6 +133,10 @@ async def upstream(feed):
                 elif int(last)+1<oldest:
                     await gap(feed,int(last)+1,oldest-1,"Upstream cursor expired; missing messages cannot be recovered")
                     command=f"resume {oldest}"
+                elif int(last)>newest:
+                    await gap(feed,None,None,'Provider cursor reset; automatic recovery requires operator review')
+                    await asyncio.sleep(300)
+                    continue
                 elif int(last)<newest: command=f"resume {int(last)+1}"
                 else: command="start"
                 await ws.send(command)
@@ -140,35 +166,44 @@ async def upstream(feed):
 async def collect_ioda():
     while True:
         try:
-            await health("ioda","connecting")
+            await health('ioda','connecting')
+            now=int(time.time())
+            async with pool.acquire() as db:
+                last=await db.fetchval("SELECT until_ts FROM collector_checkpoints WHERE source='ioda'")
+            start=max(now-3600,int(last)-300) if last else now-900
+            if last and last<now-3600:
+                await gap('ioda',None,None,'Polling outage exceeded one-hour recovery lookback; historical coverage incomplete')
+            incomplete=False
             async with httpx.AsyncClient(timeout=30) as client:
-                now=int(time.time())
-                r=await client.get(IODA,params={"from":now-900,"until":now,"limit":1000,"page":0})
-                if r.status_code==429:
-                    await health("ioda","degraded","Rate limited","Backoff required")
-                    delay=int(r.headers.get("Retry-After","180"))
-                    await asyncio.sleep(max(30,min(delay,3600)))
-                    continue
-                r.raise_for_status()
-                payload=r.json()
-            entries=payload.get("data",[]) if isinstance(payload,dict) else payload
-            if not isinstance(entries,list): raise ValueError("IODA response schema changed")
-            if len(entries)>=1000:
-                await health("ioda","degraded",degraded="Response cap reached; pagination required, coverage not complete")
-            else: await health("ioda","connected")
-            for item in entries:
-                if not isinstance(item,dict): continue
-                ent=item.get("entity") or {}
-                key=json.dumps(item,sort_keys=True,default=str)
-                uid="ioda:"+hashlib.sha256(key.encode()).hexdigest()
-                await ingest("ioda",uid,None,timestamp(item.get("time") or item.get("start")),
-                    "connectivity_alert","internet-disruption-observation",
-                    ent.get("code") if isinstance(ent,dict) else None,item)
+                for page in range(5):
+                    r=await client.get(IODA,params={'from':start,'until':now,'limit':1000,'page':page})
+                    r.raise_for_status()
+                    payload=r.json()
+                    entries=payload.get('data',[]) if isinstance(payload,dict) else payload
+                    if not isinstance(entries,list): raise ValueError('IODA response schema changed')
+                    for item in entries:
+                        if not isinstance(item,dict): raise ValueError('Invalid IODA alert')
+                        ent=item.get('entity') or {}
+                        uid='ioda:'+hashlib.sha256(json.dumps(item,sort_keys=True,default=str).encode()).hexdigest()
+                        await ingest('ioda',uid,None,timestamp(item.get('time') or item.get('start')),
+                            'connectivity_alert','internet-disruption-observation',
+                            ent.get('code') if isinstance(ent,dict) else None,item)
+                    if len(entries)<1000: break
+                    if page==4: incomplete=True
+            if incomplete:
+                await gap('ioda',None,None,'5000-record polling cap reached; coverage incomplete')
+                await health('ioda','degraded',degraded='Polling cap reached; coverage incomplete')
+            else:
+                await health('ioda','connected')
+            async with pool.acquire() as db:
+                await db.execute("INSERT INTO collector_checkpoints(source,until_ts) VALUES('ioda',$1) ON CONFLICT(source) DO UPDATE SET until_ts=$1",now)
         except asyncio.CancelledError: raise
         except Exception as exc:
-            await health("ioda","degraded",str(exc)[:300])
-            log.warning("IODA: %s",exc)
+            error=(str(exc) or type(exc).__name__)[:300]
+            await health('ioda','degraded',error)
+            log.warning('IODA: %s',error)
         await asyncio.sleep(IODA_INTERVAL)
+
 
 async def collect_kev():
     while True:
@@ -236,17 +271,20 @@ async def broadcast_pump():
 @asynccontextmanager
 async def lifespan(app):
     global pool
-    pool=await asyncpg.create_pool(DB,min_size=1,max_size=8)
-    for feed in (*FEEDS,"ioda","cisa_kev"): await health(feed,"initializing")
+    pool=await asyncpg.create_pool(DB,min_size=1,max_size=4,command_timeout=15)
+    async with pool.acquire() as db: await db.execute(operations.SCHEMA)
+    for feed in (*FEEDS,"ioda","cisa_kev","first_epss"): await health(feed,"initializing")
     tasks.extend([asyncio.create_task(upstream(f)) for f in FEEDS])
     tasks.extend([asyncio.create_task(collect_ioda()),asyncio.create_task(collect_kev()),asyncio.create_task(broadcast_pump())])
+    tasks.extend([asyncio.create_task(operations.maintenance(pool,PUBLIC)),asyncio.create_task(operations.epss(pool,health))])
     try: yield
     finally:
         for task in tasks: task.cancel()
         await asyncio.gather(*tasks,return_exceptions=True)
         await pool.close()
 
-app=FastAPI(title="NEXUS streaming intelligence",lifespan=lifespan)
+app=FastAPI(title="NEXUS streaming intelligence",lifespan=lifespan,docs_url=None,redoc_url=None,openapi_url=None)
+operations.install(app,lambda:pool,PUBLIC)
 app.add_middleware(CORSMiddleware,allow_origins=ORIGINS,allow_methods=["GET"],allow_headers=["*"])
 
 @app.get("/api/health")
@@ -258,6 +296,7 @@ async def api_health():
 async def api_events(after:int=0,limit:int=300):
     events=await fetch_events(max(0,after),min(max(1,limit),500))
     return {"events":events,"next_after_seq":events[-1]["seq"] if events else after,
+            **(await operations.replay_coverage(pool,after,PUBLIC)),
             "has_more":len(events)>=min(max(1,limit),500)}
 
 @app.get("/api/windows")
@@ -277,22 +316,40 @@ async def socket(ws:WebSocket):
     if ws.headers.get("origin") not in ORIGINS:
         await ws.close(code=1008)
         return
+    if len(listeners)>=32 or not app.state.allow_request(ws.headers.get('x-real-ip') or ws.client.host,60):
+        await ws.close(code=1013)
+        return
     await ws.accept()
     listeners.add(ws)
+    requests=[]
     try:
         await ws.send_json({"type":"health",**(await api_health())})
         while True:
             try: msg=await asyncio.wait_for(ws.receive_json(),timeout=15)
+            except ValueError:
+                await ws.send_json({'type':'error','message':'Invalid JSON'})
+                continue
             except asyncio.TimeoutError:
                 await ws.send_json({"type":"health",**(await api_health())})
+                continue
+            requests=[t for t in requests if t>time.monotonic()-60]
+            if len(requests)>=60:
+                await ws.close(code=1008)
+                return
+            requests.append(time.monotonic())
+            if not isinstance(msg,dict):
+                await ws.send_json({'type':'error','message':'Expected JSON object'})
                 continue
             if msg.get("type")=="resume":
                 after=msg.get("after_seq",0)
                 if type(after)!=int or after<0: after=0
-                ev=await fetch_events(after,min(max(1,int(msg.get("limit",300))),500))
+                limit=msg.get('limit',300)
+                if type(limit)!=int: limit=300
+                limit=min(max(1,limit),500)
+                ev=await fetch_events(after,limit)
                 await ws.send_json({"type":"replay","events":ev,
                     "next_after_seq":ev[-1]["seq"] if ev else after,
-                    "has_more":len(ev)>=min(max(1,int(msg.get("limit",300))),500)})
+                    "has_more":len(ev)>=limit,**(await operations.replay_coverage(pool,after,PUBLIC))})
             elif msg.get("type")=="upstream_cursor":
                 feed=msg.get("feed")
                 idx=msg.get("idx")

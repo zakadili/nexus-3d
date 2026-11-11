@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: '22'
       - name: Compile Python
-        run: python -m py_compile streaming/app.py
+        run: python -m py_compile streaming/app.py streaming/operations.py streaming/test_integration.py
       - name: Check Javascript syntax
         run: |
           node --check stream-adapter.js
@@ -39,3 +39,14 @@ jobs:
         run: |
           cp streaming/.env.example streaming/.env
           docker compose -f streaming/docker-compose.yml --project-directory streaming config --quiet
+      - name: Test database durability, replay, limits and WebSockets
+        working-directory: streaming
+        env:
+          POSTGRES_PASSWORD: ci_not_real
+        run: |
+          docker compose up -d --build --wait
+          docker compose exec -T api python test_integration.py
+      - name: Stop test services
+        if: always()
+        working-directory: streaming
+        run: docker compose down
