@@ -1,9 +1,18 @@
 {$NEXUS_HOST:nexus-193-26-115-37.sslip.io} {
-    encode zstd gzip
+    @compressible not path /api/live/events
+    encode @compressible zstd gzip
     header {
         X-Content-Type-Options nosniff
         Referrer-Policy no-referrer
         Strict-Transport-Security "max-age=31536000"
+    }
+    # No buffering, transformation, compression or access logging of live traffic.
+    @live path /api/live/events /api/live/evidence/*
+    handle @live {
+        reverse_proxy 127.0.0.1:8000 {
+            flush_interval -1
+            header_up X-Real-IP {remote_host}
+        }
     }
     @public path /api/health /api/ready /api/events /api/windows /api/references /api/public-snapshots /ws/live
     handle @public {
@@ -14,6 +23,7 @@
     handle {
         respond "Not found" 404
     }
+    log_skip @live
     log {
         output file /var/log/caddy/nexus-access.log {
             roll_size 5MiB
@@ -22,3 +32,4 @@
         }
     }
 }
+

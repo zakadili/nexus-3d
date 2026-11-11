@@ -6,6 +6,7 @@ from urllib.parse import urlsplit
 import asyncpg, httpx
 import operations
 import public_feeds
+import live_signals
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from websockets.asyncio.client import connect
@@ -18,7 +19,8 @@ IODA="https://api.ioda.inetintel.cc.gatech.edu/v2/outages/alerts"
 KEV="https://raw.githubusercontent.com/cisagov/kev-data/develop/known_exploited_vulnerabilities.json"
 ORIGINS=[x.strip() for x in os.getenv("ALLOWED_ORIGINS","https://zakadili.github.io").split(",")]
 PUBLIC=os.getenv("PUBLIC_REBROADCAST","false").lower()=="true"
-IODA_INTERVAL=max(120,int(os.getenv("IODA_INTERVAL_SECONDS","180")))
+IODA_APPROVED=os.getenv("IODA_REPUBLICATION_APPROVED","false").lower()=="true"
+IODA_INTERVAL=max(300,int(os.getenv("IODA_INTERVAL_SECONDS","300")))
 KEV_INTERVAL=max(3600,int(os.getenv("KEV_INTERVAL_SECONDS","86400")))
 pool=None
 listeners=set()
@@ -27,6 +29,21 @@ broadcast=asyncio.Queue(maxsize=10000)
 token_cache=None
 token_lock=asyncio.Lock()
 ingest_lock=asyncio.Lock()
+live_hub=live_signals.LiveHub(os.getenv('LIVE_PUBLIC_BASE_URL','https://nexus-193-26-115-37.sslip.io'))
+
+async def collect_live_bgp():
+    # Invalid operator configuration disables this layer, not existing snapshots.
+    try:
+        from live_bgp import BGPConfig, BGPCollector, ASNMap
+        config=BGPConfig.from_env()
+        mapping=ASNMap.load(config.mapping_path) if config.mapping_path and not config.gate else ASNMap()
+        await BGPCollector(config,mapping).run(live_hub.publish,live_hub.update_source)
+    except asyncio.CancelledError:
+        raise
+    except Exception:
+        # Never log source payloads, paths, credentials or provider exception text.
+        live_hub.update_source('ris_live',status='unavailable',complete=False,
+                               reason='Live BGP configuration or collector failed; operator review required')
 
 def parse_status(message,feed):
     # Current provider replies include the feed name; older replies omitted it.
@@ -94,7 +111,7 @@ async def _ingest(feed,uid,idx,source_ts,action,threat,indicator,raw):
               last_idx=CASE WHEN EXCLUDED.last_idx IS NULL THEN feed_state.last_idx ELSE GREATEST(feed_state.last_idx,EXCLUDED.last_idx) END,
               last_event_at=$3,last_received_at=now(),last_success_at=now(),
               last_error=NULL""",feed,idx,source_ts)
-    if row and (PUBLIC or feed not in FEEDS):
+    if row and (PUBLIC or feed not in FEEDS) and (feed!='ioda' or IODA_APPROVED):
         event=dict(seq=row["seq"],event_id=uid,feed_source=feed,kind="snapshot" if action=='snapshot_baseline' else "observed",action=action,
                    threat_type=threat,indicator=indicator,indicator_ip=ip,
                    source_ts=source_ts.isoformat() if source_ts else None,received_at=row["received_at"].isoformat(),
@@ -169,6 +186,9 @@ async def upstream(feed):
             backoff=min(backoff*2,300)
 
 async def collect_ioda():
+    if not IODA_APPROVED:
+        await health('ioda','license_blocked',degraded='Public republication permission has not been established')
+        return
     while True:
         try:
             await health('ioda','connecting')
@@ -243,9 +263,10 @@ async def fetch_events(after=0,limit=300,feed=None,recent=False):
             indicator,indicator_ip,country_code,asn,enrichment_source,assessment
             FROM observations WHERE seq>$1 AND ($3::text IS NULL OR feed_source=$3)
             AND ($4::boolean OR feed_source NOT IN ('urlhaus','threatfox','Feodotracker'))
+            AND ($5::boolean OR feed_source<>'ioda')
             ORDER BY seq LIMIT $2"""
         if recent: q=q.replace('ORDER BY seq LIMIT $2','ORDER BY seq DESC LIMIT $2')
-        rows=await db.fetch(q,after,limit,feed,PUBLIC)
+        rows=await db.fetch(q,after,limit,feed,PUBLIC,IODA_APPROVED)
         if recent: rows=list(reversed(rows))
         return [dict(serialize(r),kind="snapshot" if r['action']=='snapshot_baseline' else "observed") for r in rows]
 
@@ -285,19 +306,24 @@ async def lifespan(app):
     tasks.extend([asyncio.create_task(collect_ioda()),asyncio.create_task(collect_kev()),asyncio.create_task(broadcast_pump())])
     tasks.extend([asyncio.create_task(operations.maintenance(pool,PUBLIC)),asyncio.create_task(operations.epss(pool,health))])
     tasks.append(asyncio.create_task(public_feeds.collect(pool,health,ingest,gap)))
+    tasks.append(asyncio.create_task(collect_live_bgp()))
     try: yield
     finally:
         for task in tasks: task.cancel()
         await asyncio.gather(*tasks,return_exceptions=True)
+        for client in tuple(live_hub.clients): live_hub.remove(client)
+        tasks.clear()
         await pool.close()
 
 app=FastAPI(title="NEXUS streaming intelligence",lifespan=lifespan,docs_url=None,redoc_url=None,openapi_url=None)
 operations.install(app,lambda:pool,PUBLIC)
 app.add_middleware(CORSMiddleware,allow_origins=ORIGINS,allow_methods=["GET"],allow_headers=["*"])
+live_signals.install(app,live_hub,tuple(x.strip() for x in os.getenv('LIVE_TRUSTED_PROXY_IPS','127.0.0.1,::1').split(',') if x.strip()))
 
 @app.get("/api/health")
 async def api_health():
     return {"feeds":await snapshot_health(),"public_feed_rebroadcast":PUBLIC,
+            "live_signals":live_hub.health(),
             "publishable_sources":public_feeds.SOURCES,
             "disclaimer":"Feed records are not attacks observed by NEXUS. No arrival does not imply zero activity."}
 
@@ -330,7 +356,8 @@ async def api_windows():
           COUNT(*) FILTER(WHERE received_at>now()-interval '60 minutes') AS last_60m
           FROM observations WHERE received_at>now()-interval '60 minutes' AND action<>'snapshot_baseline'
           AND ($1::boolean OR feed_source NOT IN ('urlhaus','threatfox','Feodotracker'))
-          GROUP BY feed_source""",PUBLIC)
+          AND ($2::boolean OR feed_source<>'ioda')
+          GROUP BY feed_source""",PUBLIC,IODA_APPROVED)
     return {"windows":[dict(r) for r in rows],"measure":"feed record arrivals, not attacks"}
 
 @app.websocket("/ws/live")
@@ -389,3 +416,4 @@ async def socket(ws:WebSocket):
                 await ws.send_json({"type":"upstream_replay","events":[dict(serialize(r),kind="observed") for r in rows]})
     except (WebSocketDisconnect,RuntimeError): pass
     finally: listeners.discard(ws)
+

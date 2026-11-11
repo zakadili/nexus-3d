@@ -26,7 +26,11 @@ jobs:
         with:
           node-version: '22'
       - name: Compile Python
-        run: python -m py_compile streaming/app.py streaming/operations.py streaming/test_integration.py
+        run: python -m py_compile streaming/*.py
+      - name: Test bounded live collectors and API without external feeds
+        run: |
+          python -m pip install -r streaming/requirements.txt
+          python -m unittest discover -s streaming -p 'test_live*.py' -v
       - name: Check Javascript syntax
         run: |
           node --check stream-adapter.js
@@ -55,3 +59,4 @@ jobs:
         env:
           POSTGRES_PASSWORD: ci_not_real
         run: docker compose down
+

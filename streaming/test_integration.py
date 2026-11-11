@@ -43,7 +43,10 @@ async def main():
             assert await db.fetchval('SELECT count(*) FROM observations')==1
             assert await db.fetchval("SELECT last_idx FROM feed_state WHERE feed_source='urlhaus'")==101
         assert await backend.fetch_events()==[], 'Restricted feed leaked'
-        await backend.ingest('ioda','fixture-public',None,now,'test','test',None,{'test_fixture':True})
+        await backend.ingest('ioda','fixture-permission-blocked',None,now,'test','test',None,{'test_fixture':True})
+        assert await backend.fetch_events()==[], 'Unapproved IODA data leaked through replay'
+        assert (await backend.api_windows())['windows']==[], 'Unapproved IODA counts leaked'
+        await backend.ingest('phishdestroy','fixture-public',None,now,'test','test',None,{'test_fixture':True})
         rows=await backend.fetch_events()
         assert len(rows)==1 and rows[0]['kind']=='observed'
         seq=rows[0]['seq']
@@ -87,7 +90,7 @@ async def main():
                 await ws.send(json.dumps({'type':'resume','after_seq':0,'limit':'bad'}))
                 message=json.loads(await ws.recv())
                 assert message['type']=='replay' and len(message['events'])==1
-                await backend.ingest('ioda','fixture-ws',None,now,'test','test',None,{'test_fixture':True})
+                await backend.ingest('phishdestroy','fixture-ws',None,now,'test','test',None,{'test_fixture':True})
                 message=json.loads(await asyncio.wait_for(ws.recv(),10))
                 assert message['type']=='events' and any(e['event_id']=='fixture-ws' for e in message['events'])
             async with connect('ws://127.0.0.1:8766/ws/live',origin='https://zakadili.github.io') as ws:
@@ -126,3 +129,4 @@ async def main():
         await admin.close()
 
 if __name__=='__main__': asyncio.run(main())
+
