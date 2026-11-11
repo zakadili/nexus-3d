@@ -5,7 +5,7 @@
         Referrer-Policy no-referrer
         Strict-Transport-Security "max-age=31536000"
     }
-    @public path /api/health /api/ready /api/events /api/windows /api/references /ws/live
+    @public path /api/health /api/ready /api/events /api/windows /api/references /api/public-snapshots /ws/live
     handle @public {
         reverse_proxy 127.0.0.1:8000 {
             header_up X-Real-IP {remote_host}

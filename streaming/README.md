@@ -73,3 +73,9 @@ docker compose exec db psql -U nexus -d nexus -c   "SELECT feed_source,count(*) 
 ## Validation
 
 The GitHub Actions workflow runs Python and JavaScript syntax validation and verifies that the homepage includes the stream panel. The workflow also runs isolated PostgreSQL and WebSocket integration checks. Provider contracts, authorized live upstream replay, high load and external alerting remain outside those tests.
+
+## Public five-minute collectors
+
+PhishDestroy primary indicators (MIT, notice in PHISHDESTROY-LICENSE.txt) and SSLBL certificate indicators (CC0 under abuse.ch terms section 3.4) are checked every 300 seconds plus fetch time. The initial lists are snapshots; later additions and removals are detected list changes, not attacks observed by NEXUS. SSLBL C2 is retired and excluded. Spamhaus real-time records stay private while public redistribution is disabled.
+
+`GET /api/public-snapshots` returns bounded samples, source licensing, current list sizes and last-check timestamps. It never returns private feed records. `GET /api/events?recent=true&limit=45` bootstraps recent public history on every page load, independently of the saved WebSocket resume cursor. Initial snapshot samples do not inflate arrival counters. Current lists refresh in the browser every minute; upstream polling is five minutes and does not guarantee upstream publication frequency.
