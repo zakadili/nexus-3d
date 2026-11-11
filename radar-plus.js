@@ -1,4 +1,5 @@
 import {buildExtrasUI} from './radar-extras.js';
+import {remainingToCollection} from './collection-clock.mjs';
 // NEXUS V2: country-level IP indicator observatory + CISA KEV priority + ENISA sectors.
 // Data comes only from the scheduled snapshot; no demonstration data is invented.
 const $=s=>document.querySelector(s);
@@ -696,6 +697,15 @@ async function loadExtra(){
  if(state.data)render();
 }
 setInterval(updateTimestamp,60000);
+function updateCollectionCountdown(){
+ const countdown=remainingToCollection(Date.now());
+ const timer=document.querySelector('#next-collection');
+ const utc=document.querySelector('#collection-utc');
+ if(timer)timer.textContent=countdown.label;
+ if(utc)utc.textContent='Next scheduled: '+countdown.nextUTC.replace('.000Z','Z')+' · collection/publication may be delayed';
+}
+updateCollectionCountdown();
+setInterval(updateCollectionCountdown,1000);
 const isMac=/Mac|iPhone|iPad/.test(navigator.platform||'');
 const shortcut=document.querySelector('#shortcut-label');
 if(shortcut)shortcut.textContent=isMac?'⌘K':'Ctrl K';
