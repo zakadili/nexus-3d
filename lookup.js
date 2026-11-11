@@ -1,4 +1,4 @@
-import {MAX_LINES,processBatch,rowsCsv,downloadableIps,makeStix} from './lookup-core.mjs';
+import {MAX_LINES,processBatch,rowsCsv,downloadableIps,makeStix} from './lookup-core.mjs?v=8cbaa2a8cc4c';
 const $=s=>document.querySelector(s),state={ips:[],kev:null,extra:null,results:[],ready:false,sort:'value',desc:false};
 function el(tag,cls,text){const node=document.createElement(tag);if(cls)node.className=cls;if(text!==undefined)node.textContent=String(text);return node;}
 function message(text){$('#load-note').textContent=String(text);}

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://zakadili.github.io/nexus-3d/sitemap.xml

@@ -13092,6 +13092,7 @@
         "ransomware_observed": true,
         "epss": 0.99998,
         "epss_percentile": 0.9999,
+        "epss_date": "2026-11-10",
         "priority": 125.0,
         "cvss": {
           "score": 9.8,
@@ -13110,6 +13111,7 @@
         "ransomware_observed": true,
         "epss": 0.99999,
         "epss_percentile": 0.99994,
+        "epss_date": "2026-11-10",
         "priority": 125.0,
         "cvss": {
           "score": 9.8,
@@ -13128,6 +13130,7 @@
         "ransomware_observed": true,
         "epss": 0.99999,
         "epss_percentile": 0.99992,
+        "epss_date": "2026-11-10",
         "priority": 125.0,
         "cvss": {
           "score": 9.8,
@@ -13146,6 +13149,7 @@
         "ransomware_observed": true,
         "epss": 0.99999,
         "epss_percentile": 0.99996,
+        "epss_date": "2026-11-10",
         "priority": 125.0
       },
       {
@@ -13159,6 +13163,7 @@
         "ransomware_observed": true,
         "epss": 0.99999,
         "epss_percentile": 0.99996,
+        "epss_date": "2026-11-10",
         "priority": 125.0
       },
       {
@@ -13172,6 +13177,7 @@
         "ransomware_observed": true,
         "epss": 0.99999,
         "epss_percentile": 0.99994,
+        "epss_date": "2026-11-10",
         "priority": 125.0
       },
       {
@@ -13185,6 +13191,7 @@
         "ransomware_observed": true,
         "epss": 0.99999,
         "epss_percentile": 0.99998,
+        "epss_date": "2026-11-10",
         "priority": 125.0
       },
       {
@@ -13198,6 +13205,7 @@
         "ransomware_observed": true,
         "epss": 0.99999,
         "epss_percentile": 0.99996,
+        "epss_date": "2026-11-10",
         "priority": 125.0
       },
       {
@@ -13211,6 +13219,7 @@
         "ransomware_observed": true,
         "epss": 0.99999,
         "epss_percentile": 0.99997,
+        "epss_date": "2026-11-10",
         "priority": 125.0
       },
       {
@@ -13224,6 +13233,7 @@
         "ransomware_observed": true,
         "epss": 0.99999,
         "epss_percentile": 1.0,
+        "epss_date": "2026-11-10",
         "priority": 125.0
       },
       {
@@ -13237,6 +13247,7 @@
         "ransomware_observed": true,
         "epss": 0.99999,
         "epss_percentile": 0.99999,
+        "epss_date": "2026-11-10",
         "priority": 125.0
       },
       {
@@ -13250,6 +13261,7 @@
         "ransomware_observed": true,
         "epss": 0.99999,
         "epss_percentile": 0.99995,
+        "epss_date": "2026-11-10",
         "priority": 125.0
       },
       {
@@ -13263,6 +13275,7 @@
         "ransomware_observed": true,
         "epss": 0.99999,
         "epss_percentile": 1.0,
+        "epss_date": "2026-11-10",
         "priority": 125.0
       },
       {
@@ -13276,6 +13289,7 @@
         "ransomware_observed": true,
         "epss": 0.99995,
         "epss_percentile": 0.99988,
+        "epss_date": "2026-11-10",
         "priority": 125.0
       },
       {
@@ -13289,6 +13303,7 @@
         "ransomware_observed": true,
         "epss": 0.99999,
         "epss_percentile": 0.99991,
+        "epss_date": "2026-11-10",
         "priority": 125.0
       },
       {
@@ -13302,6 +13317,7 @@
         "ransomware_observed": true,
         "epss": 0.99994,
         "epss_percentile": 0.99988,
+        "epss_date": "2026-11-10",
         "priority": 124.99
       },
       {
@@ -13315,6 +13331,7 @@
         "ransomware_observed": true,
         "epss": 0.99991,
         "epss_percentile": 0.99985,
+        "epss_date": "2026-11-10",
         "priority": 124.99
       },
       {
@@ -13328,6 +13345,7 @@
         "ransomware_observed": true,
         "epss": 0.99987,
         "epss_percentile": 0.99983,
+        "epss_date": "2026-11-10",
         "priority": 124.99
       },
       {
@@ -13341,6 +13359,7 @@
         "ransomware_observed": true,
         "epss": 0.99992,
         "epss_percentile": 0.99986,
+        "epss_date": "2026-11-10",
         "priority": 124.99
       },
       {
@@ -13354,6 +13373,7 @@
         "ransomware_observed": true,
         "epss": 0.99991,
         "epss_percentile": 0.99985,
+        "epss_date": "2026-11-10",
         "priority": 124.99
       },
       {
@@ -13367,6 +13387,7 @@
         "ransomware_observed": true,
         "epss": 0.99987,
         "epss_percentile": 0.99984,
+        "epss_date": "2026-11-10",
         "priority": 124.99
       },
       {
@@ -13380,6 +13401,7 @@
         "ransomware_observed": true,
         "epss": 0.99993,
         "epss_percentile": 0.99987,
+        "epss_date": "2026-11-10",
         "priority": 124.99
       },
       {
@@ -13393,6 +13415,7 @@
         "ransomware_observed": true,
         "epss": 0.99977,
         "epss_percentile": 0.99979,
+        "epss_date": "2026-11-10",
         "priority": 124.98
       },
       {
@@ -13406,6 +13429,7 @@
         "ransomware_observed": true,
         "epss": 0.99977,
         "epss_percentile": 0.99979,
+        "epss_date": "2026-11-10",
         "priority": 124.98
       },
       {
@@ -13419,6 +13443,7 @@
         "ransomware_observed": true,
         "epss": 0.99984,
         "epss_percentile": 0.99983,
+        "epss_date": "2026-11-10",
         "priority": 124.98
       },
       {
@@ -13432,6 +13457,7 @@
         "ransomware_observed": true,
         "epss": 0.99984,
         "epss_percentile": 0.99982,
+        "epss_date": "2026-11-10",
         "priority": 124.98
       },
       {
@@ -13445,6 +13471,7 @@
         "ransomware_observed": true,
         "epss": 0.99984,
         "epss_percentile": 0.99983,
+        "epss_date": "2026-11-10",
         "priority": 124.98
       },
       {
@@ -13458,6 +13485,7 @@
         "ransomware_observed": true,
         "epss": 0.99984,
         "epss_percentile": 0.99982,
+        "epss_date": "2026-11-10",
         "priority": 124.98
       },
       {
@@ -13471,6 +13499,7 @@
         "ransomware_observed": true,
         "epss": 0.9998,
         "epss_percentile": 0.9998,
+        "epss_date": "2026-11-10",
         "priority": 124.98
       },
       {
@@ -13484,6 +13513,7 @@
         "ransomware_observed": true,
         "epss": 0.99978,
         "epss_percentile": 0.9998,
+        "epss_date": "2026-11-10",
         "priority": 124.98
       },
       {
@@ -13497,6 +13527,7 @@
         "ransomware_observed": true,
         "epss": 0.99981,
         "epss_percentile": 0.99981,
+        "epss_date": "2026-11-10",
         "priority": 124.98
       },
       {
@@ -13510,6 +13541,7 @@
         "ransomware_observed": true,
         "epss": 0.99981,
         "epss_percentile": 0.99981,
+        "epss_date": "2026-11-10",
         "priority": 124.98
       },
       {
@@ -13523,6 +13555,7 @@
         "ransomware_observed": true,
         "epss": 0.9997,
         "epss_percentile": 0.99977,
+        "epss_date": "2026-11-10",
         "priority": 124.97
       },
       {
@@ -13536,6 +13569,7 @@
         "ransomware_observed": true,
         "epss": 0.99965,
         "epss_percentile": 0.99976,
+        "epss_date": "2026-11-10",
         "priority": 124.97
       },
       {
@@ -13549,13 +13583,14 @@
         "ransomware_observed": true,
         "epss": 0.99969,
         "epss_percentile": 0.99977,
+        "epss_date": "2026-11-10",
         "priority": 124.97
       }
     ]
   },
   "sectors": {
     "source": "ENISA Threat Landscape 2026",
-    "source_url": "https://www.enisa.europa.eu/topics/cyber-threats/threat-landscape",
+    "source_url": "https://www.enisa.europa.eu/publications/enisa-threat-landscape-2026",
     "report_published": "2026-09-22",
     "period": "2025-01-01 / 2025-12-31",
     "scope": "EU incidents curated by ENISA",

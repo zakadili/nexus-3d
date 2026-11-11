@@ -4,7 +4,9 @@
 
 **[Launch the live demo](https://zakadili.github.io/nexus-3d/)** · [Methodology](https://zakadili.github.io/nexus-3d/radar-methodology.html)
 
-> **Screenshot / GIF placeholder:** Add a recorded country fly-to and CVE investigation demo at `assets/nexus-demo.gif`. No promotional image is claimed to exist yet.
+![NEXUS SENTINEL](./assets/social-card.png)
+
+See [public-site improvements and verification](./AUDIT-FIXES.md).
 
 **Data refreshes every six hours through GitHub Actions. This is not a real-time packet stream.**
 
@@ -15,7 +17,7 @@ A working multi-source cyber-intelligence command center: an interactive country
 ## Geographic integrity & country-level vulnerability intelligence
 
 ### Morocco geographical display and the southern territory
-For the user-facing globe, NEXUS combines the Morocco geometry (ISO numeric 504) and the adjoining Western Sahara geometry (732) into a contiguous **Morocco-focused geographical outline** using TopoJSON merge at 1:50m resolution. Western Sahara's international political status is disputed. This is a **cartographic display choice**, not a determination of sovereignty. The country statistics labeled `MA` still represent only IP addresses assigned country code `MA` by the source IP database; `EH` allocations are **not silently added**.
+For the user-facing globe, NEXUS combines the Morocco geometry (ISO numeric 504) and the adjoining Western Sahara geometry (732) into a contiguous **Morocco-focused geographical outline** using TopoJSON merge at 1:110m resolution. Western Sahara's international political status is disputed. This is a **cartographic display choice**, not a determination of sovereignty. The country statistics labeled `MA` still represent only IP addresses assigned country code `MA` by the source IP database; `EH` allocations are **not silently added**.
 
 The country camera is capped to keep the globe visible while zooming. Repeated clicks do not invoke `scrollIntoView` on the page; the selected ranking is scrolled only within its own panel.
 
@@ -76,7 +78,7 @@ The [ENISA Threat Landscape 2026](https://www.enisa.europa.eu/topics/cyber-threa
 ### Other modules
 
 - [CVE Intel](./intel.html) — searchable CISA catalog with on-demand EPSS.
-- [SENTINEL Attack Graph](./sentinel.html) — synthetic network/identity relationships and remediation simulation, backed by FastAPI.
+- [SENTINEL Attack Graph](./sentinel.html) — synthetic network/identity relationships and remediation simulation, running locally in the browser. The optional FastAPI backend remains available for local development.
 - [Scoped Active Scanner](./scanner/) — real authorized TCP/HTTP/TLS checks with explicit CIDR allowlisting.
 
 ## How the live website works
@@ -167,3 +169,7 @@ The active scanner must only be used against systems you own or have explicit wr
 The author is not responsible for any misuse of this software or for any damage, loss, or legal consequences resulting from its use. You are solely responsible for how you use it and for complying with applicable laws.
 
 Threat-intelligence data is provided for informational purposes. IP and country listings do not prove malicious ownership or attacker attribution.
+
+## Public website publication
+
+Pages uses the `Publish NEXUS website` workflow. It validates and packages public files on code pushes and after a successful intelligence collection, so bot-published data reaches the live site. Keep GitHub Pages Source set to **GitHub Actions**. See [maintenance and verification](./AUDIT-FIXES.md).

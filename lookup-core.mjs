@@ -53,7 +53,7 @@ export function processBatch(inputs,ctx){
    const match=candidates.find(r=>r.asn===q.asn);
    result.push(match?{...base,status:'listed',source:'IPtoASN network summary (PDDL)',details:match}:{...base,source:'Not present in the collected top-ASN summaries; not exhaustive'});
   }else{
-   result.push({...base,status:'notfound',source:'No redistributable index for this IOC type; not listed means not found in feeds we collect'});
+   result.push({...base,status:'unsupported',source:'No redistributable index for this IOC type; coverage is unavailable, not a safety result'});
   }
  }
  return result;

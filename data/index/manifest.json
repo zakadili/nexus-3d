@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "source": "Feodo Tracker / abuse.ch (CC0)",
+  "source_url": "https://feodotracker.abuse.ch/",
+  "shard_keys": [
+    "50"
+  ],
+  "total_records": 1,
+  "limitations": "Only explicitly redistributable Feodo IPs are indexed. Not listed means not found in indexed feeds, not safe."
+}

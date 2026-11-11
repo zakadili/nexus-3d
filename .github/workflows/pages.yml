@@ -1,0 +1,46 @@
+name: Publish NEXUS website
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  workflow_run:
+    workflows: [Refresh global intelligence snapshot]
+    types: [completed]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: nexus-pages
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify the public site
+        run: |
+          node --test tests/*.test.mjs
+          node scripts/check-site.mjs
+      - name: Package public assets
+        run: node scripts/package-site.mjs
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .site-dist
+      - name: Deploy verified public site
+        id: deployment
+        uses: actions/deploy-pages@v4

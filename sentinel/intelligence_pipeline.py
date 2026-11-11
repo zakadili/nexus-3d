@@ -173,7 +173,7 @@ def get_epss(ids):
         try:
             data=get_json(EPSS+quote(",".join(batch),safe=","))
             for row in data.get("data",[]):
-                try:scores[row["cve"]]={"epss":float(row["epss"]),"percentile":float(row["percentile"])}
+                try:scores[row["cve"]]={"epss":float(row["epss"]),"percentile":float(row["percentile"]),"date":row.get("date")}
                 except (KeyError,ValueError,TypeError):continue
         except Exception:pass
         time.sleep(.3)
@@ -221,7 +221,7 @@ def collect_cves():
             "id":v["cveID"],"vendor":v.get("vendorProject"),"product":v.get("product"),
             "name":v.get("vulnerabilityName"),"description":v.get("shortDescription"),
             "date_added":v.get("dateAdded"),"due_date":v.get("dueDate"),
-            "ransomware_observed":ransomware,"epss":score.get("epss"),"epss_percentile":score.get("percentile"),
+            "ransomware_observed":ransomware,"epss":score.get("epss"),"epss_percentile":score.get("percentile"),"epss_date":score.get("date"),
             "priority":priority
         })
     ranked.sort(key=lambda x:(-x["priority"],x["id"]))
@@ -361,7 +361,7 @@ def main():
     full_kev_payload=cves.pop("_full_kev_payload", None)
     if cves.get("status")!="ok":failures.append("cves")
     # ENISA ETL 2026: January–December 2025 EU observed incidents, NOT real-time world stats.
-    sectors={"source":"ENISA Threat Landscape 2026","source_url":"https://www.enisa.europa.eu/topics/cyber-threats/threat-landscape",
+    sectors={"source":"ENISA Threat Landscape 2026","source_url":"https://www.enisa.europa.eu/publications/enisa-threat-landscape-2026",
              "report_published":"2026-09-22","period":"2025-01-01 / 2025-12-31","scope":"EU incidents curated by ENISA",
              "note":"Sector share of recorded 2025 incidents (rounded by ENISA); not live, not worldwide, not sector exposure prevalence.",
              "rows":[{"name":"Public administration","percent":31.8},{"name":"Business services","percent":8.5},

@@ -1,14 +1,13 @@
 // Supplemental, read-only global intelligence views. All strings use textContent.
 export function buildExtrasUI(state, helpers) {
  const {create, note, fmt, name, link} = helpers;
- const extra = state.extra;
- const feeds = extra?.feeds || {};
- const statuses = extra?.source_health || [];
- const statusById = Object.fromEntries(statuses.map(s => [s.id,s]));
+ const feeds = () => state.extra?.feeds || {};
+ const statuses = () => state.extra?.source_health || [];
+ const statusById = () => Object.fromEntries(statuses().map(s => [s.id,s]));
 
  function healthNote(id) {
-   const status=statusById[id];
-   if(!status||status.status!=='ok'||!feeds[id])
+   const status=statusById()[id];
+   if(!status||status.status!=='ok'||!feeds()[id])
      return note('UNAVAILABLE — '+(status?.reason || state.extraError || 'supplementary snapshot not loaded')+'. Missing data is not zero activity.');
    return null;
  }
@@ -22,7 +21,7 @@ export function buildExtrasUI(state, helpers) {
    node.replaceChildren();
    const fallback=healthNote(source);
    if(fallback){node.append(fallback);return;}
-   callback(node,feeds[source]);
+   callback(node,feeds()[source]);
  }
  function renderGlobal() {
    fill('#asn-global','iptoasn',(node,data)=>{
@@ -49,7 +48,7 @@ export function buildExtrasUI(state, helpers) {
      node.append(create('h3','extra-subtitle',label));
      const fallback=healthNote(key);
      if(fallback){node.append(fallback);continue;}
-     const data=feeds[key];
+     const data=feeds()[key];
      node.append(simpleRow(key==='urlhaus'?'Listed URLs':'Recent IOCs',
        fmt(key==='urlhaus'?data?.total_urls:data?.total_iocs)));
      node.append(simpleRow('Country-mappable IP-hosted entries',
@@ -73,7 +72,7 @@ export function buildExtrasUI(state, helpers) {
    const asn=healthNote('iptoasn');
    if(asn)section.append(asn);
    else{
-     const rows=feeds.iptoasn?.countries?.[code]||[];
+     const rows=feeds().iptoasn?.countries?.[code]||[];
      if(!rows.length)section.append(note('No matched hosting ASN in this country’s listed-IP sample.'));
      for(const r of rows.slice(0,5))
        section.append(simpleRow('AS'+r.asn+' · '+r.org,fmt(r.listed_ips)+' listed IPs'));
@@ -83,14 +82,14 @@ export function buildExtrasUI(state, helpers) {
    for(const [id,label] of [['urlhaus','URLhaus IPv4-hosted URLs'],['threatfox','ThreatFox IPv4 IoCs']]){
      const fallback=healthNote(id);
      if(fallback){section.append(simpleRow(label,'UNAVAILABLE'));section.append(fallback);}
-     else section.append(simpleRow(label,fmt(feeds[id]?.countries?.[code]||0)+' listed entries'));
+     else section.append(simpleRow(label,fmt(feeds()[id]?.countries?.[code]||0)+' listed entries'));
    }
    section.append(note('Listed URLs/IOCs hosted in this country, not attacker location. Counts are not added to existing IP indicator totals.'));
    section.append(create('h3','','RECENT CONNECTIVITY DISRUPTIONS / IODA'));
    const outage=healthNote('ioda');
    if(outage)section.append(outage);
    else{
-     const events=(feeds.ioda?.events||[]).filter(e=>e.code===code).slice(0,5);
+     const events=(feeds().ioda?.events||[]).filter(e=>e.code===code).slice(0,5);
      if(!events.length)section.append(note('No event for this country in the returned IODA list; results may be limited by the response cap.'));
      for(const event of events){
        const when=new Date(event.start*1000).toISOString();
@@ -103,7 +102,7 @@ export function buildExtrasUI(state, helpers) {
  function renderHealthTimeline(history,baseStatuses) {
    const node=document.querySelector('#feed-timeline');if(!node)return;node.replaceChildren();
    const entries=(Array.isArray(history)?history:[]).slice(-28);
-   const sources=[...new Set([...baseStatuses.map(r=>r.id),...statuses.map(r=>r.id)])];
+   const sources=[...new Set([...baseStatuses.map(r=>r.id),...statuses().map(r=>r.id)])];
    if(!entries.length){node.append(note('No recorded collection-run history yet.'));return;}
    for(const key of sources){
      const row=create('div','health-timeline-row');
@@ -112,7 +111,7 @@ export function buildExtrasUI(state, helpers) {
      for(const entry of entries){
        const status=entry.feed_status?.[key];
        const dot=create('span','health-dot '+(status==='ok'?'ok':status==='unavailable'?'failed':'missing'));
-       dot.title=(entry.generated_at||'unknown run')+' / '+(status||'no status recorded');
+       dot.title=(entry.generated_at||'unknown run')+' / '+(status||'no status recorded');dot.setAttribute('role','img');dot.setAttribute('aria-label',key+' / '+dot.title);
        strip.append(dot);
      }
      row.append(strip);node.append(row);
