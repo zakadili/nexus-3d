@@ -23,7 +23,7 @@
     handle {
         respond "Not found" 404
     }
-    log_skip @live
+    skip_log @live
     log {
         output file /var/log/caddy/nexus-access.log {
             roll_size 5MiB
