@@ -29,7 +29,7 @@ def timestamp(value):
     if isinstance(value,str):
         with suppress(ValueError):
             return datetime.fromisoformat(value.replace("Z","+00:00")).astimezone(timezone.utc)
-    return datetime.now(timezone.utc)
+    return None
 
 def ip_literal(value):
     if not isinstance(value,str): return None
@@ -44,7 +44,8 @@ async def health(feed,state,error=None,degraded=None):
     async with pool.acquire() as db:
         await db.execute("""INSERT INTO feed_state(feed_source,state,last_attempt_at,last_error,degraded_reason)
           VALUES($1,$2,now(),$3,$4) ON CONFLICT(feed_source) DO UPDATE
-          SET state=$2,last_attempt_at=now(),last_error=$3,degraded_reason=$4""",
+          SET state=$2,last_attempt_at=now(),last_error=$3,degraded_reason=$4,
+          last_success_at=CASE WHEN $2 IN ('connected','reference_current') THEN now() ELSE feed_state.last_success_at END""",
           feed,state,error,degraded)
 
 async def cursor(feed):
@@ -76,7 +77,7 @@ async def ingest(feed,uid,idx,source_ts,action,threat,indicator,raw):
     if row and (PUBLIC or feed not in FEEDS):
         event=dict(seq=row["seq"],event_id=uid,feed_source=feed,kind="observed",action=action,
                    threat_type=threat,indicator=indicator,indicator_ip=ip,
-                   source_ts=source_ts.isoformat(),received_at=row["received_at"].isoformat(),
+                   source_ts=source_ts.isoformat() if source_ts else None,received_at=row["received_at"].isoformat(),
                    country_code=None,asn=None,enrichment_source=None,assessment=None,
                    upstream_idx=str(idx) if idx is not None else None)
         try: broadcast.put_nowait(event)
