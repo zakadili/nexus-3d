@@ -17,9 +17,10 @@ const seen=new Set();
 function report(state){$('ns-status').textContent=state}
 function time(v){if(!v)return 'never';const d=new Date(v);return Number.isNaN(d.valueOf())?'unknown':d.toLocaleString()}
 function eventLine(item){
- if(!item||!Number.isSafeInteger(item.seq)||seen.has(item.event_id))return;
- seen.add(item.event_id);if(seen.size>2000)seen.clear();
+ if(!item||!Number.isSafeInteger(item.seq))return;
  last=Math.max(last,item.seq);sessionStorage.setItem(cursorKey,String(last));
+ if(seen.has(item.event_id))return;
+ seen.add(item.event_id);if(seen.size>2000)seen.clear();
  const li=document.createElement('li');const label=document.createElement('b');
  label.textContent=String(item.feed_source||'feed')+' · '+(item.kind==='snapshot'?'SNAPSHOT SAMPLE':String(item.action||'update'));
  const more=document.createElement('span');
@@ -47,6 +48,7 @@ function health(data){
   p.textContent=String(f.feed)+' · '+String(f.state||'unknown')+' · '+(reference?'reference fetched ':'last arrival ')+age+
     ' · source latency '+(f.source_to_ingest_latency_s==null?'unknown':f.source_to_ingest_latency_s+'s')+
     ' · gaps '+Number(f.gap_count||0)+(f.degraded_reason?' · '+String(f.degraded_reason).slice(0,170):'');
+  if(!data.public_feed_rebroadcast&&['urlhaus','threatfox','Feodotracker'].includes(f.feed))p.append(document.createTextNode(' · PRIVATE — records excluded from public panel'));
   list.append(p);
   const sources={urlhaus:'https://urlhaus.abuse.ch/',threatfox:'https://threatfox.abuse.ch/',Feodotracker:'https://feodotracker.abuse.ch/',ioda:'https://ioda.inetintel.cc.gatech.edu/',cisa_kev:'https://www.cisa.gov/known-exploited-vulnerabilities-catalog',first_epss:'https://www.first.org/epss/'};
   if(sources[f.feed]){const a=document.createElement('a');a.href=sources[f.feed];a.textContent=' · SOURCE ↗';a.target='_blank';a.rel='noopener noreferrer';p.append(a)}
