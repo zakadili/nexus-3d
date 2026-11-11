@@ -17,3 +17,14 @@ export function remainingToCollection(nowMs=Date.now()){
  return {nextUTC:new Date(nextScheduledCollection(nowMs)).toISOString(),
          label:[hours,minutes,secs].map(n=>String(n).padStart(2,'0')).join(':')};
 }
+
+export function timeSinceSnapshot(snapshotISOString,nowMs=Date.now()){
+ const timestamp=Date.parse(snapshotISOString);
+ if(!Number.isFinite(timestamp)||!Number.isFinite(nowMs))return null;
+ const elapsedSeconds=Math.max(0,Math.floor((nowMs-timestamp)/1000));
+ const hours=Math.floor(elapsedSeconds/3600);
+ const minutes=Math.floor(elapsedSeconds%3600/60);
+ const seconds=elapsedSeconds%60;
+ return {label:[hours,minutes,seconds].map(n=>String(n).padStart(2,'0')).join(':'),
+         hours,minutes,seconds,elapsedSeconds};
+}
