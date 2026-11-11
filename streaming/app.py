@@ -27,6 +27,12 @@ token_cache=None
 token_lock=asyncio.Lock()
 ingest_lock=asyncio.Lock()
 
+def parse_status(message,feed):
+    # Current provider replies include the feed name; older replies omitted it.
+    match=re.fullmatch(r'status\s+(?:'+re.escape(feed)+r'\s+)?(\d+)\s+(\d+)',str(message).strip())
+    if not match: raise ValueError('Unrecognized provider status format')
+    return tuple(map(int,match.groups()))
+
 def timestamp(value):
     if isinstance(value,(float,int)):
         return datetime.fromtimestamp(value,timezone.utc)
@@ -125,9 +131,7 @@ async def upstream(feed):
                     ping_interval=20,ping_timeout=20,open_timeout=20,max_size=65536,max_queue=16) as ws:
                 await ws.send("status")
                 status=await asyncio.wait_for(ws.recv(),timeout=15)
-                m=re.fullmatch(r"status\s+(\d+)\s+(\d+)",str(status).strip())
-                if not m: raise RuntimeError("Unrecognized status response: "+str(status)[:150])
-                oldest,newest=map(int,m.groups())
+                oldest,newest=parse_status(status,feed)
                 last=await cursor(feed)
                 if last is None: command="start"
                 elif int(last)+1<oldest:
