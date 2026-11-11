@@ -257,3 +257,13 @@ body.immersive .globe-container .map-label{bottom:22px}
 @media(max-width:1150px){.extra-intel{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:720px){.extra-intel{grid-template-columns:1fr}.health-timeline-row{grid-template-columns:90px 1fr}}
 @media(prefers-reduced-motion:reduce){.skeleton:after{animation:none}}
+
+
+/* Scheduled collection countdown: represents the GitHub cron slot, not a promise of publication. */
+.collection-clock{display:flex;flex-direction:column;align-items:flex-end;gap:10px;margin-top:11px}
+.collection-clock #updated{text-align:right;font-size:10px;color:#9da6b5;line-height:1.5}
+.clock-schedule{display:flex;flex-direction:column;align-items:flex-end;gap:6px;padding:12px 16px;min-width:265px;border:1px solid #703748;background:linear-gradient(120deg,#1e1422,#11141d);box-shadow:0 0 30px #e5486311}
+.clock-label{font-size:9px;letter-spacing:.15em;color:#ff8096}
+#next-collection{font:800 clamp(24px,2.7vw,40px)/1 'Barlow Condensed',sans-serif;letter-spacing:.09em;color:#f8e8ed;font-variant-numeric:tabular-nums}
+#collection-utc{max-width:295px;font-size:9px;color:#8997a5;text-align:right;line-height:1.45}
+@media(max-width:900px){.collection-clock{align-items:flex-start}.collection-clock #updated,.clock-schedule,#collection-utc{text-align:left;align-items:flex-start}}
