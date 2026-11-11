@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080b12"><meta name="description" content="NEXUS SENTINEL CVE X-RAY: source-linked vulnerability investigation.">
+<title>CVE X-RAY | NEXUS SENTINEL</title>
+<style>
+:root{color-scheme:dark;--bg:#080b12;--panel:#101620;--line:#293443;--ink:#f2f4f8;--muted:#91a0b1;--accent:#ff607c;--green:#81d9c0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif}
+*{box-sizing:border-box}body{margin:0;color:var(--ink);background:radial-gradient(ellipse at 85% 0%,#301823 0%,transparent 44%),var(--bg);min-height:100vh}
+a{color:#ff8ca1;text-decoration:none}a:hover{text-decoration:underline}button,input{font:inherit}button{cursor:pointer}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+header{border-bottom:1px solid var(--line);background:#090d15d9;padding:19px clamp(20px,4vw,70px);display:flex;gap:20px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.brand{font-weight:900;letter-spacing:.12em;color:white;font-size:20px}.brand span{font-size:10px;color:var(--muted);font-weight:500}
+nav{display:flex;gap:20px;flex-wrap:wrap}nav a{font:600 10px ui-monospace,monospace;letter-spacing:.08em;color:var(--muted)}nav a[aria-current]{color:var(--accent)}
+main{max-width:1370px;margin:auto;padding:65px clamp(20px,4vw,70px)}
+.eyebrow{color:var(--accent);font:600 11px ui-monospace,monospace;letter-spacing:.19em}
+h1{font-size:clamp(44px,7vw,80px);line-height:.99;letter-spacing:-.055em;margin:18px 0}h1 em{font-style:normal;color:var(--accent)}
+.lead{max-width:630px;color:#b4bfce;line-height:1.65;font-size:14px}
+.searchbar{margin:38px 0 12px;display:flex;gap:10px;max-width:780px}
+.searchbar input{min-width:0;flex:1;background:#121a25;border:1px solid #435065;color:white;padding:19px;font:500 15px ui-monospace,monospace;border-radius:8px}
+.searchbar button,.action{border:1px solid #ff768c;background:#dd405f;color:white;border-radius:8px;padding:15px 24px;font-weight:700;letter-spacing:.05em}
+.searchbar button:hover,.action:hover{background:#f25473}.hint{font:11px ui-monospace,monospace;color:var(--muted);line-height:1.7}
+#status{min-height:24px;margin:28px 0;color:var(--green);font:12px ui-monospace,monospace}
+#dossier[hidden]{display:none}.summary{display:flex;justify-content:space-between;gap:24px;align-items:start;flex-wrap:wrap;padding-bottom:24px;border-bottom:1px solid var(--line)}
+.kicker{font:11px ui-monospace,monospace;color:var(--accent);letter-spacing:.1em}
+h2{font-size:clamp(26px,3vw,42px);letter-spacing:-.04em;margin:10px 0}#description{color:#b6c1ce;line-height:1.65;max-width:760px}
+.flag{border:1px solid #8b4958;background:#291923;color:#ffc6cf;border-radius:6px;padding:10px 14px;font:700 11px ui-monospace,monospace}
+.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:24px 0}
+.metric,.panel{background:linear-gradient(145deg,#131b27,#0e141d);border:1px solid var(--line);border-radius:11px}
+.metric{padding:22px}.metric small{display:block;font:11px ui-monospace,monospace;color:var(--muted);margin-bottom:12px}.metric strong{font-size:25px;overflow-wrap:anywhere}.metric p{font-size:11px;line-height:1.5;color:var(--muted);margin-bottom:0}
+.grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(290px,.8fr);gap:14px}.panel{padding:26px;min-width:0}.panel h3{font-size:12px;letter-spacing:.13em;color:#f7b4c0;margin:0 0 22px}
+.fact{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid #26303d;font-size:13px}.fact span{color:var(--muted)}.fact strong{text-align:right;max-width:65%;overflow-wrap:anywhere}
+.event{position:relative;padding:0 0 21px 22px;border-left:1px solid #435064;margin-left:6px}.event:before{content:"";width:9px;height:9px;background:var(--accent);border-radius:50%;position:absolute;left:-5px;top:2px}
+.event time{font:11px ui-monospace,monospace;color:var(--green)}.event p{margin:6px 0;color:#d6dce5;font-size:13px}
+.source{display:block;border:1px solid #344251;background:#111b26;padding:13px 14px;margin-top:9px;border-radius:6px;font-size:12px;overflow-wrap:anywhere}
+.note{color:var(--muted);font-size:12px;line-height:1.7}details{border-top:1px solid #2c3949;padding:16px 0}summary{cursor:pointer;font-weight:700;font-size:12px;color:#e8ecf3}
+footer{border-top:1px solid var(--line);padding:28px 4vw;color:var(--muted);font:11px ui-monospace,monospace;line-height:1.8}
+@media(max-width:800px){main{padding-top:42px}.grid{grid-template-columns:1fr}.metrics{grid-template-columns:1fr}.searchbar{flex-direction:column}.summary{display:block}.flag{display:inline-block;margin-top:10px}}
+</style></head>
+<body><header><a class="brand" href="./index.html">◈ NEXUS <span>// SENTINEL</span></a><nav aria-label="Modules"><a href="./index.html">GLOBAL RADAR</a><a href="./intel.html">CVE INTEL</a><a href="./xray.html" aria-current="page">CVE X-RAY</a><a href="./sentinel.html">ATTACK GRAPH</a></nav></header>
+<main><div class="eyebrow">NEXUS / RESEARCH WORKSPACE / 01</div><h1>VULNERABILITIES.<br><em>UNDER THE LENS.</em></h1>
+<p class="lead">A focused investigation into exploitation evidence, probability, and remediation context. Every meaningful claim points back to its source.</p>
+<form class="searchbar" id="search"><input id="cve" aria-label="CVE identifier" placeholder="CVE-2021-44228" autocomplete="off" spellcheck="false" required maxlength="28"><button type="submit">INVESTIGATE →</button></form>
+<p class="hint">START WITH A CVE ID · CISA KEV DATA + FIRST EPSS · UNAVAILABLE DATA IS LABELED, NEVER GUESSED</p>
+<div id="status" role="status" aria-live="polite">Enter a CVE identifier to begin.</div>
+<section id="dossier" hidden aria-label="CVE investigation"><div class="summary"><div><div class="kicker">INVESTIGATION DOSSIER / <span id="id"></span></div><h2 id="title"></h2><p id="description"></p></div><div class="flag" id="kev"></div></div>
+<div class="metrics"><div class="metric"><small>EXPLOITATION EVIDENCE</small><strong id="evidence">—</strong><p id="evidence-note"></p></div><div class="metric"><small>EPSS / 30-DAY PROBABILITY</small><strong id="epss">—</strong><p id="epss-note"></p></div><div class="metric"><small>CVSS / SEVERITY</small><strong id="cvss">NOT LOADED</strong><p>Refer to NVD and vendor advisories; CVSS is not calculated from EPSS.</p></div></div>
+<div class="grid"><section class="panel"><h3>01 / EVIDENCE & CONTEXT</h3><div id="facts"></div><p class="note">A KEV listing documents exploitation in the wild. Absence from KEV does not mean a vulnerability is unexploited or safe. EPSS is a statistical forecast, not attack confirmation.</p>
+<details><summary>EXPLOIT VERIFICATION — WHAT DO WE ACTUALLY KNOW?</summary><p class="note" id="verification">No independent proof-of-concept verification is performed here. A GitHub link, technical article, or Nuclei template alone does not establish a working exploit.</p></details>
+<details><summary>VERSION & PATCH MATRIX</summary><p class="note">Version applicability is not verified by this screen. Consult the vendor and OSV for explicit affected and fixed ranges. Unknown is not safe.</p><a class="source" href="https://osv.dev/" target="_blank" rel="noopener noreferrer">OSV vulnerability database ↗</a></details>
+</section><aside class="panel"><h3>02 / PUBLICATION TIMELINE</h3><div id="timeline"></div><h3>03 / PRIMARY SOURCES</h3><div id="sources"></div></aside></div>
+</section></main><footer>NEXUS SENTINEL / EVIDENCE BEFORE AESTHETICS · PUBLIC INTELLIGENCE, NOT A LIVE INCIDENT FEED<br>FOR DEFENSIVE RESEARCH · LAST-REQUEST DATA MAY BE UNAVAILABLE DUE TO NETWORK RESTRICTIONS</footer>
+<script>
+const $=id=>document.getElementById(id);
+const CVE=/^CVE-\d{4}-\d{4,}$/i;
+const KEV_URL='https://raw.githubusercontent.com/cisagov/kev-data/develop/known_exploited_vulnerabilities.json';
+function fact(label,value){const row=document.createElement('div');row.className='fact';const a=document.createElement('span');a.textContent=label;const b=document.createElement('strong');b.textContent=value||'Not specified';row.append(a,b);$('facts').append(row)}
+function link(label,url){const a=document.createElement('a');a.className='source';a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.textContent=label+' ↗';$('sources').append(a)}
+function event(date,description){const el=document.createElement('div');el.className='event';const t=document.createElement('time');t.textContent=date;const p=document.createElement('p');p.textContent=description;el.append(t,p);$('timeline').append(el)}
+async function json(url){const response=await fetch(url,{signal:AbortSignal.timeout(12000)});if(!response.ok)throw Error('HTTP '+response.status);return response.json()}
+async function investigate(id){$('status').textContent='Collecting public records…';$('dossier').hidden=true;
+$('facts').replaceChildren();$('timeline').replaceChildren();$('sources').replaceChildren();
+$('id').textContent=id;$('title').textContent=id;$('description').textContent='Cross-check the primary advisories below for affected products and remediation.';
+$('epss').textContent='UNAVAILABLE';$('epss-note').textContent='No probability returned';$('cvss').textContent='CHECK NVD';
+$('kev').textContent='KEV STATUS UNKNOWN';$('evidence').textContent='UNKNOWN';$('evidence-note').textContent='Not yet verified';
+link('NIST National Vulnerability Database','https://nvd.nist.gov/vuln/detail/'+encodeURIComponent(id));
+link('CVE Program record','https://www.cve.org/CVERecord?id='+encodeURIComponent(id));
+link('CISA KEV catalog','https://www.cisa.gov/known-exploited-vulnerabilities-catalog');
+const results=await Promise.allSettled([json(KEV_URL),json('https://api.first.org/data/v1/epss?cve='+encodeURIComponent(id))]);
+if(results[0].status==='fulfilled'&&Array.isArray(results[0].value.vulnerabilities)){
+const record=results[0].value.vulnerabilities.find(v=>v.cveID===id);
+if(record){$('title').textContent=record.vulnerabilityName||id;$('description').textContent=record.shortDescription||'No description provided by CISA';
+$('kev').textContent='● CISA KEV CONFIRMED';$('evidence').textContent='OBSERVED';$('evidence-note').textContent='CISA reports known exploitation in the wild';
+fact('Vendor',record.vendorProject);fact('Product',record.product);fact('CISA required action',record.requiredAction);fact('Ransomware campaign use',record.knownRansomwareCampaignUse||'Unknown');fact('CISA due date',record.dueDate);
+if(record.dateAdded)event(record.dateAdded,'Added to the CISA Known Exploited Vulnerabilities catalog');
+if(record.dueDate)event(record.dueDate,'CISA remediation due date (not a public exploit event)');
+}else{$('kev').textContent='NOT LISTED IN KEV';$('evidence').textContent='NOT CONFIRMED';$('evidence-note').textContent='No CISA KEV match; this is not proof of no exploitation';fact('CISA KEV','No entry found in the retrieved catalog')}}
+else{fact('CISA KEV','Source unavailable — status cannot be determined')}
+if(results[1].status==='fulfilled'&&Array.isArray(results[1].value.data)){
+const item=results[1].value.data.find(x=>x.cve===id);
+if(item&&Number.isFinite(Number(item.epss))){$('epss').textContent=(Number(item.epss)*100).toFixed(2)+'%';$('epss-note').textContent='FIRST model estimate for exploitation within the next 30 days'+(item.date?' · '+item.date:'');fact('EPSS percentile',item.percentile?((Number(item.percentile)*100).toFixed(1)+'%'):'Not available');if(item.date)event(item.date,'EPSS estimate retrieved for this dated model observation')}}
+$('dossier').hidden=false;
+$('status').textContent='Investigation loaded · '+results.filter(x=>x.status==='fulfilled').length+' of 2 external datasets responded. Missing fields remain unknown.';
+}
+$('search').addEventListener('submit',e=>{e.preventDefault();const id=$('cve').value.trim().toUpperCase();if(!CVE.test(id)){$('status').textContent='Enter a valid CVE identifier (example: CVE-2021-44228).';return}history.replaceState(null,'','#'+encodeURIComponent(id));investigate(id).catch(()=>{$('status').textContent='Unable to complete investigation. Please retry.'})});
+const initial=decodeURIComponent(location.hash.slice(1));if(CVE.test(initial)){$('cve').value=initial.toUpperCase();investigate(initial.toUpperCase())}
+</script></body></html>
