@@ -1,5 +1,21 @@
 # NEXUS SENTINEL — event-driven streaming backend
 
+## Bronze-glade deployment
+
+Public API: https://nexus-193-26-115-37.sslip.io/api/health. The homepage's Live Intelligence navigation opens the streaming panel; the globe retains its existing scheduled snapshots.
+
+Run one API process only. PostgreSQL and the API each have a 256 MiB limit; PostgreSQL has a 48 MiB shared buffer and 20 connections, with a four-connection application pool. Caddy runs on the host and proxies only the listed public API and WebSocket routes. PostgreSQL has no published port. The API publishes only on loopback and runs as a non-root user with a read-only filesystem and dropped capabilities. `.env` is excluded from Git and the image build context.
+
+`Caddyfile`, `nexus.service`, and `nexus-monitor.*` are the installed service definitions. Caddy manages public certificates and redirects HTTP to HTTPS. A local five-minute timer records readiness, RAM, disk, and container consumption in the bounded system journal; it is not an external paging service. Docker restart policies recover terminated containers. Readiness failures are recorded and do not automatically delete or recreate database storage.
+
+Retention runs every minute: observations older than 48 hours or beyond the latest approximately 20,000 sequence positions are removed in 5,000-row batches. Large raw payloads over 8 KiB are replaced by an explicit omission marker and SHA-256 digest; normalized event fields remain. PostgreSQL reuses vacuumed space rather than shrinking its files. Logs rotate at 5 MiB × 2 for each container and Caddy. Provider gaps retain seven days of detail and a cumulative count. Public replay reports when its cursor predates local pruning. Public replay is buffered in the browser before newer broadcasts advance its cursor.
+
+Spamhaus token refresh is shared and cached. Without credentials those feeds report `credentials_required`, and no connection is attempted. Raw redistribution remains disabled. IODA polls every 180 seconds with a durable checkpoint, five-minute overlap, one-hour recovery bound and up to five 1,000-record pages; exceeded recovery or pagination coverage is explicitly reported. CISA KEV is fetched daily. FIRST EPSS is fetched daily for the 100 most recently added KEVs; missing scores remain absent. Neither reference is counted as a live observation. No GeoIP/ASN enrichment is enabled.
+
+Validation: `docker compose exec -T api python test_integration.py` creates an isolated temporary schema, checks persistence, deduplication, upstream/local cursors, retention, rate limiting, WebSocket replay/broadcast/reconnect and Origin rejection, then removes only that test schema. Test fixtures never enter the public production schema or its WebSocket process. GitHub Actions runs the same checks. Authorized provider replay and live feed semantics still require upstream credentials and actual source availability.
+
+The server's secret file is `/opt/nexus/streaming/.env` (root-only). Enter provider credentials directly on the server, then recreate the API container. Public redistribution requires a separate review of the operator's provider authorization before changing `PUBLIC_REBROADCAST`.
+
 This directory adds a **real ingestion service**, not a visual simulation. The current GitHub Pages globe remains a scheduled-snapshot view until a separately hosted backend is connected. No attack paths or GeoIP points are synthesized.
 
 ## Requirements
@@ -39,7 +55,7 @@ The homepage then opens `wss://stream.yourdomain.example/ws/live`. If the backen
 - **Single instance only:** `uvicorn --workers 1`. The collector runs in-process; multiple workers would duplicate upstream connections. For multiple replicas, split ingestion into its own service and use a durable broker (Redis Streams or PostgreSQL LISTEN/NOTIFY + replay).
 - **Durability:** events + upstream `_idx` commit transactionally. Upstream `_idx` and local browser `seq` are different cursors.
 - **Resume:** after reconnection, replay starts at last committed `_idx + 1` when the provider still retains it. Expired provider history is logged in `coverage_gaps`. Gap-free replay cannot be guaranteed after long outages.
-- **IODA:** 180-second alert lookback polling is near-real-time, not attack observation. A result hitting 1,000 items is flagged incomplete. Add full pagination before claiming exhaustive coverage.
+- **IODA:** 180-second alert lookback polling is near-real-time, not attack observation. A result hitting 1,000 items is flagged incomplete. Pagination is bounded to five pages; reaching the cap is reported as incomplete coverage.
 - **CISA KEV:** daily reference catalog, never treated as live attacker activity.
 - **GeoIP/ASN:** not performed by this initial backend. Accordingly, no new geographic points are drawn. Real map-layer changes require a vetted enrichment dataset, provenance timestamps, a public licensing review, and a handler in the SVG globe renderer. A feed-listed IP is not necessarily an attacking IP.
 - **Latency:** streaming feed records may arrive within seconds once an upstream event is published; IODA is minutes; KEV is daily. Show upstream age and last-success separately.
@@ -56,4 +72,4 @@ docker compose exec db psql -U nexus -d nexus -c   "SELECT feed_source,count(*) 
 
 ## Validation
 
-The GitHub Actions workflow runs Python and JavaScript syntax validation and verifies that the homepage includes the stream panel. Live connectivity, provider contracts, replay behavior, IODA pagination, DB schema migrations, load, licensing, and full frontend integration require further testing before a production launch.
+The GitHub Actions workflow runs Python and JavaScript syntax validation and verifies that the homepage includes the stream panel. The workflow also runs isolated PostgreSQL and WebSocket integration checks. Provider contracts, authorized live upstream replay, high load and external alerting remain outside those tests.
