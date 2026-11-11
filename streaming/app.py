@@ -215,7 +215,9 @@ async def snapshot_health():
              "last_event_at":r["last_event_at"].isoformat() if r["last_event_at"] else None,
              "last_received_at":r["last_received_at"].isoformat() if r["last_received_at"] else None,
              "last_success_at":r["last_success_at"].isoformat() if r["last_success_at"] else None,
-             "gap_count":r["gap_count"],"degraded_reason":r["degraded_reason"] or r["last_error"]} for r in rows]
+             "gap_count":r["gap_count"],"degraded_reason":r["degraded_reason"] or r["last_error"],
+             "source_to_ingest_latency_s":round((r["last_received_at"]-r["last_event_at"]).total_seconds(),2) if r["last_received_at"] and r["last_event_at"] else None,
+             "last_success_age_s":round((datetime.now(timezone.utc)-r["last_success_at"]).total_seconds(),1) if r["last_success_at"] else None} for r in rows]
 
 async def broadcast_pump():
     while True:
