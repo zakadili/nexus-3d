@@ -16,6 +16,12 @@ from websockets.asyncio.client import connect
 from websockets.exceptions import InvalidStatus
 
 async def main():
+    assert backend.parse_status('status threatfox 100 200','threatfox')==(100,200)
+    assert backend.parse_status('status 100 200','threatfox')==(100,200)
+    try:
+        backend.parse_status('status urlhaus 100 200','threatfox')
+        raise AssertionError('Wrong feed status accepted')
+    except ValueError: pass
     logging.getLogger('httpx').setLevel(logging.WARNING)
     schema='test_'+uuid.uuid4().hex
     admin=await asyncpg.connect(backend.DB)
