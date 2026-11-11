@@ -108,5 +108,5 @@ def install(app, get_pool, public):
         for row in rows:
             payload=json.loads(row['payload']) if isinstance(row['payload'],str) else row['payload']
             result.append({'source':row['source'],'kind':'reference','fetched_at':row['fetched_at'].isoformat(),
-              'source_date':row['source_date'],'record_count':len(payload.get('data',payload.get('vulnerabilities',[])))})
+              'source_date':row['source_date'],'record_count':payload.get('record_count',len(payload.get('data',payload.get('vulnerabilities',[]))))})
         return {'references':result,'epss_scope':'100 most recently added KEVs; probability of exploitation in next 30 days, not evidence of exploitation'}

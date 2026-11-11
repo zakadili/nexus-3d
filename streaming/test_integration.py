@@ -11,11 +11,15 @@ import asyncpg
 import httpx
 import app as backend
 import operations
+import public_feeds
 import uvicorn
 from websockets.asyncio.client import connect
 from websockets.exceptions import InvalidStatus
 
 async def main():
+    assert public_feeds.changes_between(['a.example'],['b.example'])==[('list_added','b.example'),('list_removed','a.example')]
+    assert public_feeds.parse('a.example\na.example\nb.example\n','lines')==['a.example','b.example']
+    assert public_feeds.parse('# comment\n2026-01-01,192.0.2.5,443\n','ip')==['192.0.2.5:443']
     assert backend.parse_status('status threatfox 100 200','threatfox')==(100,200)
     assert backend.parse_status('status 100 200','threatfox')==(100,200)
     try:
@@ -44,6 +48,19 @@ async def main():
         assert len(rows)==1 and rows[0]['kind']=='observed'
         seq=rows[0]['seq']
         assert await backend.fetch_events(seq)==[]
+        # Initial samples remain visible but must not inflate rolling arrival counts.
+        await backend.ingest('phishdestroy','fixture-snapshot',None,None,'snapshot_baseline','test','example.invalid',{'test_fixture':True})
+        assert (await backend.fetch_events(recent=True,limit=1))[0]['kind']=='snapshot'
+        assert sum(r['last_5m'] for r in (await backend.api_windows())['windows'])==1
+        async with pool.acquire() as db:
+            payload=json.dumps({'record_count':100,'sample':['example.invalid']*20})
+            await db.execute("INSERT INTO reference_datasets(source,fetched_at,payload) VALUES('public:phishdestroy',now(),$1::jsonb),('public:unlicensed',now(),$1::jsonb)",payload)
+        snapshots=(await backend.public_snapshots())['snapshots']
+        assert len(snapshots)==1 and len(snapshots[0]['sample'])==8
+        assert snapshots[0]['record_count']==100
+        assert all(r['feed_source']!='urlhaus' for r in await backend.fetch_events(recent=True))
+        async with pool.acquire() as db:
+            await db.execute("DELETE FROM observations WHERE event_id='fixture-snapshot'")
         async with httpx.AsyncClient(transport=httpx.ASGITransport(app=backend.app),base_url='http://test',headers={'X-Real-IP':'isolated-http-test'}) as client:
             r=await client.get('/api/ready'); assert r.status_code==200
             r=await client.get('/api/windows'); assert r.json()['windows'][0]['last_5m']==1

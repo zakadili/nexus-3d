@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 from urllib.parse import urlsplit
 import asyncpg, httpx
 import operations
+import public_feeds
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from websockets.asyncio.client import connect
@@ -94,7 +95,7 @@ async def _ingest(feed,uid,idx,source_ts,action,threat,indicator,raw):
               last_event_at=$3,last_received_at=now(),last_success_at=now(),
               last_error=NULL""",feed,idx,source_ts)
     if row and (PUBLIC or feed not in FEEDS):
-        event=dict(seq=row["seq"],event_id=uid,feed_source=feed,kind="observed",action=action,
+        event=dict(seq=row["seq"],event_id=uid,feed_source=feed,kind="snapshot" if action=='snapshot_baseline' else "observed",action=action,
                    threat_type=threat,indicator=indicator,indicator_ip=ip,
                    source_ts=source_ts.isoformat() if source_ts else None,received_at=row["received_at"].isoformat(),
                    country_code=None,asn=None,enrichment_source=None,assessment=None,
@@ -236,15 +237,17 @@ def serialize(row):
         elif k=="upstream_idx" and v is not None: d[k]=str(v)
     return d
 
-async def fetch_events(after=0,limit=300,feed=None):
+async def fetch_events(after=0,limit=300,feed=None,recent=False):
     async with pool.acquire() as db:
         q="""SELECT seq,event_id,feed_source,upstream_idx,source_ts,received_at,action,threat_type,
             indicator,indicator_ip,country_code,asn,enrichment_source,assessment
             FROM observations WHERE seq>$1 AND ($3::text IS NULL OR feed_source=$3)
             AND ($4::boolean OR feed_source NOT IN ('urlhaus','threatfox','Feodotracker'))
             ORDER BY seq LIMIT $2"""
+        if recent: q=q.replace('ORDER BY seq LIMIT $2','ORDER BY seq DESC LIMIT $2')
         rows=await db.fetch(q,after,limit,feed,PUBLIC)
-        return [dict(serialize(r),kind="observed") for r in rows]
+        if recent: rows=list(reversed(rows))
+        return [dict(serialize(r),kind="snapshot" if r['action']=='snapshot_baseline' else "observed") for r in rows]
 
 async def snapshot_health():
     async with pool.acquire() as db:
@@ -281,6 +284,7 @@ async def lifespan(app):
     tasks.extend([asyncio.create_task(upstream(f)) for f in FEEDS])
     tasks.extend([asyncio.create_task(collect_ioda()),asyncio.create_task(collect_kev()),asyncio.create_task(broadcast_pump())])
     tasks.extend([asyncio.create_task(operations.maintenance(pool,PUBLIC)),asyncio.create_task(operations.epss(pool,health))])
+    tasks.append(asyncio.create_task(public_feeds.collect(pool,health,ingest,gap)))
     try: yield
     finally:
         for task in tasks: task.cancel()
@@ -294,11 +298,25 @@ app.add_middleware(CORSMiddleware,allow_origins=ORIGINS,allow_methods=["GET"],al
 @app.get("/api/health")
 async def api_health():
     return {"feeds":await snapshot_health(),"public_feed_rebroadcast":PUBLIC,
+            "publishable_sources":public_feeds.SOURCES,
             "disclaimer":"Feed records are not attacks observed by NEXUS. No arrival does not imply zero activity."}
 
+@app.get('/api/public-snapshots')
+async def public_snapshots():
+    result=[]
+    async with pool.acquire() as db:
+        for source in public_feeds.SOURCES:
+            row=await db.fetchrow('SELECT fetched_at,payload FROM reference_datasets WHERE source=$1','public:'+source['id'])
+            if not row: continue
+            payload=json.loads(row['payload']) if isinstance(row['payload'],str) else row['payload']
+            result.append({**source,'kind':'snapshot','fetched_at':row['fetched_at'].isoformat(),
+              'source_last_modified':payload.get('last_modified'),'record_count':payload.get('record_count'),
+              'sample':payload.get('sample',[])[:8]})
+    return {'snapshots':result,'poll_interval_seconds':300,'warning':'Published indicator lists, not attacks observed against NEXUS. Snapshot samples are excluded from arrival counts.'}
+
 @app.get("/api/events")
-async def api_events(after:int=0,limit:int=300):
-    events=await fetch_events(max(0,after),min(max(1,limit),500))
+async def api_events(after:int=0,limit:int=300,recent:bool=False):
+    events=await fetch_events(max(0,after),min(max(1,limit),500),recent=recent)
     return {"events":events,"next_after_seq":events[-1]["seq"] if events else after,
             **(await operations.replay_coverage(pool,after,PUBLIC)),
             "has_more":len(events)>=min(max(1,limit),500)}
@@ -310,7 +328,7 @@ async def api_windows():
           COUNT(*) FILTER(WHERE received_at>now()-interval '5 minutes') AS last_5m,
           COUNT(*) FILTER(WHERE received_at>now()-interval '15 minutes') AS last_15m,
           COUNT(*) FILTER(WHERE received_at>now()-interval '60 minutes') AS last_60m
-          FROM observations WHERE received_at>now()-interval '60 minutes'
+          FROM observations WHERE received_at>now()-interval '60 minutes' AND action<>'snapshot_baseline'
           AND ($1::boolean OR feed_source NOT IN ('urlhaus','threatfox','Feodotracker'))
           GROUP BY feed_source""",PUBLIC)
     return {"windows":[dict(r) for r in rows],"measure":"feed record arrivals, not attacks"}
