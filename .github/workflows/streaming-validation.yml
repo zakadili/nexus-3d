@@ -7,12 +7,26 @@ on:
       - 'live-loader.js'
       - 'stream-adapter.css'
       - 'stream-config.js'
+      - 'live-signals.js'
+      - 'radar-plus.js'
+      - 'live-signals-core.mjs'
+      - 'live-signals.css'
+      - 'tests/live-signals.test.mjs'
+      - 'index.html'
       - '.github/workflows/streaming-validation.yml'
   pull_request:
     paths:
       - 'streaming/**'
       - 'stream-adapter.js'
       - 'live-loader.js'
+      - 'stream-adapter.css'
+      - 'stream-config.js'
+      - 'live-signals.js'
+      - 'radar-plus.js'
+      - 'live-signals-core.mjs'
+      - 'live-signals.css'
+      - 'tests/live-signals.test.mjs'
+      - 'index.html'
       - '.github/workflows/streaming-validation.yml'
 jobs:
   syntax:
@@ -35,17 +49,32 @@ jobs:
         run: |
           node --check stream-adapter.js
           node --check stream-config.js
+          node --check live-loader.js
+          node --check live-signals.js
+          node --check live-signals-core.mjs
+          node --check radar-plus.js
+          node --test tests/live-signals.test.mjs
       - name: Check homepage integration
         run: |
           grep -q 'live-loader.js' index.html
           grep -q 'stream-adapter.js' live-loader.js
           grep -q 'stream-adapter.css' index.html
+          grep -q 'live-signals.css' index.html
+          grep -q 'live-signals.js' live-loader.js
+          grep -q 'id="live-signals-content"' index.html
+          grep -q 'id="live-intelligence"' index.html
+          grep -q 'nexus:live-observation' radar-plus.js
+          grep -q 'nexus:live-clear' radar-plus.js
       - name: Check Compose configuration
         env:
           POSTGRES_PASSWORD: ci_not_real
         run: |
           cp streaming/.env.example streaming/.env
           docker compose -f streaming/docker-compose.yml --project-directory streaming config --quiet
+      - name: Validate public reverse-proxy configuration
+        run: |
+          docker run --rm -v "$PWD/streaming/Caddyfile:/etc/caddy/Caddyfile:ro" \
+            caddy:2.10.2-alpine caddy adapt --config /etc/caddy/Caddyfile --adapter caddyfile > /dev/null
       - name: Test database durability, replay, limits and WebSockets
         working-directory: streaming
         env:
