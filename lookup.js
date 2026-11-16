@@ -66,7 +66,7 @@ function render(){
   const row=el('tr');const btn=el('button','record-link',record.query);
   btn.addEventListener('click',()=>showDetail(record));
   row.append(el('td'));row.lastChild.append(btn);
-  for(const value of [record.type,record.status,record.source])row.append(el('td','',value));
+  for(const value of [record.type,record.type==='cve'&&record.status==='notfound'?'KEV not listed · verify CVE':record.status,record.source])row.append(el('td','',value));
   const detail=el('td');const expand=el('button','small-button','WHY?');expand.addEventListener('click',()=>showDetail(record));detail.append(expand);row.append(detail);list.append(row);
  }
 }
