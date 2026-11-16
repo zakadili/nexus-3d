@@ -48,7 +48,7 @@ function run(){
  const raw=[$('#single').value,...$('#bulk').value.split(/\r?\n/)].map(s=>s.trim()).filter(Boolean);
  if(raw.length>MAX_LINES){message('Maximum 1,000 lines. Nothing was processed.');return;}
  if(raw.some(x=>x.length>2048)){message('One IOC exceeds the 2,048-character limit.');return;}
- try{state.results=processBatch(raw,state);render();message('Analyzed '+state.results.length+' inputs locally. Nothing typed was transmitted.');}
+ try{state.results=processBatch(raw,state);render();message('Local index checked. Open a CVE result and choose Verify with CVE Program to request its official record; only that CVE ID is sent.');}
  catch(e){message('Lookup error: '+e.message);}
 }
 function filtered(){
@@ -72,6 +72,36 @@ function render(){
 }
 function showDetail(row){
  const box=$('#detail');box.replaceChildren();box.append(el('h3','',row.query),el('p','',row.source));
+ if(row.type==='cve'){
+  const note=el('p','', 'CISA KEV is not a complete vulnerability catalog. Verify the CVE record against the official CVE Program.');
+  const verify=el('button','small-button','VERIFY WITH CVE PROGRAM');
+  const output=el('div','');
+  verify.addEventListener('click',async()=>{
+   verify.disabled=true;
+   output.textContent='Checking official CVE Program record…';
+   try{
+    // User-initiated only: the CVE identifier is sent to cveawg.mitre.org.
+    const controller=new AbortController();
+    const timer=setTimeout(()=>controller.abort(),9000);
+    let response;
+    try{response=await fetch('https://cveawg.mitre.org/api/cve/'+encodeURIComponent(row.query),{signal:controller.signal,cache:'no-store'});}
+    finally{clearTimeout(timer);}
+    if(response.status===404){output.textContent='No public CVE Program record returned for this ID. This does not establish safety.';return;}
+    if(!response.ok)throw Error('CVE Program HTTP '+response.status);
+    const data=await response.json();
+    if(data?.cveMetadata?.cveId!==row.query)throw Error('Unexpected CVE identifier');
+    const status=data.cveMetadata.state||'Unknown';
+    const descriptions=data.containers?.cna?.descriptions||[];
+    const description=descriptions.find(d=>d.lang==='en')?.value||descriptions[0]?.value||'No published description available.';
+    output.replaceChildren(el('p','','Official CVE Program status: '+status),el('p','',description));
+    const link=el('a','','Open official CVE record ↗');
+    link.href='https://www.cve.org/CVERecord?id='+encodeURIComponent(row.query);
+    link.target='_blank';link.rel='noopener noreferrer';output.append(link);
+   }catch(e){output.textContent='Official CVE verification unavailable ('+e.message+'). The result is unknown, not safe.';}
+   finally{verify.disabled=false;}
+  });
+  box.append(note,verify,el('p','', 'Privacy: clicking Verify sends this CVE ID to cveawg.mitre.org.'),output);
+ }
  if(row.details){
   if(row.type==='cve'){
    const v=row.details;for(const [label,value] of [
