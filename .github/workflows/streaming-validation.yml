@@ -82,6 +82,13 @@ jobs:
         run: |
           docker compose up -d --build --wait
           docker compose exec -T api python test_integration.py
+      - name: Validate SaaS schema and two-tenant isolation
+        working-directory: streaming
+        env:
+          POSTGRES_PASSWORD: ci_not_real
+        run: |
+          docker compose exec -T db psql -v ON_ERROR_STOP=1 -U nexus -d nexus < migrations/0001_saas_foundation.sql
+          docker compose exec -T db psql -v ON_ERROR_STOP=1 -U nexus -d nexus < tests/saas_tenant_isolation.sql
       - name: Stop test services
         if: always()
         working-directory: streaming
