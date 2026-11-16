@@ -88,7 +88,7 @@ function showDetail(row){
         if(source.error)section.append(el('p','','Unavailable: '+source.error));
         if(source.value!==null&&source.value!==false&&source.value!==undefined){
           const v=source.value;
-          if(name==='cve'){if(v.description)section.append(el('p','',v.description));if(v.published)section.append(el('p','','Published: '+v.published));for(const a of v.affected||[])section.append(el('p','','Affected: '+(a.vendor||'Unknown')+' / '+(a.product||'Unknown')+' · '+(a.versions||[]).map(x=>x.version+' ('+x.status+')').join(', '));}
+          if(name==='cve'){if(v.description)section.append(el('p','',v.description));if(v.published)section.append(el('p','','Published: '+v.published));for(const a of v.affected||[])section.append(el('p','','Affected: '+(a.vendor||'Unknown')+' / '+(a.product||'Unknown')+' · '+(a.versions||[]).map(x=>x.version+' ('+x.status+')').join(', ')));}
           if(name==='nvd'){section.append(el('p','','NVD status: '+(v.status||'Unknown')));if(v.weaknesses?.length)section.append(el('p','','CWEs: '+v.weaknesses.join(', ')));}
           if(name==='epss')section.append(el('p','','30-day exploitation probability: '+(v.probability*100).toFixed(3)+'% · percentile '+(v.percentile*100).toFixed(1)+'% · '+(v.date||'date unavailable')));
           if(name==='kev')section.append(el('p','','Listed in local CISA KEV snapshot'));
