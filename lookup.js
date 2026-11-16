@@ -1,3 +1,4 @@
+import {enrichCve} from './cve-intelligence.mjs';
 import {MAX_LINES,processBatch,rowsCsv,downloadableIps,makeStix} from './lookup-core.mjs?v=8cbaa2a8cc4c';
 const $=s=>document.querySelector(s),state={ips:[],kev:null,extra:null,results:[],ready:false,sort:'value',desc:false};
 function el(tag,cls,text){const node=document.createElement(tag);if(cls)node.className=cls;if(text!==undefined)node.textContent=String(text);return node;}
@@ -73,34 +74,34 @@ function render(){
 function showDetail(row){
  const box=$('#detail');box.replaceChildren();box.append(el('h3','',row.query),el('p','',row.source));
  if(row.type==='cve'){
-  const note=el('p','', 'CISA KEV is not a complete vulnerability catalog. Verify the CVE record against the official CVE Program.');
-  const verify=el('button','small-button','VERIFY WITH CVE PROGRAM');
+  const note=el('p','', 'CISA KEV is a known-exploitation subset, not the full CVE catalog. Enrich this CVE with official sources.');
+  const verify=el('button','small-button','ENRICH: CVE + NVD + EPSS + KEV');
   const output=el('div','');
   verify.addEventListener('click',async()=>{
-   verify.disabled=true;
-   output.textContent='Checking official CVE Program record…';
-   try{
-    // User-initiated only: the CVE identifier is sent to cveawg.mitre.org.
-    const controller=new AbortController();
-    const timer=setTimeout(()=>controller.abort(),9000);
-    let response;
-    try{response=await fetch('https://cveawg.mitre.org/api/cve/'+encodeURIComponent(row.query),{signal:controller.signal,cache:'no-store'});}
-    finally{clearTimeout(timer);}
-    if(response.status===404){output.textContent='No public CVE Program record returned for this ID. This does not establish safety.';return;}
-    if(!response.ok)throw Error('CVE Program HTTP '+response.status);
-    const data=await response.json();
-    if(data?.cveMetadata?.cveId!==row.query)throw Error('Unexpected CVE identifier');
-    const status=data.cveMetadata.state||'Unknown';
-    const descriptions=data.containers?.cna?.descriptions||[];
-    const description=descriptions.find(d=>d.lang==='en')?.value||descriptions[0]?.value||'No published description available.';
-    output.replaceChildren(el('p','','Official CVE Program status: '+status),el('p','',description));
-    const link=el('a','','Open official CVE record ↗');
-    link.href='https://www.cve.org/CVERecord?id='+encodeURIComponent(row.query);
-    link.target='_blank';link.rel='noopener noreferrer';output.append(link);
-   }catch(e){output.textContent='Official CVE verification unavailable ('+e.message+'). The result is unknown, not safe.';}
-   finally{verify.disabled=false;}
+    verify.disabled=true;output.textContent='Checking CVE Program, NVD, FIRST EPSS and local CISA KEV…';
+    try{
+      const intel=await enrichCve(row.query,{kev:row.status==='cve'?row.details:false});
+      output.replaceChildren(el('p','','CVE Program state: '+intel.state+' · '+(intel.verified?'published':'not verified as published')));
+      for(const [name,source] of Object.entries(intel.sources)){
+        const section=el('section','');
+        section.append(el('h4','',name.toUpperCase()+' · '+source.status));
+        if(source.error)section.append(el('p','','Unavailable: '+source.error));
+        if(source.value!==null&&source.value!==false&&source.value!==undefined){
+          const v=source.value;
+          if(name==='cve'){if(v.description)section.append(el('p','',v.description));if(v.published)section.append(el('p','','Published: '+v.published));for(const a of v.affected||[])section.append(el('p','','Affected: '+(a.vendor||'Unknown')+' / '+(a.product||'Unknown')+' · '+(a.versions||[]).map(x=>x.version+' ('+x.status+')').join(', ')));}
+          if(name==='nvd'){section.append(el('p','','NVD status: '+(v.status||'Unknown')));if(v.weaknesses?.length)section.append(el('p','','CWEs: '+v.weaknesses.join(', ')));}
+          if(name==='epss')section.append(el('p','','30-day exploitation probability: '+(v.probability*100).toFixed(3)+'% · percentile '+(v.percentile*100).toFixed(1)+'% · '+(v.date||'date unavailable')));
+          if(name==='kev')section.append(el('p','','Listed in local CISA KEV snapshot'));
+          for(const m of v.metrics||[])section.append(el('p','','CVSS '+m.version+': '+(m.score??'unknown')+' '+(m.severity||'')+' · '+m.source));
+          if(name==='cve'||name==='nvd')for(const url of (v.references||[]).slice(0,8)){const a=el('a','',url);a.href=url;a.target='_blank';a.rel='noopener noreferrer';section.append(a,el('span','',' '));}
+        }else if(name==='kev'&&source.status==='available')section.append(el('p','','Not listed in the loaded CISA KEV snapshot; not proof of safety.'));
+        output.append(section);
+      }
+      output.append(el('p','warning','Missing source records and failed requests are not safety verdicts. EPSS is a forecast, not confirmed exploitation.'));
+    }catch(e){output.textContent='Enrichment unavailable: '+e.message;}
+    finally{verify.disabled=false;}
   });
-  box.append(note,verify,el('p','', 'Privacy: clicking Verify sends this CVE ID to cveawg.mitre.org.'),output);
+  box.append(note,verify,el('p','','Privacy: clicking Enrich sends this CVE ID to CVE Program, NVD and FIRST; no other IOC inputs are transmitted.'),output);
  }
  if(row.details){
   if(row.type==='cve'){
