@@ -54,15 +54,22 @@ jobs:
           node --check live-signals-core.mjs
           node --check radar-plus.js
           node --test tests/live-signals.test.mjs
-      - name: Check homepage integration
+      - name: Check executive homepage and retained live collector integration
         run: |
-          grep -q 'live-loader.js' index.html
+          # The executive homepage is snapshot-backed; do not reintroduce the
+          # old realtime-radar widgets or imply that public feeds are attacks.
+          grep -q 'collaborator-demo.js' index.html
+          grep -q 'collaborator-demo.css' index.html
+          grep -q 'enterprise-v2-intelligence.mjs' collaborator-demo.js
+          grep -q 'data/overview.json' collaborator-demo.js
+          grep -q 'id="metric-ips"' index.html
+          grep -q 'id="priority-list"' index.html
+          grep -q 'id="world-map"' index.html
+          grep -q 'id="source-list"' index.html
+          # The separate streaming frontend modules must still remain wired
+          # together for future authorized live integrations.
           grep -q 'stream-adapter.js' live-loader.js
-          grep -q 'stream-adapter.css' index.html
-          grep -q 'live-signals.css' index.html
           grep -q 'live-signals.js' live-loader.js
-          grep -q 'id="live-signals-content"' index.html
-          grep -q 'id="live-intelligence"' index.html
           grep -q 'nexus:live-observation' radar-plus.js
           grep -q 'nexus:live-clear' radar-plus.js
       - name: Check Compose configuration
