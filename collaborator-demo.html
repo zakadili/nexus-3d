@@ -1,85 +1,18 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow">
-<meta name="theme-color" content="#090b16">
-<meta name="description" content="NEXUS collaborator preview: enterprise cyber intelligence dashboard with source-attributed published data and a separately labeled fictional customer workflow.">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
-<link rel="canonical" href="https://zakadili.github.io/nexus-3d/collaborator-demo.html">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'none'; style-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta http-equiv="refresh" content="0; url=./index.html">
+<meta name="robots" content="noindex,follow">
+<meta name="description" content="The NEXUS collaborator demo is now the NEXUS homepage.">
+<link rel="canonical" href="https://zakadili.github.io/nexus-3d/">
 <meta property="og:image" content="https://zakadili.github.io/nexus-3d/assets/social-card.png">
-<title>NEXUS — Executive Intelligence | Collaborator Demo</title>
-<link rel="stylesheet" href="./collaborator-demo.css">
+<title>NEXUS — Dashboard moved to homepage</title>
 </head>
 <body>
-<a class="skip-link" href="#main">Skip to main content</a>
-<div class="shell">
-<aside class="sidebar" aria-label="Application sidebar">
-<a class="brand" href="./collaborator-demo.html" aria-label="NEXUS home"><span class="brand-emblem">⬡</span><span><strong>NEXUS <em>SENTINEL</em></strong><small>Enterprise Exposure Intelligence</small></span></a>
-<div class="sidebar-section-label">PLATFORM</div>
-<nav class="nav" aria-label="Primary navigation">
-<button class="nav-item selected" type="button" data-view="overview" aria-current="page"><span class="nav-icon">▦</span>Dashboard</button>
-<button class="nav-item" type="button" data-view="intelligence"><span class="nav-icon">⬡</span>CVE Intelligence</button>
-<button class="nav-item" type="button" data-view="sources"><span class="nav-icon">◎</span>Threat Sources</button>
-<div class="nav-separator"></div>
-<div class="sidebar-section-label">PRODUCT VISION</div>
-<button class="nav-item" type="button" data-view="workspace"><span class="nav-icon">◈</span>Demo Workspace<span class="nav-new">SIM</span></button>
-<button class="nav-item" type="button" data-view="roadmap"><span class="nav-icon">◇</span>Build Roadmap</button>
-</nav>
-<div class="side-foot">
-<div class="side-glow" aria-hidden="true"></div>
-<div class="side-foot-content"><span class="side-label">COLLABORATOR PREVIEW</span><p>Evidence first. No invented threat activity.</p><a href="./radar-methodology.html">Methodology ↗</a></div>
-</div>
-</aside>
-<div class="stage">
-<header class="site-header">
-<div class="breadcrumb"><strong id="page-title">Dashboard</strong><span class="crumb-rule"></span><span id="page-subtitle">Executive Intelligence Overview</span></div>
-<div class="toolbar">
-<label class="search-field"><span aria-hidden="true">⌕</span><input id="search" type="search" autocomplete="off" aria-label="Search published CVEs" placeholder="Search CVEs, vendors, products..."><kbd>⌘ K</kbd></label>
-<span class="workspace-label" id="workspace-label">NEXUS / Public Intelligence</span>
-<span class="status-dot" aria-hidden="true"></span><span id="header-status" class="header-status" aria-live="polite">Loading snapshot</span>
-</div>
-</header>
-<main id="main">
-<div class="data-notice" id="data-notice" role="status">PUBLIC INTELLIGENCE · Snapshot-based source observations, not live attack telemetry or confirmed customer exposure. <span id="source-date">Verifying collection time...</span></div>
-<section class="view active" id="overview" aria-labelledby="overview-heading">
-<div class="page-intro"><div><div class="eyebrow">OVERVIEW / PUBLISHED INTELLIGENCE</div><h1 id="overview-heading">Executive Intelligence Dashboard</h1><p>Explore real threat-intelligence sources, evidence quality, and known exploited vulnerabilities.</p></div><div class="intro-actions"><span class="mode-pill">SOURCE-ATTRIBUTED</span><button id="print-overview" type="button" class="outline-btn">Print briefing <span aria-hidden="true">↗</span></button></div></div>
-<div class="metrics" aria-label="Published intelligence metrics">
-<div class="metric-card"><div class="metric-top"><span>Listed IP Indicators</span><span class="metric-icon">⬡</span></div><div class="metric-value" id="metric-ips">—</div><div class="metric-caption">Unique addresses on published lists</div><div class="mini-bars" id="mini-history" aria-hidden="true"></div></div>
-<div class="metric-card"><div class="metric-top"><span>CISA Exploited CVEs</span><span class="metric-icon purple">△</span></div><div class="metric-value" id="metric-kev">—</div><div class="metric-caption">Catalog entries, not exposed assets</div><div class="metric-footer">Official CISA KEV catalogue</div></div>
-<div class="metric-card"><div class="metric-top"><span>Available Sources</span><span class="metric-icon blue">◉</span></div><div class="metric-value" id="metric-sources">—</div><div class="metric-caption">Reported healthy at collection</div><div class="metric-footer">Coverage ≠ detection completeness</div></div>
-<div class="metric-card"><div class="metric-top"><span>Last Collection</span><span class="metric-icon">◷</span></div><div class="metric-value" id="metric-age">—</div><div class="metric-caption" id="metric-age-detail">Checking freshness</div><div class="metric-footer" id="metric-time">No timestamp available</div></div>
-</div>
-<div class="dashboard-grid top-grid">
-<section class="panel priority-panel" aria-labelledby="priority-title"><div class="panel-heading"><div><h2 id="priority-title"><span class="heading-icon">◎</span> Prioritized CVE Research</h2><p>Real published KEV candidates • not verified findings on customer assets</p></div><button type="button" class="text-btn" data-view="intelligence">View all CVEs <span aria-hidden="true">→</span></button></div><div id="priority-list" class="priority-list"><p class="loading">Loading source-backed candidates…</p></div></section>
-<section class="panel coverage-panel" aria-labelledby="coverage-title"><div class="panel-heading"><div><h2 id="coverage-title"><span class="heading-icon">◇</span> Collection Coverage</h2><p>Health reported by sources at the last snapshot</p></div><span class="info-bubble" title="This is collection availability, not a customer security score" aria-label="Source availability only">i</span></div>
-<div class="coverage-body"><div class="gauge-wrap"><svg class="seg-gauge" id="source-gauge" viewBox="0 0 340 205" role="img" aria-label="Source availability unavailable"><g id="gauge-segments"></g></svg><div class="gauge-center"><strong id="coverage-percent">—</strong><small>Sources reporting OK</small></div></div>
-<div class="coverage-stats"><div><span>Reporting OK</span><strong id="coverage-ok">—</strong></div><div><span>Unavailable</span><strong id="coverage-unavailable">—</strong></div><div><span>Retired / Historical</span><strong id="coverage-retired">—</strong></div></div></div>
-<p class="panel-footnote">Availability is not a security score or a guarantee of complete coverage.</p>
-</section></div>
-<div class="dashboard-grid middle-grid">
-<section class="panel trend-panel" aria-labelledby="trend-title"><div class="panel-heading"><div><h2 id="trend-title"><span class="heading-icon">⌁</span> Indicator Collection Trend</h2><p>Actual stored snapshots. A change in count does not imply new attacks.</p></div><span class="subtle-chip" id="trend-span">Stored history</span></div>
-<div class="chart-wrap"><svg id="history-chart" viewBox="0 0 680 260" role="img" aria-label="Indicator collection history unavailable"><title>Published indicator counts across stored collection snapshots</title><g id="chart-grid"></g><path class="area-path" id="trend-area"></path><path class="trend-path" id="trend-line"></path><g id="chart-points"></g></svg></div><div class="chart-foot"><span class="legend-point">● &nbsp; Listed indicators</span><span id="trend-range">Waiting for data</span></div></section>
-<section class="panel map-panel" aria-labelledby="map-title"><div class="panel-heading"><div><h2 id="map-title"><span class="heading-icon">◎</span> Global Indicator Distribution</h2><p>Approximate IP country allocation; not attacker locations</p></div><button class="text-btn" data-view="sources" type="button">View sources <span aria-hidden="true">→</span></button></div>
-<div class="global-grid"><div class="world-wrap"><svg id="world-map" viewBox="0 0 490 270" role="img" aria-label="Published indicators by country on a world globe"><circle class="globe-back" cx="244" cy="135" r="122"></circle><g id="world-land"></g><g id="world-points"></g></svg><span class="map-watermark">APPROXIMATE IP ALLOCATION</span></div><div class="country-list" id="country-list"><p class="loading">Loading distribution…</p></div></div></section></div>
-<section class="panel table-panel" aria-labelledby="table-title"><div class="panel-heading table-heading"><div><h2 id="table-title"><span class="heading-icon">▱</span> Known Exploited Vulnerability Intelligence</h2><p>Published CISA KEV candidates enriched by EPSS; source-backed research only</p></div><div class="table-actions"><button type="button" class="filter-chip active" aria-pressed="true" data-filter="all">All candidates</button><button type="button" class="filter-chip" aria-pressed="false" data-filter="ransomware">Ransomware use</button><button type="button" class="filter-chip" aria-pressed="false" data-filter="epss">With EPSS</button></div></div>
-<div class="table-wrap"><table><thead><tr><th>CVE Identifier</th><th>Vendor / Product</th><th>Added to KEV</th><th>EPSS Probability</th><th>Ransomware Use</th><th>Source</th></tr></thead><tbody id="cve-table"></tbody></table></div><div class="table-bottom"><span id="table-count" aria-live="polite">Loading candidates…</span><span>Showing published candidate subset · <a href="./radar-methodology.html">Methodology</a></span></div></section>
-</section>
-<section class="view" id="intelligence" aria-labelledby="intelligence-heading"><div class="page-intro"><div><div class="eyebrow">RESEARCH / CVE INTELLIGENCE</div><h1 id="intelligence-heading">Vulnerability Intelligence</h1><p>Source-linked KEV records. Presence in KEV does not mean your infrastructure is affected.</p></div><a href="./enterprise-v2-preview.html" class="outline-btn">Open full research view ↗</a></div>
-<div class="panel view-panel"><h2>Prioritized Research Candidates</h2><p class="panel-description" id="intelligence-method">Published CISA KEV candidates and available EPSS values.</p><div id="intelligence-list" class="research-list"><p class="loading">Loading records…</p></div></div></section>
-<section class="view" id="sources" aria-labelledby="sources-heading"><div class="page-intro"><div><div class="eyebrow">OBSERVABILITY / SOURCE PROVENANCE</div><h1 id="sources-heading">Feed & Source Coverage</h1><p>Honest availability reporting with explicit retired feeds, unavailable sources, and freshness.</p></div><a href="./radar-methodology.html" class="outline-btn">Read methodology ↗</a></div>
-<div class="dashboard-grid source-grid"><section class="panel"><h2>Collection Sources</h2><p class="panel-description">Status recorded at collection time, not an active connection check.</p><div id="source-list" class="source-list"><p class="loading">Loading source health…</p></div></section><section class="panel"><h2>Snapshot Provenance</h2><dl class="provenance"><dt>Collected (UTC)</dt><dd id="provenance-time">Unavailable</dd><dt>Collection failures</dt><dd id="provenance-errors">Unavailable</dd><dt>Geolocation methodology</dt><dd id="provenance-geo">Unavailable</dd><dt>Collector notes</dt><dd id="provenance-notes">Unavailable</dd></dl></section></div></section>
-<section class="view" id="workspace" aria-labelledby="workspace-heading"><div class="page-intro"><div><div class="eyebrow">FICTIONAL TENANT / PRODUCT CONCEPT</div><h1 id="workspace-heading">Aster Labs Workspace</h1><p>Interactive customer workflow prototype. All assets, findings and status changes are fictional.</p></div><span class="sample-pill">SIMULATED · NO SCANS</span></div>
-<div class="sample-alert">SAMPLE CUSTOMER WORKSPACE — No domain ownership verified. No live scans, customer accounts, or vulnerability claims. Click the example assets to explore the planned workflow.</div>
-<div class="metrics demo-metrics"><div class="metric-card"><span class="kpi-label">Example Assets</span><strong>3</strong><small>Fictional records</small></div><div class="metric-card"><span class="kpi-label">Example Findings</span><strong>2</strong><small>Simulated observations</small></div><div class="metric-card"><span class="kpi-label">Verified Assets</span><strong>—</strong><small>No ownership checks performed</small></div><div class="metric-card"><span class="kpi-label">Security Score</span><strong>—</strong><small>Not calculated without evidence</small></div></div>
-<div class="dashboard-grid demo-grid"><section class="panel"><div class="panel-heading"><div><h2>Example Asset Inventory</h2><p>Reserved .example.test domains · no network requests</p></div><span class="subtle-chip">SIMULATED</span></div><div id="sample-assets" class="sample-assets"></div></section><section class="panel"><h2 id="asset-detail-title">Choose an example asset</h2><p class="panel-description" id="asset-detail-description">Select a record to see how an analyst would investigate the asset.</p><div class="asset-evidence" id="asset-evidence">Customer ownership and service evidence: not available.</div><button class="outline-btn" id="sample-next" type="button">Advance simulated workflow →</button></section></div></section>
-<section class="view" id="roadmap" aria-labelledby="roadmap-heading"><div class="page-intro"><div><div class="eyebrow">BUILD TOGETHER / PRODUCT MILESTONES</div><h1 id="roadmap-heading">The Road to a Real Platform</h1><p>What exists now, what remains fictional, and the engineering priorities for the first customer pilot.</p></div><span class="mode-pill">FOUNDER BRIEFING</span></div>
-<div class="roadmap-grid"><div class="roadmap-item"><span>01 / CURRENT</span><h2>Published Intelligence</h2><p>Snapshot-backed source data, known exploited CVEs, observed indicator trends, collection provenance and coverage.</p><strong class="good">Implemented (snapshot-based)</strong></div>
-<div class="roadmap-item"><span>02 / NEXT</span><h2>Verified Customer Assets</h2><p>Authentication, tenant isolation, DNS ownership proof, scoped assets, service inventory and authorization records.</p><strong class="pending">To build</strong></div>
-<div class="roadmap-item"><span>03 / NEXT</span><h2>Evidence-backed Exposure</h2><p>Reviewable findings with source evidence, confidence, observed time, impact, and verified remediation.</p><strong class="pending">To build</strong></div>
-<div class="roadmap-item"><span>04 / NEXT</span><h2>Customer Reporting</h2><p>Reports that preserve scope, dates, evidence, exclusions, remediation status and limitations.</p><strong class="pending">To build</strong></div></div>
-<div class="panel collaborator-note"><h2>What we want to build with a collaborator</h2><p>A credible first customer experience: prove domain control, discover in-scope services safely, connect documented evidence, and verify fixes. A small VPS can host a trial API later, but this presentation works without one.</p></div></section>
-<footer>NEXUS SENTINEL — Collaborator demonstration · Real public intelligence, explicitly fictional customer workspace · <a href="./index.html">Original research site</a></footer>
-</main></div></div>
-<script type="module" src="./collaborator-demo.js"></script>
-</body></html>
+<header class="site-header"><strong>NEXUS SENTINEL</strong></header>
+<main id="main"><h1>The NEXUS demo has moved</h1><p>The executive dashboard is now the main NEXUS website.</p><a href="./index.html">Open NEXUS Dashboard</a></main>
+</body>
+</html>
