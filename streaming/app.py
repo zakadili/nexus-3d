@@ -14,7 +14,7 @@ from websockets.asyncio.client import connect
 log=logging.getLogger("nexus")
 logging.basicConfig(level=logging.INFO)
 DB=os.environ["DATABASE_URL"]
-FEEDS=("urlhaus","threatfox","Feodotracker")
+FEEDS=("urlhaus","threatfox")
 IODA="https://api.ioda.inetintel.cc.gatech.edu/v2/outages/alerts"
 KEV="https://raw.githubusercontent.com/cisagov/kev-data/develop/known_exploited_vulnerabilities.json"
 ORIGINS=[x.strip() for x in os.getenv("ALLOWED_ORIGINS","https://zakadili.github.io").split(",")]
@@ -302,6 +302,7 @@ async def lifespan(app):
     pool=await asyncpg.create_pool(DB,min_size=1,max_size=4,command_timeout=15)
     async with pool.acquire() as db: await db.execute(operations.SCHEMA)
     for feed in (*FEEDS,"ioda","cisa_kev","first_epss"): await health(feed,"initializing")
+    await health("Feodotracker", "retired", degraded="Feodo Tracker retired; historical records only")
     tasks.extend([asyncio.create_task(upstream(f)) for f in FEEDS])
     tasks.extend([asyncio.create_task(collect_ioda()),asyncio.create_task(collect_kev()),asyncio.create_task(broadcast_pump())])
     tasks.extend([asyncio.create_task(operations.maintenance(pool,PUBLIC)),asyncio.create_task(operations.epss(pool,health))])
