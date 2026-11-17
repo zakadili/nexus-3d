@@ -75,3 +75,38 @@ a{color:#b7a2ff}
 @media(max-width:700px){aside{position:static;height:auto;padding:14px;gap:8px;overflow:visible}.brand{padding-bottom:12px}.brand small{margin-left:36px}nav{padding:3px 0 7px}nav button{min-height:40px;padding:10px 12px}header{min-height:60px}.header-tools{width:100%}.demo-status{margin-left:auto}header input{flex:1;min-width:170px}.headline{align-items:flex-start}.grid{gap:12px}.stats{gap:10px}.risk{min-height:96px}.card{border-radius:12px}}
 @media(max-width:410px){.stats{grid-template-columns:1fr 1fr}.kpi{font-size:25px}.demo-status{font-size:9px}.card{padding:12px}header input{width:100%}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+
+/* Published intelligence panels: evidence first, not a simulated attack surface. */
+.sidefoot{line-height:1.7}.sidefoot strong{font-size:10px;color:#d4c3ff;letter-spacing:.09em}.sidefoot p{margin:7px 0}.sidefoot a{text-decoration:none;color:#b7a2ff}
+.sidefoot a:hover,.source-note a:hover,.text-button:hover{text-decoration:underline}
+.header-tools{gap:12px}.demo-status.stale{border-color:#86664d;color:#efbf8f;background:#32241e}.demo-status.stale:before{background:#edaf66;box-shadow:0 0 9px #edaf664c}
+.source-note{font-size:11px;color:#9aa4b9;margin:18px 0 0;line-height:1.6;overflow-wrap:anywhere}
+.section-line{display:flex;align-items:start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:13px}
+.section-line .sub{margin-bottom:3px}.text-button{border:1px solid #3e3b59;background:#271e38;color:#d2c1ff;padding:7px 10px;font-size:11px;border-radius:8px;white-space:nowrap}
+.data-list{display:grid;gap:0}.kev-item,.source-row{padding:13px 0;border-bottom:1px solid var(--stroke)}
+.data-list>:last-child{border-bottom:0}.kev-head,.source-row-title{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.cve-id{color:#c2afff;font-weight:720;letter-spacing:.015em;text-decoration:none;font-size:13px}.cve-id:hover{text-decoration:underline}
+.kev-product{font-size:12px;color:#e0e4ef;margin-top:5px;overflow-wrap:anywhere}
+.source-meta{font-size:11px;color:#a6b1c8;margin-top:5px;overflow-wrap:anywhere}.source-detail{color:#919cb3;font-size:11px;margin:6px 0 0;line-height:1.55}
+.status-tag{display:inline-flex;align-items:center;padding:4px 7px;border:1px solid #404965;border-radius:6px;font-size:9px;letter-spacing:.035em;font-weight:700;color:#b7c4d9;background:#20283a}
+.status-tag.ok{color:#79debf;border-color:#2e7864;background:#12382f}.status-tag.retired{color:#bfbed6;border-color:#625c78;background:#2b283c}.status-tag.unknown{color:#b6bdd0;background:#242a39}.status-tag.warning{color:#f2c28e;border-color:#71543c;background:#382a22}
+.empty-message{font-size:12px;color:#a5b0c5;line-height:1.65;margin:12px 0}
+.country-bars{display:grid;gap:12px}.country-row{display:grid;gap:5px}.country-label{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:11px}.country-label strong{color:#e5e7f5}.country-label span{color:#a3adc4}
+.country-progress{appearance:none;-webkit-appearance:none;width:100%;height:7px;border:0;border-radius:20px;background:#262b3d;overflow:hidden}
+.country-progress::-webkit-progress-bar{background:#262b3d;border-radius:20px}
+.country-progress::-webkit-progress-value{background:linear-gradient(90deg,#7e64c8,#77b4ef);border-radius:20px}
+.country-progress::-moz-progress-bar{background:linear-gradient(90deg,#7e64c8,#77b4ef);border-radius:20px}
+.history-line{fill:none;stroke:#aa8bff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 5px #9373fe6b)}
+.gap-card{border-color:#3d435b}.gap-card .section-line{margin-bottom:8px}.gap-card .small{max-width:920px;line-height:1.65}
+.search-label{display:block;color:#b7c1d5;font-size:11px;margin:10px 0 7px}
+#cve-search{background:#121727;color:#eef1fc;border:1px solid #414a68;border-radius:9px;padding:11px 13px;margin-bottom:16px;width:min(440px,100%);outline-offset:3px}
+#cve-search:focus-visible{outline:2px solid #c8b1ff}
+#kev-empty[hidden]{display:none}
+.provenance{margin:14px 0}.provenance dt{color:#9aa8c0;font-size:11px;margin:14px 0 4px}.provenance dd{margin:0;color:#e6e8f3;font-size:12px;line-height:1.65;overflow-wrap:anywhere}
+td a{color:#c6b3ff;text-decoration:none}td a:hover{text-decoration:underline}
+#cve .card,#threats .card{margin-top:20px}
+#cve .table-wrap{max-width:100%;overflow-x:auto}
+#cve table{min-width:700px}
+#cve th:first-child,#cve td:first-child{white-space:nowrap}
+@media(max-width:700px){.source-row-title{align-items:flex-start}.text-button{font-size:11px}.country-label{flex-wrap:wrap}.gap-card .section-line{align-items:flex-start}}
