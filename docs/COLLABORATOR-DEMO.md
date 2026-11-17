@@ -1,8 +1,8 @@
 # NEXUS — 5-minute collaborator dashboard demo
 
-**Link after the PR is merged and GitHub Pages publishing succeeds:** https://zakadili.github.io/nexus-3d/collaborator-demo.html
+**Canonical homepage:** https://zakadili.github.io/nexus-3d/\n\nThe previous `/collaborator-demo.html` address redirects to the homepage. Superseded enterprise UI preview files were removed.
 
-The collaborator demo is a static GitHub Pages interface. It does **not** require VPS credentials, a database, commercial feed access or a customer account.
+The NEXUS homepage is a static GitHub Pages enterprise dashboard with a separate fictional customer workspace. It does **not** require VPS credentials, a database, commercial feed access or a customer account.
 
 ## What is real now
 - Public-source indicator counts, observed collection history, country-code allocations and source status from the checked-in `data/overview.json` snapshot
@@ -22,7 +22,7 @@ The sidebar **Demo Workspace** uses reserved `.example.test` domains for fiction
 5. **60 seconds — Build Roadmap:** discuss engineering ownership for authenticated asset onboarding, evidence-backed findings, verifiable remediation and scoped customer reports
 
 ## Engineering notes
-- UI: `collaborator-demo.html`, `collaborator-demo.css`, `collaborator-demo.js`
+- UI: `index.html`, `collaborator-demo.css`, `collaborator-demo.js`
 - Published snapshot adapter: `enterprise-v2-intelligence.mjs`
 - Map: existing local `assets/countries-110m.json`, `assets/country-codes.json`, and bundled `assets/map-vendor.js`
 - Data fetches remain same-origin and subject to the page Content Security Policy
