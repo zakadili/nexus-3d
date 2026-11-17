@@ -2,7 +2,7 @@
 
 **Explore the world's published cyber-threat indicators, investigate country-level evidence, and analyze known exploited vulnerabilities.**
 
-**[Launch the live demo](https://zakadili.github.io/nexus-3d/)** · [Methodology](https://zakadili.github.io/nexus-3d/radar-methodology.html)
+**[Open the NEXUS Executive Dashboard](https://zakadili.github.io/nexus-3d/)** · [CVE research](https://zakadili.github.io/nexus-3d/intel.html) · [Methodology](https://zakadili.github.io/nexus-3d/radar-methodology.html)
 
 ![NEXUS SENTINEL](./assets/social-card.png)
 
@@ -10,7 +10,7 @@ See [public-site improvements and verification](./AUDIT-FIXES.md).
 
 **Data refreshes every six hours through GitHub Actions. This is not a real-time packet stream.**
 
-A working multi-source cyber-intelligence command center: an interactive country-level threat-indicator globe, CISA exploited-CVE prioritization, reported EU sector impact, authorized active scanning, and an evidence-linked attack-path lab.
+The homepage is now the enterprise-style NEXUS Executive Intelligence Dashboard: source-attributed public IP indicators, CISA exploited-CVE research, collection-health metrics, an observed history trend, and country-allocation mapping. The separate Demo Workspace is **fictional and explicitly labeled**; it is not customer evidence, real exposure scoring, or a proof that scanning has occurred. The existing research tools remain on their respective pages.
 
 **Live project:** https://zakadili.github.io/nexus-3d/
 
