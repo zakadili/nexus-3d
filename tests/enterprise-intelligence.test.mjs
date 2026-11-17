@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
 import {normalizeOverview,formatCount,formatEpss,filterKev} from '../enterprise-v2-intelligence.mjs';
 
 const fixture = () => ({
@@ -67,4 +68,18 @@ test('candidate filters only match observed fields',()=>{
   assert.equal(filterKev(rows,'','ransomware').length,1);
   assert.equal(filterKev(rows,'','epss').length,1);
   assert.equal(filterKev(rows,'missing','all').length,0);
+});
+
+test('current published data/overview.json satisfies the dashboard adapter contract',async()=>{
+  const raw=JSON.parse(await readFile(new URL('../data/overview.json',import.meta.url),'utf8'));
+  const result=normalizeOverview(raw);
+  assert.ok(result.listedIps>0,'published indicator inventory must not be empty');
+  assert.ok(Number.isFinite(Date.parse(result.generatedAt)));
+  assert.ok(Array.isArray(result.sourceRows));
+  assert.ok(Array.isArray(result.countries));
+  assert.ok(Array.isArray(result.history));
+  assert.ok(Array.isArray(result.kev));
+  // Published source data is not an authenticated customer asset inventory.
+  assert.equal('verifiedCustomerAssets' in result,false);
+  assert.equal('exposureScore' in result,false);
 });
