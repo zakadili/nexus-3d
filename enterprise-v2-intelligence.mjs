@@ -82,3 +82,23 @@ export function filterKev(rows, query, filter='all') {
         (filter === 'epss' && row.epss !== null));
   });
 }
+
+export function exportKevCsv(rows, snapshotTime) {
+  const columns = [
+    'CVE', 'Vendor', 'Product', 'Vulnerability', 'Added to CISA KEV',
+    'EPSS probability (0–1)', 'CISA reports ransomware use', 'KEV source',
+    'CVE record', 'Snapshot collected at'
+  ];
+  const records = rows.map(row => [
+    row.id, row.vendor, row.product, row.name, row.dateAdded,
+    row.epss, row.ransomwareObserved ? 'Reported' : 'Not reported',
+    'https://www.cisa.gov/known-exploited-vulnerabilities-catalog',
+    'https://www.cve.org/CVERecord?id=' + encodeURIComponent(row.id), snapshotTime
+  ]);
+  return [columns, ...records].map(record => record.map(value => {
+    const text = String(value ?? '');
+    // Keep spreadsheet applications from interpreting source text as a formula.
+    const safe = /^[\s\uFEFF]*[=+@-]|^[\t\r\n]/u.test(text) ? "'" + text : text;
+    return '"' + safe.replaceAll('"', '""') + '"';
+  }).join(',')).join('\r\n') + '\r\n';
+}
