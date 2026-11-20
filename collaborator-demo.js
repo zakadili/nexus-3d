@@ -1,4 +1,4 @@
-import {normalizeOverview, formatCount, formatEpss, filterKev} from './enterprise-v2-intelligence.mjs';
+import {normalizeOverview, formatCount, formatEpss, filterKev, exportKevCsv} from './enterprise-v2-intelligence.mjs';
 import {d3, topo} from './assets/map-vendor.js';
 
 // An executive interface for actual public-source snapshots; customer examples
@@ -222,9 +222,30 @@ async function drawWorld(data) {
     t.textContent='Geographic base map unavailable';land.append(t);
   }
 }
+const exportButtons = document.querySelectorAll('[data-export-kev]');
+function matchingKevRows() {
+  return filterKev(snapshot?.kev || [], $('search').value, filterMode);
+}
+for (const button of exportButtons) {
+  button.addEventListener('click', () => {
+    const rows = matchingKevRows();
+    if (!snapshot || !rows.length) return;
+    const csv = exportKevCsv(rows, snapshot.generatedAt);
+    const url = URL.createObjectURL(new Blob(['\uFEFF', csv], {type:'text/csv;charset=utf-8'}));
+    const link = node('a');
+    link.href = url;
+    link.download = 'nexus-kev-' + new Date(snapshot.generatedAt).toISOString().slice(0, 10) + '.csv';
+    document.body.append(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
+}
+
 function renderCveTable() {
   const box=$('cve-table');box.replaceChildren();
-  const rows=filterKev(snapshot?.kev||[],$('search').value,filterMode);
+  const rows = matchingKevRows();
+  for (const button of exportButtons) button.disabled = rows.length === 0;
   if(!rows.length){
     const tr=node('tr'),td=node('td','',snapshot?'No matching published candidates.':'Published candidates unavailable.');
     td.colSpan=6;tr.append(td);box.append(tr);
